@@ -9,7 +9,7 @@ metadata:
       conditions: ["[STATUS] == 404"]
 spec:
   hostnames:
-    - flux-webhook.doomed.hythm.net
+    - flux-webhook.hythm.net
   parentRefs:
     - name: envoy-external
       namespace: network

@@ -20,14 +20,14 @@ spec:
         main:
           enabled: true
           hostnames:
-            - alertmanager.doomed.hythm.net
+            - alertmanager.hythm.net
           parentRefs:
             - name: envoy-internal
               namespace: network
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
-        externalUrl: https://alertmanager.doomed.hythm.net
+        externalUrl: https://alertmanager.hythm.net
         storage:
           volumeClaimTemplate:
             spec:
@@ -46,12 +46,12 @@ spec:
         main:
           enabled: true
           hostnames:
-            - prometheus.doomed.hythm.net
+            - prometheus.hythm.net
           parentRefs:
             - name: envoy-internal
               namespace: network
       prometheusSpec:
-        externalUrl: https://prometheus.doomed.hythm.net
+        externalUrl: https://prometheus.hythm.net
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
@@ -82,7 +82,7 @@ spec:
         dashboardsConfigMapRefEnabled: true
         folder: observability
         matchLabels:
-          grafana.doomed.hythm.net/instance: grafana
+          grafana.hythm.net/instance: grafana
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:

@@ -92,8 +92,8 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
-          - "{{ .Release.Name }}.doomed.hythm.net"
-          - status.doomed.hythm.net
+          - "{{ .Release.Name }}.hythm.net"
+          - status.hythm.net
         parentRefs:
           - name: envoy-external
             namespace: network

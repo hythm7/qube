@@ -65,7 +65,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.doomed.hythm.net"
+          - "{{ .Release.Name }}.hythm.net"
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -94,7 +94,7 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        server: chthon.doomed.hythm.net
+        server: chthon.hythm.net
         path: /mnt/ceres/VolsyncKopia
         globalMounts:
           - path: /repository

@@ -97,7 +97,7 @@ cluster:
     {% endif %}
   clusterName: qube
   controlPlane:
-    endpoint: https://qube.doomed.hythm.net:6443
+    endpoint: https://qube.hythm.net:6443
   discovery:
     enabled: true
     registries:
@@ -128,7 +128,7 @@ cluster:
       rules:
         - level: Metadata
     certSANs:
-      - qube.doomed.hythm.net
+      - qube.hythm.net
     disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
@@ -185,7 +185,7 @@ nameservers:
   - address: 192.168.42.1
 searchDomains:
   domains:
-    - doomed.hythm.net
+    - hythm.net
   disableDefault: false
 
 ---

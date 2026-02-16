@@ -11,16 +11,16 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.doomed.hythm.net
-        - garage-door.doomed.hythm.net
-        - hdhomerun.doomed.hythm.net
-        - idrac.doomed.hythm.net
-        - quad.doomed.hythm.net
-        - vore.doomed.hythm.net
-        - receiver.doomed.hythm.net
-        - ups.doomed.hythm.net
-        - zigbee-controller.doomed.hythm.net
-        - zwave-controller.doomed.hythm.net
+        - chthon.hythm.net
+        - garage-door.hythm.net
+        - hdhomerun.hythm.net
+        - idrac.hythm.net
+        - quad.hythm.net
+        - vore.hythm.net
+        - receiver.hythm.net
+        - ups.hythm.net
+        - zigbee-controller.hythm.net
+        - zwave-controller.hythm.net
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
@@ -38,7 +38,7 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.doomed.hythm.net:2049
+        - chthon.hythm.net:2049
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan

@@ -18,7 +18,7 @@ spec:
     route:
       dashboard:
         host:
-          name: rook.doomed.hythm.net
+          name: rook.hythm.net
           path: /
           pathType: PathPrefix
         parentRefs:

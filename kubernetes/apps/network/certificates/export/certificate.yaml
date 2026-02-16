@@ -3,11 +3,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: doomed-hythm-net
+  name: hythm-net
 spec:
   dnsNames:
-    - doomed.hythm.net
-    - "*.doomed.hythm.net"
+    - hythm.net
+    - "*.hythm.net"
   duration: 160h
   issuerRef:
     kind: ClusterIssuer
@@ -16,6 +16,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: doomed-hythm-net-tls
+  secretName: hythm-net-tls
   usages:
     - digital signature

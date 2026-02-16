@@ -7,7 +7,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - chthon.doomed.hythm.net:9100
+        - chthon.hythm.net:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -22,7 +22,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - chthon.doomed.hythm.net:9633
+        - chthon.hythm.net:9633
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -37,7 +37,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - quad.doomed.hythm.net
+        - quad.hythm.net
   metricsPath: /metrics
   relabelings:
     - action: replace

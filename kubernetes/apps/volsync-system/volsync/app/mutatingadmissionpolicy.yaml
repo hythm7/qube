@@ -108,7 +108,7 @@ spec:
               value: Object.spec.template.spec.volumes{
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
-                  server: "chthon.doomed.hythm.net",
+                  server: "chthon.hythm.net",
                   path: "/mnt/ceres/VolsyncKopia"
                 }
               }

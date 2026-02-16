@@ -5,7 +5,7 @@ kind: Grafana
 metadata:
   name: grafana
   labels:
-    grafana.doomed.hythm.net/instance: grafana
+    grafana.hythm.net/instance: grafana
 spec:
   config:
     analytics:
@@ -29,7 +29,7 @@ spec:
       angular_support_enabled: "true"
     server:
       enable_gzip: "true"
-      root_url: https://grafana.doomed.hythm.net
+      root_url: https://grafana.hythm.net
   deployment:
     spec:
       strategy:
@@ -61,7 +61,7 @@ spec:
   httpRoute:
     spec:
       hostnames:
-        - grafana.doomed.hythm.net
+        - grafana.hythm.net
       parentRefs:
         - name: envoy-internal
           namespace: network

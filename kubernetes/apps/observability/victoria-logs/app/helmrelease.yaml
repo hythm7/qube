@@ -20,7 +20,7 @@ spec:
       route:
         enabled: true
         hostnames:
-          - victoria-logs.doomed.hythm.net
+          - victoria-logs.hythm.net
         parentRefs:
           - name: envoy-internal
             namespace: network
