@@ -1,0 +1,9 @@
+kubeconfig
+talosconfig
+
+.pytest_cache/
+
+*.crt
+*.env
+*.iso
+*.key
