@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app opnsense-dns
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: opnsense-dns
+  interval: 1h
+  values:
+    fullnameOverride: *app
+    provider:
+      name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/kashalls/external-dns-opnsense-webhook
+          tag: v1.0.0@sha256:0bf02fe18db4fe3a86fe5f561313ee434a203f4dcee7d19e770f67df854f3cff
+        env:
+          - name: OPNSENSE_HOST
+            value: https://192.168.1.1 # replace with the address to your OPNsense router
+          - name: OPNSENSE_SKIP_TLS_VERIFY
+            value: "true" # optional depending on your environment
+          - name: &name OPNSENSE_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: &secret opnsense-dns-secret
+                key: *name
+          - name: &name OPNSENSE_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: *secret
+                key: *name
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http-webhook
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+    extraArgs:
+      - --ignore-ingress-tls-spec
+    triggerLoopOnEvent: true
+    policy: sync
+    sources:
+      - gateway-httproute
+      - service
+    txtOwnerId: qube
+    txtPrefix: k8s.qube.
+    domainFilters:
+      - hythm.net
+    serviceMonitor:
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
