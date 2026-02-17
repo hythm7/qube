@@ -15,4 +15,3 @@ resources:
   - ./echo/ks.yaml
   - ./envoy-gateway/ks.yaml
   - ./opnsense-dns/ks.yaml
-#  - ./unifi-dns/ks.yaml
