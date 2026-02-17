@@ -12,7 +12,7 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 1
+        replicas: 2
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.37.0
           # imageRepository: mirror.gcr.io/envoyproxy/envoy
@@ -20,7 +20,7 @@ spec:
             requests:
               cpu: 100m
             limits:
-              memory: 512Mi
+              memory: 2Gi
       envoyService:
         externalTrafficPolicy: Local
   shutdown:
