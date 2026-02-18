@@ -8,23 +8,3 @@ machine:
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: vore
-
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: mac(link.permanent_addr) == "28:d2:44:fc:0b:c3"
-
----
-apiVersion: v1alpha1
-kind: BondConfig
-name: bond0
-links:
-  - net0
-bondMode: active-backup
-mtu: 1500
-addresses:
-  - address: 192.168.42.10/24
-routes:
-  - gateway: 192.168.42.1

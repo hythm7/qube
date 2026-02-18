@@ -50,7 +50,7 @@ machine:
     diskSelector:
       model: SAMSUNG MZ7TE256
     image: factory.talos.dev/metal-installer/7167e0ee5a122cf9502e67b8124716c34eb92b98cf899768b18c620ee87f240b:v1.12.4
-    wipe: false
+    wipe: true
 #  kernel:
 #    modules:
 #      - name: nbd
@@ -178,15 +178,28 @@ cluster:
     key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
 
+
 ---
 apiVersion: v1alpha1
-kind: ResolverConfig
-nameservers:
-  - address: 192.168.42.1
-searchDomains:
-  domains:
-    - hythm.net
-  disableDefault: false
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr).startsWith("28:d2:44:fc:")
+
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 1500
+
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
 
 ---
 apiVersion: v1alpha1
@@ -203,14 +216,21 @@ vlanID: 90
 parent: bond0
 mtu: 1500
 
-#---
-#apiVersion: v1alpha1
-#kind: UserVolumeConfig
-#name: local-hostpath
-#provisioning:
-#  diskSelector:
-#    match: disk.model == "Corsair MP600 MICRO" && !system_disk
-#  minSize: 1TB
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 100GiB
+
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 100GB
 
 ---
 apiVersion: v1alpha1
