@@ -15,4 +15,4 @@ spec:
       - observability
   selector:
     matchLabels:
-      grafana.hythm.net/instance: grafana
+      dashboards: grafana

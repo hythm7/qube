@@ -5,7 +5,7 @@ kind: Grafana
 metadata:
   name: grafana
   labels:
-    grafana.hythm.net/instance: grafana
+    dashboards: grafana
 spec:
   config:
     analytics:
