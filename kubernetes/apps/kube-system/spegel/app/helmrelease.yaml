@@ -15,7 +15,7 @@ spec:
       mode: GrafanaOperator
       grafanaOperator:
         matchLabels:
-          grafana.hythm.net/instance: grafana
+          dashboards: grafana
     service:
       registry:
         hostPort: 29999
