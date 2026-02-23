@@ -52,7 +52,7 @@ spec:
       - gateway-httproute
       - service
     txtOwnerId: qube
-    txtPrefix: k8s.qube.
+    txtPrefix: qube.
     domainFilters:
       - hythm.net
     serviceMonitor:
