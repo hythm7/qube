@@ -10,8 +10,8 @@ spec:
   dependsOn:
     - name: multus-networks
       namespace: kube-system
-    - name: openebs
-      namespace: openebs-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/default/slskd/app
   postBuild:
