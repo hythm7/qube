@@ -82,7 +82,7 @@ spec:
         dashboardsConfigMapRefEnabled: true
         folder: observability
         matchLabels:
-          dashboards: grafana
+          grafana.hythm.net/instance: grafana
     additionalPrometheusRulesMap:
       dockerhub-rules:
         groups:
