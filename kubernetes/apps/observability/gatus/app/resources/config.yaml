@@ -36,7 +36,7 @@ storage:
 ui:
   title: Status | Gatus
   header: Status
-  logo: https://avatars.githubusercontent.com/u/213795
+  logo: https://avatars.githubusercontent.com/u/28023796
   link: https://github.com/hythm7
   buttons:
     - name: Github
