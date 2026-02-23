@@ -95,7 +95,7 @@ spec:
       repository:
         type: nfs
         server: chthon.hythm.net
-        path: /data/backup/qube/volsync-kopia
+        path: /data/backup/qube/kopia
         globalMounts:
           - path: /repository
       tmpfs:

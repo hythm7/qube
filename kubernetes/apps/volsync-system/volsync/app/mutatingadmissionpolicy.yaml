@@ -109,7 +109,7 @@ spec:
                 name: "repository",
                 nfs: Object.spec.template.spec.volumes.nfs{
                   server: "chthon.hythm.net",
-                  path: "/data/backup/qube/volsync-kopia"
+                  path: "/data/backup/qube/kopia"
                 }
               }
             }
