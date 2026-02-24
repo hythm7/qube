@@ -62,7 +62,8 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 1Gi
+                # TODO: increase memory
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
