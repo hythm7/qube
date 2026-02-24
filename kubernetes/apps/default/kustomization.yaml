@@ -17,7 +17,7 @@ resources:
 #  - ./go2rtc/ks.yaml
 #  - ./home-assistant/ks.yaml
 #  - ./mosquitto/ks.yaml
-#  - ./notifier/ks.yaml
+  - ./notifier/ks.yaml
 #  - ./plex/ks.yaml
 #  - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
