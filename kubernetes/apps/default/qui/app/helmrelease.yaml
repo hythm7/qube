@@ -55,7 +55,8 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 2Gi
+                # TODO: increase memory
+                memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
