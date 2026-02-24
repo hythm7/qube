@@ -224,26 +224,19 @@ provisioning:
   maxSize: 100GiB
 
 ---
-# swap-config.yaml
 apiVersion: v1alpha1
 kind: SwapVolumeConfig
-metadata:
-  name: swap
-spec:
-  provisioning:
-    diskSelector:
-      match: system_disk
-    minSize: 8GiB
-    maxSize: 8GiB
+name: swap
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 8GiB
+  maxSize: 8GiB
 
 ---
-# Add this to your multi-doc config or apply as a separate patch
 apiVersion: v1alpha1
 kind: ZswapConfig
-metadata:
-  name: zswap
-spec:
-  enable: true
+maxPoolPercent: 20
 
 ---
 apiVersion: v1alpha1
