@@ -12,7 +12,7 @@ resources:
 #  - ./agregarr/ks.yaml
 #  - ./atuin/ks.yaml
   - ./autobrr/ks.yaml
-#  - ./bazarr/ks.yaml
+  - ./bazarr/ks.yaml
 #  - ./decluttarr/ks.yaml
 #  - ./go2rtc/ks.yaml
 #  - ./home-assistant/ks.yaml
