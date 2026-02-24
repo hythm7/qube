@@ -51,7 +51,8 @@ spec:
               requests:
                 cpu: 100m
               limits:
-                memory: 32Gi
+                # TODO: increase memry
+                memory: 2Gi
     defaultPodOptions:
       terminationGracePeriodSeconds: 300
       securityContext:
