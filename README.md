@@ -1,1 +1,1 @@
-# Homalab
+# Homelab
