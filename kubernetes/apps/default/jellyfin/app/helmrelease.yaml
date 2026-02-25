@@ -78,16 +78,9 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: network
-            sectionName: https
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /config
-      config-metadata:
-        existingClaim: "{{ .Release.Name }}-metadata"
-        globalMounts:
-          - path: /config/metadata
       media:
         type: nfs
         server: chthon.hythm.net
@@ -95,14 +88,5 @@ spec:
         globalMounts:
           - path: /media
             readOnly: true
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          jellyfin:
-            app:
-              - path: /config/cache
-                subPath: cache
-              - path: /config/log
-                subPath: log
-              - path: /tmp
-                subPath: tmp
