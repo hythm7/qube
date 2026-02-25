@@ -63,7 +63,7 @@ spec:
                 cpu: 100m
               limits:
                 # TODO: increase meory
-                memory: 512Mi
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
