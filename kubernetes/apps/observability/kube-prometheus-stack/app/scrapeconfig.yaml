@@ -33,7 +33,7 @@ spec:
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: jetkvm
+  name: quad
 spec:
   staticConfigs:
     - targets:
@@ -42,4 +42,4 @@ spec:
   relabelings:
     - action: replace
       targetLabel: job
-      replacement: jetkvm
+      replacement: quad
