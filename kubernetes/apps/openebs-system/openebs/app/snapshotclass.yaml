@@ -4,5 +4,5 @@ metadata:
   name: openebs-snapshots
   annotations:
     snapshot.storage.kubernetes.io/is-default-class: "true"
-driver: hostpath.csi.openebs.io
+driver: local.csi.openebs.io
 deletionPolicy: Delete
