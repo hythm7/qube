@@ -25,4 +25,4 @@ spec:
     sourceIdentity:
       sourceName: ${APP}
     storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=openebs-snapshots}
+    #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=openebs-snapshots}
