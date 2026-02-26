@@ -22,7 +22,6 @@ spec:
       hostpathClass:
         enabled: true
         name: openebs-hostpath
-        driver: io.openebs.csi-mayastor
         isDefaultClass: false
         basePath: *hostPath
       helperPod:
@@ -38,7 +37,7 @@ spec:
     lvm-localpv:
       enabled: false
     mayastor:
-      enabled: true
+      enabled: false
     engines:
       local:
         lvm:
