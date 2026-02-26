@@ -22,5 +22,5 @@ spec:
     retain:
       hourly: 24
       daily: 7
-    storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
-    #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=openebs-snapshots}
+    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
