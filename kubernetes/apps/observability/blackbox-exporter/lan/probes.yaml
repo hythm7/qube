@@ -12,7 +12,6 @@ spec:
     staticConfig:
       static:
         - chthon.hythm.net
-        - quad.hythm.net
         - vore.hythm.net
   metricRelabelings:
     - targetLabel: service
