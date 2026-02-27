@@ -12,12 +12,8 @@ spec:
     staticConfig:
       static:
         - chthon.hythm.net
-        - garage-door.hythm.net
-        - hdhomerun.hythm.net
-        - idrac.hythm.net
         - quad.hythm.net
         - vore.hythm.net
-        - receiver.hythm.net
         - ups.hythm.net
         - zigbee-controller.hythm.net
         - zwave-controller.hythm.net
