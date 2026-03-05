@@ -64,7 +64,7 @@ spec:
             cpu: 100m
           # TODO: increase memory
           limits:
-            memory: 1000Mi
+            memory: 500Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
