@@ -45,8 +45,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
+              # TODO: increase memory
               limits:
-                memory: 512Mi
+                memory: 128Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
