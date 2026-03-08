@@ -54,13 +54,14 @@ spec:
                 # TODO: increase memry
                 memory: 265Mi
     defaultPodOptions:
-    #  annotations:
-    #    k8s.v1.cni.cncf.io/networks: |-
-    #      [{
-    #        "name": "vpn",
-    #        "namespace": "kube-system",
-    #        "ips": ["192.168.90.10/24"]
-    #      }]
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "mac": "32:0b:d8:1f:b6:e4",
+            "ips": ["192.168.90.10/24"]
+          }]
       terminationGracePeriodSeconds: 300
       securityContext:
         runAsNonRoot: true
@@ -75,15 +76,15 @@ spec:
         ports:
           http:
             port: *port
-      bittorrent:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.69.123
-        externalTrafficPolicy: Local
-        ports:
-          bittorrent-tcp:
-            port: *torrentPort
-            protocol: TCP
+      #bittorrent:
+      #  type: LoadBalancer
+      #  annotations:
+      #    lbipam.cilium.io/ips: 192.168.69.123
+      #  externalTrafficPolicy: Local
+      #  ports:
+      #    bittorrent-tcp:
+      #      port: *torrentPort
+      #      protocol: TCP
     route:
       app:
         hostnames:
