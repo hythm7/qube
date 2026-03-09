@@ -14,7 +14,7 @@ sonarr:
         rename: true
         standard: default
       season: default
-      series: jellyfin-imdb
+      series: default
     quality_definition:
       type: series
     quality_profiles:
@@ -45,10 +45,10 @@ radarr:
     media_management:
       propers_and_repacks: do_not_prefer
     media_naming:
-      folder: jellyfin-imdb
+      folder: default
       movie:
         rename: true
-        standard: jellyfin-imdb
+        standard: default
     quality_definition:
       type: sqp-uhd
     quality_profiles:
