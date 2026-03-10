@@ -48,7 +48,7 @@ radarr:
       folder: default
       movie:
         rename: true
-        standard: default
+        standard: standard
     quality_definition:
       type: sqp-uhd
     quality_profiles:
