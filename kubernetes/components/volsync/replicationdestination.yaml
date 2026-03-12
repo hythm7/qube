@@ -9,6 +9,7 @@ metadata:
 spec:
   trigger:
     manual: restore-once
+  destinationPVC: ${APP}
   kopia:
     accessModes:
       - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
