@@ -13,7 +13,7 @@ spec:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
     compression: zstd-fastest
     #copyMethod: Snapshot
-    copyMethod: Clone
+    copyMethod: Direct
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
