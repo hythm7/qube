@@ -7,13 +7,14 @@ metadata:
 spec:
   sourcePVC: ${APP}
   trigger:
-    schedule: 0 */12 * * *
+    #schedule: 0 */12 * * *
+    schedule: 10 * * * *
   kopia:
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
     compression: zstd-fastest
-    #copyMethod: Snapshot
-    copyMethod: Direct
+    copyMethod: Snapshot
+    #copyMethod: Direct
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
@@ -27,3 +28,4 @@ spec:
     #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
     
     storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
+    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=openebs-snapshot}
