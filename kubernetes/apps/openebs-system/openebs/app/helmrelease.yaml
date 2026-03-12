@@ -24,7 +24,6 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: *hostPath
-        provisioner: local.csi.openebs.io
       helperPod:
         image:
           registry: quay.io/
