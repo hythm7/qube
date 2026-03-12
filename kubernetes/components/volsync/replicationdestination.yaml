@@ -9,17 +9,14 @@ metadata:
 spec:
   trigger:
     manual: restore-once
-  moverVolumes:
-    - name:  ${APP}-dst
-      persistentVolumeClaim:
-        claimName: ${APP}
   kopia:
     accessModes:
       - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
     cleanupCachePVC: true
     cleanupTempPVC: true
-    copyMethod: Snapshot
+    #copyMethod: Snapshot
+    copyMethod: Direct
     enableFileDeletion: true
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
@@ -28,5 +25,7 @@ spec:
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
-    storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
+    #storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
+
+    storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
