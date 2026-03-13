@@ -25,10 +25,9 @@ spec:
           app:
             image:
               repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.11.6@sha256:25db4eb10143c1c12adb79ed978e31d94fc98dc499fbae2d38b2c935089ced3e
+              tag: 2026022305@sha256:27cb063e7f4e42802f6259d0a3c291fac694468c9b8b14f00e5fd25a3a5b0046
             env:
               TZ: America/New_York
-              #JELLYFIN_PublishedServerUrl: https://jellyfin.hythm.net
             probes:
               liveness: &probes
                 enabled: true
