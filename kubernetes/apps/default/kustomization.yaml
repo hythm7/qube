@@ -18,7 +18,7 @@ resources:
 #  - ./home-assistant/ks.yaml
 #  - ./mosquitto/ks.yaml
 #  - ./notifier/ks.yaml
-#  - ./prowlarr/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./radarr/ks.yaml
