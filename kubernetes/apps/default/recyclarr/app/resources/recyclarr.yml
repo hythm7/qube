@@ -8,13 +8,14 @@ sonarr:
     media_management:
       propers_and_repacks: do_not_prefer
     media_naming:
+      folder: p2p
       episodes:
-        anime: default
-        daily: default
+        anime: p2p
+        daily: p2p
         rename: true
-        standard: default
-      season: default
-      series: default
+        standard: p2p
+      season: p2p
+      series: p2p
     quality_definition:
       type: series
     quality_profiles:
@@ -45,10 +46,10 @@ radarr:
     media_management:
       propers_and_repacks: do_not_prefer
     media_naming:
-      folder: default
+      folder: p2p
       movie:
         rename: true
-        standard: standard
+        standard: p2p
     quality_definition:
       type: sqp-uhd
     quality_profiles:
