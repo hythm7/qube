@@ -8,7 +8,7 @@ spec:
   sourcePVC: ${APP}
   trigger:
     #schedule: 0 */12 * * *
-    schedule: */10 * * * *
+    schedule: 5,15,25,35,45,55 * * * *
   kopia:
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
