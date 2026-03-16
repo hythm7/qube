@@ -6,11 +6,11 @@ metadata:
 spec:
   accessModes:
     - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
-  #dataSourceRef:
-  #  kind: ReplicationDestination
-  #  apiGroup: volsync.backube
-  #  name: ${APP}-dst
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: ${APP}-dst
   resources:
     requests:
       storage: ${VOLSYNC_CAPACITY:=5Gi}
-  storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
+  storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-lvm}
