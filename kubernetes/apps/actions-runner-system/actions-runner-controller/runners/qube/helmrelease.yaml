@@ -20,7 +20,7 @@ spec:
       kubernetesModeWorkVolumeClaim:
         accessModes:
           - ReadWriteOnce
-        storageClassName: openebs-hostpath
+        storageClassName: openebs-lvm
         resources:
           requests:
             storage: 25Gi
