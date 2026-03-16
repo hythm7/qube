@@ -28,7 +28,7 @@ resources:
 #  - ./seasonpackerr/ks.yaml
 #  - ./slskd/ks.yaml
 #  - ./smtp-relay/ks.yaml
-#  - ./jellyfin/ks.yaml
+  - ./jellyfin/ks.yaml
 #  - ./seerr/ks.yaml
 #  - ./tautulli/ks.yaml
 #  - ./thelounge/ks.yaml
