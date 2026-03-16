@@ -7,11 +7,13 @@ metadata:
 spec:
   sourcePVC: ${APP}
   trigger:
-    schedule: 0 */12 * * *
+    #schedule: 0 */12 * * *
+    #schedule: 57 * * * *
   kopia:
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce}
     compression: zstd-fastest
+    #copyMethod: Snapshot
     copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
