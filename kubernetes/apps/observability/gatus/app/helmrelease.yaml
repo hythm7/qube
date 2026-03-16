@@ -66,7 +66,7 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - name: config
-              storageClass: openebs-lvm
+              storageClass: openebs-hostpath
               accessMode: ReadWriteOnce
               size: 5Gi
     defaultPodOptions:
