@@ -12,15 +12,11 @@ spec:
   kopia:
     accessModes:
       - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
-    cacheAccessModes:
-      - ${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}
-    cacheCapacity: ${VOLSYNC_CAPACITY:=5Gi}
-    cacheStorageClassName: ${VOLSYNC_CACHE_STORAGECLASS:=openebs-hostpath}
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
     cleanupCachePVC: true
     cleanupTempPVC: true
-    copyMethod: Snapshot
-    #copyMethod: Direct
+    #copyMethod: Snapshot
+    copyMethod: Direct
     enableFileDeletion: true
     moverSecurityContext:
       runAsUser: ${VOLSYNC_PUID:=1000}
@@ -29,6 +25,7 @@ spec:
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
-    storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-lvm}
-    volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=openebs-lvm-snapshot}
+    #storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
+    #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
 
+    storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
