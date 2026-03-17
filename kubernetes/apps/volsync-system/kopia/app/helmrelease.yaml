@@ -97,7 +97,7 @@ spec:
         server: chthon.hythm.net
         path: /data/backup/qube/kopia
         globalMounts:
-          - path: /repository
+          - path: /mnt/repository
       tmpfs:
         type: emptyDir
         advancedMounts:
