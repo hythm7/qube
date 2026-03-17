@@ -18,6 +18,12 @@ spec:
       runAsUser: ${VOLSYNC_PUID:=1000}
       runAsGroup: ${VOLSYNC_PGID:=1000}
       fsGroup: ${VOLSYNC_PGID:=1000}
+    moverVolumes:
+      - mountPath: repository
+        volumeSource:
+          nfs:
+            path: /data/backup/qube/kopia
+            server: chthon.hythm.net
     parallelism: 2
     repository: ${APP}-volsync-secret
     retain:
@@ -25,5 +31,5 @@ spec:
       daily: 7
     #storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
     #volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
-    
+
     storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
