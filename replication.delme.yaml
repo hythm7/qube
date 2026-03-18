@@ -1,0 +1,44 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: radarr
+    kustomize.toolkit.fluxcd.io/namespace: default
+    kustomize.toolkit.fluxcd.io/ssa: IfNotPresent
+  name: radarr-dst
+  namespace: default
+  annotations:
+    config.kubernetes.io/index: '5'
+    internal.config.kubernetes.io/index: '5'
+spec:
+  kopia:
+    accessModes:
+    - ReadWriteOnce
+    cacheAccessModes:
+    - ReadWriteOnce
+    cacheCapacity: 5Gi
+    cacheStorageClassName: openebs-hostpath
+    capacity: 5Gi
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Direct
+    destinationPVC: radarr
+    enableFileDeletion: true
+    moverSecurityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsUser: 1000
+    moverVolumes:
+    - mountPath: repository
+      volumeSource:
+        nfs:
+          path: /data/backup/qube/kopia
+          server: chthon.hythm.net
+    repository: radarr-volsync-secret
+    sourceIdentity:
+      sourceName: radarr
+    storageClassName: openebs-hostpath
+  trigger:
+    manual: my-manual-id-3
+
