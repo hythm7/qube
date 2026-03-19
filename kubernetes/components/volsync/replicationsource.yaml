@@ -9,7 +9,7 @@ spec:
   trigger:
     #schedule: 0 */12 * * *
     #schedule: 5,15,25,35,45,55 * * * *
-    schedule: 54 * * * *
+    schedule: 34 * * * *
   kopia:
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
