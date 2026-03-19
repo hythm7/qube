@@ -24,7 +24,7 @@ resources:
 #  - ./bazarr/ks.yaml
 #  - ./radarr/ks.yaml
 #  - ./sonarr/ks.yaml
-#  - ./prowlarr/ks.yaml
+  - ./prowlarr/ks.yaml
 #  - ./seasonpackerr/ks.yaml
 #  - ./slskd/ks.yaml
 #  - ./smtp-relay/ks.yaml
