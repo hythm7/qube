@@ -17,10 +17,10 @@ resources:
 #  - ./home-assistant/ks.yaml
 #  - ./mosquitto/ks.yaml
 #  - ./notifier/ks.yaml
-#  - ./sabnzbd/ks.yaml
-#  - ./qbittorrent/ks.yaml
+  - ./sabnzbd/ks.yaml
+  - ./qbittorrent/ks.yaml
 #  - ./qui/ks.yaml
-#  - ./recyclarr/ks.yaml
+  - ./recyclarr/ks.yaml
   - ./bazarr/ks.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
@@ -28,8 +28,8 @@ resources:
 #  - ./seasonpackerr/ks.yaml
 #  - ./slskd/ks.yaml
 #  - ./smtp-relay/ks.yaml
-#  - ./jellyfin/ks.yaml
-#  - ./seerr/ks.yaml
+  - ./jellyfin/ks.yaml
+  - ./seerr/ks.yaml
 #  - ./tautulli/ks.yaml
 #  - ./thelounge/ks.yaml
 #  - ./zigbee/ks.yaml
