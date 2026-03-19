@@ -38,12 +38,12 @@ snapshot:
 
 [doc('Backup VolSync PVCs')]
 backup name:
-    kubectl -n "default" patch replicationsources {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
+    kubectl -n default patch replicationsources {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
 
 
 [doc('Restore VolSync PVCs')]
 restore name:
-    kubectl -n "default" patch replicationdestination {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
+    kubectl -n default patch replicationdestination {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
 
 [doc('Suspend or resume Keda ScaledObjects')]
 keda state:
