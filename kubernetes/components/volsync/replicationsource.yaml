@@ -8,8 +8,7 @@ spec:
   sourcePVC: ${APP}
   trigger:
     #schedule: 0 */12 * * *
-    #schedule: 5,15,25,35,45,55 * * * *
-    schedule: 34 * * * *
+    manual: backup-once
   kopia:
     accessModes:
       - ${VOLSYNC_SNAP_ACCESSMODES:=ReadWriteOnce} # Use ReadOnlyMany for CephFS
