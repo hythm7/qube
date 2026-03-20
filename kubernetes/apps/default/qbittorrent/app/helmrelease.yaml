@@ -52,7 +52,7 @@ spec:
                 cpu: 100m
               limits:
                 # TODO: increase memry
-                memory: 720Mi
+                memory: 1Gi
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
