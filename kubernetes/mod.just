@@ -33,17 +33,17 @@ prune-pods:
 [doc('Snapshot VolSync PVCs')]
 snapshot:
     kubectl get replicationsources --no-headers -A | while read -r ns name _; do \
-        kubectl -n "$ns" patch replicationsources "$name" --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'; \
+        kubectl -n "$ns" patch replicationsources "$name" --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}" --dry-run=client -o yaml; \
     done
 
 [doc('Backup VolSync PVCs')]
 backup name:
-    kubectl -n default patch replicationsources {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
+    kubectl -n default patch replicationsources {{ name }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
 
 
 [doc('Restore VolSync PVCs')]
 restore name:
-    kubectl -n default patch replicationdestination {{ name }} --type merge -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}';
+    kubectl -n default patch replicationdestination {{ name }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
 
 [doc('Suspend or resume Keda ScaledObjects')]
 keda state:
