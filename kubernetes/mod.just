@@ -11,6 +11,10 @@ default:
 apply-ks ns ks:
     just kube render-local-ks "{{ ns }}" "{{ ks }}" | kubectl apply --server-side --force-conflicts --field-manager=kustomize-controller -f /dev/stdin
 
+[doc('Flux Reconcile Kustomization')]
+reconcile:
+    flux --namespace flux-system reconcile kustomization flux-system --with-source
+
 [doc('Browse a PVC')]
 browse-pvc namespace claim:
     kubectl browse-pvc -n {{ namespace }} -i mirror.gcr.io/alpine:latest {{ claim }}
