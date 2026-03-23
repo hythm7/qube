@@ -57,6 +57,7 @@ spec:
                 cpu: 10m
               # TODO: increase memory
               limits:
+                #memory: 2Gi
                 memory: 256Mi
     defaultPodOptions:
       securityContext:

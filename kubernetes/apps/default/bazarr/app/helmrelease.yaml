@@ -53,6 +53,7 @@ spec:
                 cpu: 10m
               limits:
                 # TODO: Increase memory
+                #memory: 1Gi
                 memory: 500Mi
     defaultPodOptions:
       securityContext:

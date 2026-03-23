@@ -16,6 +16,7 @@ spec:
         enabled: true
         storageClassName: openebs-hostpath
         # TODO: increase size
+        #size: 20Gi
         size: 4Gi
       retentionPeriod: 14d
       route:

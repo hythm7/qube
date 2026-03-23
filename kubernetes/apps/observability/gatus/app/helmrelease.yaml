@@ -62,6 +62,7 @@ spec:
                 cpu: 100m
               limits:
                 # TODO: update memory
+                #memory: 256Mi
                 memory: 128Mi
         statefulset:
           volumeClaimTemplates:

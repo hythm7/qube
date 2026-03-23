@@ -13,6 +13,7 @@ spec:
     controllers:
       cloudflare-tunnel:
         # TODO: update replicas
+        #replicas: 2
         replicas: 1
         strategy: RollingUpdate
         annotations:

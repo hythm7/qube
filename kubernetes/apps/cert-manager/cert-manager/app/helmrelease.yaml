@@ -20,6 +20,7 @@ spec:
         enabled: true
     webhook:
       # TODO: update replicas
+      #replicaCount: 2
       replicaCount: 1
       podDisruptionBudget:
         enabled: true
