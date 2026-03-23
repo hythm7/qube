@@ -49,11 +49,11 @@ machine:
   install:
     diskSelector:
       model: SAMSUNG MZ7TE256
-    image: factory.talos.dev/metal-installer/d36e724b270018a30bb5efca76b4c2062b7ca4f88e95a324ff7940bb2d261dcf:v1.12.6
+    image: factory.talos.dev/metal-installer/2f5487b42a99354abae03138e7b9a588a58b1d4ea3e885bcb2b366f7a94b682b:v1.12.6
     wipe: true
 #  kernel:
 #    modules:
-#      - name: nbd
+#      - name: nbd  # may be needed for rook-ceph?
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -80,10 +80,10 @@ machine:
     net.ipv4.tcp_fastopen: "3"
     net.ipv4.tcp_mtu_probing: "1"
     net.ipv4.tcp_notsent_lowat: "131072"
-    net.ipv4.tcp_rmem: 4096 87380 33554432
     net.ipv4.tcp_slow_start_after_idle: "0"
-    net.ipv4.tcp_window_scaling: "1"
+    net.ipv4.tcp_rmem: 4096 87380 33554432
     net.ipv4.tcp_wmem: 4096 65536 33554432
+    net.ipv4.tcp_window_scaling: "1"
     sunrpc.tcp_max_slot_table_entries: "128"
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
@@ -181,6 +181,30 @@ cluster:
 
 ---
 apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 14m
+
+
+---
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 512GiB
+
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  maxSize: 512GiB
+
+
+---
+apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
@@ -216,39 +240,4 @@ vlanID: 90
 parent: bond0
 mtu: 1500
 
----
-apiVersion: v1alpha1
-kind: VolumeConfig
-name: EPHEMERAL
-provisioning:
-  maxSize: 100GiB
 
----
-apiVersion: v1alpha1
-kind: SwapVolumeConfig
-name: swap
-provisioning:
-  diskSelector:
-    match: system_disk
-  minSize: 8GiB
-  maxSize: 8GiB
-
----
-apiVersion: v1alpha1
-kind: ZswapConfig
-maxPoolPercent: 20
-
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: system_disk
-  minSize: 100GB
-
----
-apiVersion: v1alpha1
-kind: WatchdogTimerConfig
-device: /dev/watchdog0
-timeout: 14m
