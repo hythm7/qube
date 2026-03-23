@@ -90,7 +90,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: &hostname internal.hythm.net
     gatus.home-operations.com/endpoint: |-
       group: internal
-      guarded: true
+      guarded: false
       ui:
         hide-hostname: true
         hide-url: false
