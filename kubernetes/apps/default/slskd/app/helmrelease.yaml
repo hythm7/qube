@@ -71,6 +71,14 @@ spec:
               accessMode: ReadWriteOnce
               size: 5Gi
     defaultPodOptions:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |-
+          [{
+            "name": "vpn",
+            "namespace": "kube-system",
+            "ips": ["192.168.90.11/24"],
+            "mac": "a6:3e:4f:09:e4:9c"
+          }]
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -84,15 +92,6 @@ spec:
         ports:
           http:
             port: *port
-      soulseek:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.69.127
-        externalTrafficPolicy: Local
-        ports:
-          soulseek-tcp:
-            port: *soulseekPort
-            protocol: TCP
     route:
       app:
         hostnames:
