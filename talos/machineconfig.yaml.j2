@@ -18,12 +18,12 @@ machine:
       port: 7445
     {% if ENV.IS_CONTROLLER %}
     kubernetesTalosAPIAccess:
+      enabled: true
       allowedKubernetesNamespaces:
         - actions-runner-system
         - system-upgrade
       allowedRoles:
         - os:admin
-      enabled: true
     {% endif %}
     rbac: true
   files:
@@ -51,9 +51,6 @@ machine:
       model: SAMSUNG MZ7TE256
     image: factory.talos.dev/metal-installer/2f5487b42a99354abae03138e7b9a588a58b1d4ea3e885bcb2b366f7a94b682b:v1.12.6
     wipe: true
-#  kernel:
-#    modules:
-#      - name: nbd  # may be needed for rook-ceph?
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -183,7 +180,7 @@ cluster:
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
-timeout: 14m
+timeout: 5m
 
 
 ---
@@ -200,7 +197,7 @@ name: local-hostpath
 provisioning:
   diskSelector:
     match: system_disk
-  maxSize: 512GiB
+  minSize: 1TB
 
 
 ---
