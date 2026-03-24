@@ -24,6 +24,7 @@ spec:
         name: openebs-hostpath
         isDefaultClass: false
         basePath: *hostPath
+        reclaimPolicy: Retain
       helperPod:
         image:
           registry: quay.io/
