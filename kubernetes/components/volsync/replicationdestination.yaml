@@ -19,7 +19,6 @@ spec:
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
     cleanupCachePVC: true
     cleanupTempPVC: true
-    #copyMethod: Snapshot
     copyMethod: Direct
     destinationPVC: ${APP}
     enableFileDeletion: true
@@ -36,7 +35,4 @@ spec:
     repository: ${APP}-volsync-secret
     sourceIdentity:
       sourceName: ${APP}
-    # storageClassName: ${VOLSYNC_STORAGECLASS:=ceph-block}
-    # volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-ceph-blockpool}
-
     storageClassName: ${VOLSYNC_STORAGECLASS:=openebs-hostpath}
