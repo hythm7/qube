@@ -41,13 +41,32 @@ snapshot:
     done
 
 [doc('Backup VolSync PVCs')]
-backup name:
-    kubectl -n default patch replicationsources {{ name }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
+backup APP NS="default":
+    kubectl --namespace {{ NS }}  patch replicationsources {{ APP }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
+    until kubectl --namespace {{ NS }} get job/volsync-src-{{ APP }} &>/dev/null; do sleep 5; done
+    kubectl --namespace {{ NS }} wait job/volsync-src-{{ APP }} --for=condition=complete --timeout=120m
 
 
 [doc('Restore VolSync PVCs')]
-restore name:
-    kubectl -n default patch replicationdestination {{ name }} --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
+restore APP NS="default" CONTROLLER="deployment":
+    # Suspend
+    flux --namespace {{ NS }} suspend kustomization {{ APP }}
+    flux --namespace {{ NS }} suspend helmrelease   {{ APP }}
+
+    kubectl --namespace {{ NS }} scale {{ CONTROLLER }}/{{ APP }} --replicas 0
+    kubectl --namespace {{ NS }} wait pod --for=delete --selector="kustomize.toolkit.fluxcd.io/name={{ APP }}" --timeout=5m
+
+    # Restore
+    kubectl --namespace {{ NS }} patch replicationdestination {{ APP }}-dst --type merge -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}";
+    until kubectl --namespace {{ NS }} get job/volsync-dst-{{ APP }}-dst &>/dev/null; do sleep 5; done
+    kubectl --namespace {{ NS }} wait job/volsync-dst-{{ APP }}-dst --for=condition=complete --timeout=120m
+
+    # Resume
+    flux --namespace {{ NS }} resume kustomization  {{ APP }}
+    flux --namespace {{ NS }} resume helmrelease    {{ APP }}
+    flux --namespace {{ NS }} reconcile helmrelease {{ APP }} --force
+
+    kubectl --namespace {{ NS }} wait pod --for=condition=ready --selector="kustomize.toolkit.fluxcd.io/name={{ APP }}" --timeout=5m
 
 [doc('Suspend or resume Keda ScaledObjects')]
 keda state:
