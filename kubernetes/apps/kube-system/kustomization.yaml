@@ -13,7 +13,7 @@ resources:
   - ./coredns/ks.yaml
   - ./descheduler/ks.yaml
   #- ./k8s-gpu-dra-driver/ks.yaml
-  #- ./amd-device-plugin/ks.yaml
+  - ./amd-device-plugin/ks.yaml
   - ./metrics-server/ks.yaml
   - ./multus/ks.yaml
   - ./snapshot-controller/ks.yaml
