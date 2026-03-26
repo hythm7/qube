@@ -23,6 +23,6 @@ resources:
   - ./prowlarr/ks.yaml
   - ./seasonpackerr/ks.yaml
   - ./slskd/ks.yaml
-#  - ./jellyfin/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./seerr/ks.yaml
 #  - ./thelounge/ks.yaml
