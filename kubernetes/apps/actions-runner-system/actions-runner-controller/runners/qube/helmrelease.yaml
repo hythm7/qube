@@ -12,7 +12,6 @@ spec:
   values:
     githubConfigUrl: https://github.com/hythm7/qube
     githubConfigSecret: qube-runner-secret
-    # TODO: Update runners count
     minRunners: 1
     maxRunners: 1
     containerMode:

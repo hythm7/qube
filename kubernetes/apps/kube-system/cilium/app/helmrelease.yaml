@@ -58,9 +58,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      # TODO: update replicas count
-      #replicas: 2
-      replicas: 1
+      replicas: 2
       rollOutPods: true
     pmtuDiscovery:
       enabled: true

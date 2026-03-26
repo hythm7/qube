@@ -16,6 +16,4 @@ spec:
     grafanaDashboard:
       enabled: true
     webhook:
-      # TODO: update replicas
-      #replicaCount: 2
-      replicaCount: 1
+      replicaCount: 2

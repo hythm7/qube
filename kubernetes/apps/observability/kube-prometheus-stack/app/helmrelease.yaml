@@ -62,18 +62,15 @@ spec:
         resources:
           requests:
             cpu: 100m
-          # TODO: increase memory
           limits:
-            #memory: 2Gi
-            memory: 512Mi
+            memory: 2Gi
         storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: openebs-hostpath
               resources:
                 requests:
-                  # TODO: increase storage
-                  storage: 5Gi
+                  storage: 50Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
