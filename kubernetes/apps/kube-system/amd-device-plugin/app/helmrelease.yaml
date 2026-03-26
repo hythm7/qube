@@ -15,7 +15,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
+      retries: 4
   values:
     controllers:
       amd-device-plugin:
