@@ -52,12 +52,13 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
-              claims:
-                - name: gpu
+              #claims:
+              #  - name: gpu
               requests:
                 cpu: 100m
               limits:
                 memory: 16Gi
+                amd.com/gpu: 1
     defaultPodOptions:
       resourceClaims:
         - name: gpu
@@ -68,18 +69,6 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-    rawResources:
-      gpu:
-        apiVersion: resource.k8s.io/v1
-        kind: ResourceClaimTemplate
-        spec:
-          spec:
-            spec:
-              devices:
-                requests:
-                  - name: gpu
-                    exactly:
-                      deviceClassName: gpu.amd.com
     service:
       app:
         type: LoadBalancer
