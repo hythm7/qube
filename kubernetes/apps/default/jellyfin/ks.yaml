@@ -13,7 +13,7 @@ spec:
     - ../../../../components/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
-    - name: k8s-gpu-dra-driver
+    - name: amd-device-plugin
       namespace: kube-system
     - name: openebs
       namespace: openebs-system
