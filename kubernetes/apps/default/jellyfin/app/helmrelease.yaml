@@ -52,13 +52,12 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: {drop: ["ALL"]}
             resources:
-              #claims:
-              #  - name: gpu
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
                 memory: 16Gi
-                amd.com/gpu: 1
     defaultPodOptions:
       resourceClaims:
         - name: gpu
