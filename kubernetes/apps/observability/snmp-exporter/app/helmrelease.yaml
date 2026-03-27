@@ -16,13 +16,13 @@ spec:
       params:
         - name: slipgate
           module:
-            - teleporter
+            - if_mib
           target: 192.168.1.1
           auth:
             - public_v2
         - name: teleporter
           module:
-            - dell
+            - if_mib
           target: 192.168.1.254
           auth:
             - public_v2
