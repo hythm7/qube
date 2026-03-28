@@ -11,8 +11,9 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.hythm.net
         - vore.hythm.net
+        - chthon.hythm.net
+        - quad.hythm.net
   metricRelabelings:
     - targetLabel: service
       replacement: blackbox-exporter-lan
