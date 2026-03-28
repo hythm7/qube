@@ -29,17 +29,17 @@ spec:
       targetLabel: job
       replacement: smartctl-exporter
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: quad
-spec:
-  staticConfigs:
-    - targets:
-        - quad.hythm.net
-  metricsPath: /metrics
-  relabelings:
-    - action: replace
-      targetLabel: job
-      replacement: quad
+## yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+#apiVersion: monitoring.coreos.com/v1alpha1
+#kind: ScrapeConfig
+#metadata:
+#  name: quad
+#spec:
+#  staticConfigs:
+#    - targets:
+#        - quad.hythm.net
+#  metricsPath: /api/export/prometheus/metrics
+#  relabelings:
+#    - action: replace
+#      targetLabel: job
+#      replacement: quad
