@@ -3,7 +3,7 @@ version: v1alpha1
 machine:
   ca:
     crt: op://kubernetes/talos/MACHINE_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://kubernetes/talos/MACHINE_CA_KEY
     {% endif %}
   features:
@@ -16,7 +16,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
@@ -25,7 +25,7 @@ machine:
       allowedRoles:
         - os:admin
     {% endif %}
-    rbac: true
+    #rbac: true
   files:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
@@ -47,10 +47,10 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    diskSelector:
-      model: CT2000P310SSD8
     image: factory.talos.dev/metal-installer/344a2866c523a57575cccd581f915aff8b1ff0791a15ca4b1e02d3adfedbf8d3:v1.12.6
-    wipe: true
+  #kernel:
+  #  modules:
+  #    - name: nbd   # ceph
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -59,37 +59,35 @@ machine:
     image: ghcr.io/siderolabs/kubelet:v1.35.3
     nodeIP:
       validSubnets:
-        - 192.168.42.0/24
+        - 192.168.10.0/24
   nodeLabels:
     node.kubernetes.io/gpu: "true"
-    topology.kubernetes.io/region: main
+    topology.kubernetes.io/region: doomed
+    topology.kubernetes.io/zone: {{ 'm' if ENV.MACHINE_TYPE == 'controlplane' else 'w' }}
   sysctls:
-    fs.inotify.max_user_instances: "8192"
-    fs.inotify.max_user_watches: "1048576"
-    net.core.default_qdisc: fq
-    net.core.rmem_max: "67108864"
-    net.core.wmem_max: "67108864"
-    net.ipv4.neigh.default.gc_thresh1: "4096"
-    net.ipv4.neigh.default.gc_thresh2: "8192"
-    net.ipv4.neigh.default.gc_thresh3: "16384"
-    net.ipv4.ping_group_range: 0 2147483647
-    net.ipv4.tcp_congestion_control: bbr
-    net.ipv4.tcp_fastopen: "3"
-    net.ipv4.tcp_mtu_probing: "1"
-    net.ipv4.tcp_notsent_lowat: "131072"
-    net.ipv4.tcp_slow_start_after_idle: "0"
-    net.ipv4.tcp_rmem: 4096 87380 33554432
-    net.ipv4.tcp_wmem: 4096 65536 33554432
-    net.ipv4.tcp_window_scaling: "1"
-    sunrpc.tcp_max_slot_table_entries: "128"
-    sunrpc.tcp_slot_table_entries: "128"
-    user.max_user_namespaces: "11255"
-    vm.nr_hugepages: "1024"
+    fs.inotify.max_user_instances: 8192     # Watchdog
+    fs.inotify.max_user_watches: 1048576    # Watchdog
+    net.core.default_qdisc: fq              # 10Gb/s
+    net.core.rmem_max: 67108864             # 10Gb/s | Cloudflared / QUIC
+    net.core.wmem_max: 67108864             # 10Gb/s | Cloudflared / QUIC
+    net.ipv4.ping_group_range: 0 2147483647 # Ping non-root
+    net.ipv4.tcp_congestion_control: bbr    # 10Gb/s
+    net.ipv4.tcp_fastopen: 3                # Send and accept data in the opening SYN packet
+    net.ipv4.tcp_mtu_probing: 1             # 10Gb/s | Jumbo frames
+    net.ipv4.tcp_notsent_lowat: 131072      # 10Gb/s
+    net.ipv4.tcp_slow_start_after_idle: 0   # 10Gb/s
+    net.ipv4.tcp_rmem: 4096 87380 33554432  # 10Gb/s
+    net.ipv4.tcp_wmem: 4096 65536 33554432  # 10Gb/s
+    net.ipv4.tcp_window_scaling: 1          # 10Gb/s
+    sunrpc.tcp_slot_table_entries: 128      # 10Gb/s | NFS
+    sunrpc.tcp_max_slot_table_entries: 128  # 10Gb/s | NFS
+    user.max_user_namespaces: 11255         # User Namespaces
   token: op://kubernetes/talos/MACHINE_TOKEN
+  type: {{ ENV.MACHINE_TYPE }}
 cluster:
   ca:
     crt: op://kubernetes/talos/CLUSTER_CA_CRT
-    {% if ENV.IS_CONTROLLER %}
+    {% if ENV.MACHINE_TYPE == 'controlplane' %}
     key: op://kubernetes/talos/CLUSTER_CA_KEY
     {% endif %}
   clusterName: qube
@@ -108,29 +106,21 @@ cluster:
       name: none
     dnsDomain: cluster.local
     podSubnets:
-      - 10.42.0.0/16
+      - 10.244.0.0/16
     serviceSubnets:
-      - 10.43.0.0/16
+      - 10.245.0.0/16
   secret: op://kubernetes/talos/CLUSTER_SECRET
   token: op://kubernetes/talos/CLUSTER_TOKEN
-  {% if ENV.IS_CONTROLLER %}
+  {% if ENV.MACHINE_TYPE == 'controlplane' %}
   aggregatorCA:
     crt: op://kubernetes/talos/CLUSTER_AGGREGATORCA_CRT
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
-    auditPolicy:
-      apiVersion: audit.k8s.io/v1
-      kind: Policy
-      rules:
-        - level: Metadata
     certSANs:
       - qube.hythm.net
-    disablePodSecurityPolicy: true
     extraArgs:
       enable-aggregator-routing: "true"
-      feature-gates: MutatingAdmissionPolicy=true
-      runtime-config: admissionregistration.k8s.io/v1beta1=true
     image: registry.k8s.io/kube-apiserver:v1.35.3
   controllerManager:
     extraArgs:
@@ -140,7 +130,7 @@ cluster:
     disabled: true
   etcd:
     advertisedSubnets:
-      - 192.168.42.0/24
+      - 192.168.10.0/24
     ca:
       crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
       key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY
@@ -149,6 +139,7 @@ cluster:
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.35.3
+  secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -170,7 +161,6 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.35.3
-  secretboxEncryptionSecret: op://kubernetes/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
   serviceAccount:
     key: op://kubernetes/talos/CLUSTER_SERVICEACCOUNT_KEY
   {% endif %}
@@ -181,60 +171,4 @@ apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
 timeout: 5m
-
-
----
-apiVersion: v1alpha1
-kind: VolumeConfig
-name: EPHEMERAL
-provisioning:
-  maxSize: 512GiB
-
----
-apiVersion: v1alpha1
-kind: UserVolumeConfig
-name: local-hostpath
-provisioning:
-  diskSelector:
-    match: system_disk
-  minSize: 1TB
-
-
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "r8169" && mac(link.permanent_addr) == "78:55:36:08:3b:c2"
-
----
-apiVersion: v1alpha1
-kind: BondConfig
-name: bond0
-links:
-  - net0
-bondMode: active-backup
-mtu: 1500
-
----
-apiVersion: v1alpha1
-kind: DHCPv4Config
-name: bond0
-clientIdentifier: mac
-
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.70
-vlanID: 70
-parent: bond0
-mtu: 1500
----
-apiVersion: v1alpha1
-kind: VLANConfig
-name: bond0.90
-vlanID: 90
-parent: bond0
-mtu: 1500
-
 

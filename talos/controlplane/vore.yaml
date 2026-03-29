@@ -1,0 +1,35 @@
+---
+machine:
+  install:
+    diskSelector:
+      model: CT2000P310SSD8
+      serial: 2538533351EB
+
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: vore.hythm.net
+
+--- 
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 512GiB
+    
+---   
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 1TB
+
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: link.driver == "r8169" && mac(link.permanent_addr) == "78:55:36:08:3b:c2"
+
