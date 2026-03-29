@@ -1,21 +1,24 @@
 ---
 customization:
   extraKernelArgs:
-    - apparmor=0                     # Less security, faster puter
-    - -selinux                       # Less security, faster puter
-    - -init_on_alloc                 # Less security, faster puter
-    - -init_on_free                  # Less security, faster puter
-    - init_on_alloc=0                # Less security, faster puter
-    - init_on_free=0                 # Less security, faster puter
-    - amd_pstate=active              # AMD P-State Driver
-    - amd_iommu=on                   # PCI Passthrough
-    - iommu=pt                       # PCI Passthrough
-    - mitigations=off                # Less security, faster puter
-    - nvme.poll_queues=16            # NVMe performance
-    - security=none                  # Less security, faster puter
-    - talos.auditd.disabled=1        # Less security, faster puter
+    - -init_on_alloc                                  # Less security, faster puter
+    - -selinux                                        # Less security, faster puter
+    - apparmor=0                                      # Less security, faster puter
+    - init_on_alloc=0                                 # Less security, faster puter
+    - init_on_free=0                                  # Less security, faster puter
+    - amd_iommu=on                                    # PCI Passthrough
+    - amd_pstate=active                               # AMD P-State Driver
+    - iommu=pt                                        # PCI Passthrough
+    - pcie_aspm=off                                   # Disable PCIe ASPM
+    - mitigations=off                                 # Less security, faster puter
+    - module_blacklist=r8169                          # Disable onboard NIC
+    - nvme.poll_queues=16                             # NVMe performance
+    - security=none                                   # Less security, faster puter
+    - talos.auditd.disabled=1                         # Less security, faster puter
+    - talos.config.early={{ ENV.TALOS_CONFIG_EARLY }} # Early config
   systemExtensions:
     officialExtensions:
-      - siderolabs/amdgpu            # AMD GPU
-      - siderolabs/amd-ucode         # AMD CPU Microcode
-      - siderolabs/gasket-driver     # Google Coral
+      - siderolabs/amd-ucode                          # AMD CPU Microcode
+      - siderolabs/amdgpu                             # AMD GPU
+      - siderolabs/gasket-driver                      # Google Coral
+

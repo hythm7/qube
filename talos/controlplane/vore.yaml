@@ -26,10 +26,3 @@ provisioning:
     match: system_disk
   minSize: 1TB
 
----
-apiVersion: v1alpha1
-kind: LinkAliasConfig
-name: net0
-selector:
-  match: link.driver == "r8169" && mac(link.permanent_addr) == "78:55:36:08:3b:c2"
-
