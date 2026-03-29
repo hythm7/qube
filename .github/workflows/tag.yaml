@@ -1,14 +1,10 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Tag
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 0 1 * *
-
-permissions:
-  contents: read
+    - cron: 0 0 1 * * # At 00:00 on day-of-month 1
 
 jobs:
   main:

@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Renovate
 
 on:
@@ -10,7 +9,7 @@ on:
       - .renovaterc.json5
       - .renovate/**.json5
   schedule:
-    - cron: 0 * * * *
+    - cron: 0 * * * * # Every hour
   workflow_dispatch:
     inputs:
       dryRun:
@@ -35,15 +34,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-
 jobs:
-  main:
+  renovate:
     name: Renovate
     runs-on: ubuntu-latest
-    permissions:
-      packages: read
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
@@ -55,10 +49,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          persist-credentials: false
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: Run Renovate
+      - name: Renovate
         uses: renovatebot/github-action@68a3ea99af6ad249940b5a9fdf44fc6d7f14378b # v46.1.6
         env:
           LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}

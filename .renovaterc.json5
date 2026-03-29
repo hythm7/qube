@@ -5,7 +5,6 @@
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
     "github>hythm7/qube//.renovate/autoMerge.json5",
-    "github>hythm7/qube//.renovate/changelogs.json5",
     "github>hythm7/qube//.renovate/customManagers.json5",
     "github>hythm7/qube//.renovate/grafanaDashboards.json5",
     "github>hythm7/qube//.renovate/groups.json5",
@@ -27,9 +26,6 @@
     "**/resources/**",
   ],
   flux: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
-  "helm-values": {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
   },
   kubernetes: {
