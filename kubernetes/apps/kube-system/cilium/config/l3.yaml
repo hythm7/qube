@@ -37,7 +37,7 @@ spec:
     - name: cilium
       localASN: 64514
       peers:
-        - name: unifi
+        - name: slipgate
           peerASN: 64513
           peerAddress: 192.168.0.1
           peerConfigRef:
