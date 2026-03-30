@@ -81,9 +81,6 @@ spec:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-          - path: /config/buddy.yaml
-            subPath: buddy.yaml
-            readOnly: true
     route:
       app:
         annotations:
