@@ -23,6 +23,6 @@ kind: UserVolumeConfig
 name: local-hostpath
 provisioning:
   diskSelector:
-    match: system_disk
+    match: disk.serial == "2538533351EB"
   minSize: 1TB
 
