@@ -30,7 +30,6 @@ releases:
     values: ['./templates/values.yaml.gotmpl']
     needs: ['kube-system/cilium']
 
- one node only for now
   - name: spegel
     namespace: kube-system
     chart: oci://ghcr.io/spegel-org/helm-charts/spegel
