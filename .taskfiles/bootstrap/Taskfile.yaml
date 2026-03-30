@@ -23,7 +23,7 @@ tasks:
     cmds:
       - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
-      #- until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
+      - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
       - op inject --in-file {{.BOOTSTRAP_DIR}}/resources.yaml | kubectl apply --server-side --filename -
       - task: helmfile
     vars:
@@ -45,6 +45,7 @@ tasks:
         helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml template --quiet \
           | yq ea -e 'select(.kind == "CustomResourceDefinition")' \
           | kubectl apply --server-side --field-manager bootstrap --force-conflicts --filename -
+      - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io; do sleep 5; done
       - helmfile --file {{.BOOTSTRAP_DIR}}/helmfile.d/01-apps.yaml sync --hide-notes
     preconditions:
       - test -f {{.BOOTSTRAP_DIR}}/helmfile.d/00-crds.yaml
