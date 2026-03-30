@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -7,42 +6,47 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: home-assistant
+    name: app-template
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
       home-assistant:
-        annotations:
-          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
               repository: ghcr.io/home-operations/home-assistant
               tag: 2026.3.4@sha256:45d37a8be32fc1b2ebc64acc9ab219ca6226dcf04b4de0046d6c4e650b7a3022
             env:
-              TZ: America/New_York
-              HASS_HTTP_TRUSTED_PROXY_1: 192.168.69.0/24
-              HASS_HTTP_TRUSTED_PROXY_2: 10.42.0.0/16
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              HASS_HTTP_TRUSTED_PROXY_1: 192.168.10.0/24
+              HASS_HTTP_TRUSTED_PROXY_2: 10.244.0.0/16
+              TZ: America/Chicago
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  periodSeconds: 10
+                  failureThreshold: 30
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 2Gi
+                memory: 1Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       annotations:
         k8s.v1.cni.cncf.io/networks: |-
           [{
             "name": "iot",
-            "namespace": "kube-system",
-            "ips": ["192.168.70.20/24"],
-            "mac": "c6:07:27:af:fb:53"
+            "namespace": "networking",
+            "ips": ["192.168.30.200/24"]
           }]
       securityContext:
         runAsNonRoot: true
@@ -50,31 +54,32 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
-    service:
-      app:
-        ports:
-          http:
-            appProtocol: kubernetes.io/ws
-            port: 8123
+    persistence:
+      config:
+        existingClaim: "{{ .Release.Name }}"
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config/.venv
+                subPath: .venv
+              - path: /config/logs
+                subPath: logs
+              - path: /config/tts
+                subPath: tts
+              - path: /tmp
+                subPath: tmp
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
         hostnames:
           - "{{ .Release.Name }}.hythm.net"
           - hass.hythm.net
         parentRefs:
-          - name: envoy-external
-            namespace: network
-    persistence:
-      config:
-        existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /config
-      config-cache:
-        existingClaim: "{{ .Release.Name }}-cache"
-        globalMounts:
-          - path: /config/.venv
-      tmp:
-        type: emptyDir
+          - name: envoy-internal
+            namespace: networking
+    service:
+      app:
+        ports:
+          http:
+            port: 8123

@@ -22,5 +22,4 @@ kind: ServiceAccount
 metadata:
   name: qube-runner
 spec:
-  roles:
-    - os:admin
+  roles: ["os:admin"]

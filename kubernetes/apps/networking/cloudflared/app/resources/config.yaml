@@ -1,0 +1,8 @@
+---
+ingress:
+  - hostname: "*.hythm.net"
+    service: https://envoy-external.networking.svc.cluster.local
+    originRequest:
+      http2Origin: true
+      originServerName: external.hythm.net
+  - service: http_status:404

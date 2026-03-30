@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -7,7 +6,8 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: onepassword
+    name: app-template
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
@@ -40,7 +40,7 @@ spec:
                     port: *apiPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
               readiness:
                 enabled: true
@@ -51,7 +51,7 @@ spec:
                     port: *apiPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
             resources: &resources
               requests:
@@ -61,14 +61,14 @@ spec:
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities: { drop: ["ALL"] }
           sync:
             image:
               repository: ghcr.io/1password/connect-sync
               tag: 1.8.2@sha256:3844a6410e119ccec72011737d5b46afe4be12cb0f54f681fe3ce999280449d8
             env:
               XDG_DATA_HOME: *configDir
-              OP_HTTP_PORT: &syncPort 8081
+              OP_HTTP_PORT: &syncPort 8080
               OP_BUS_PORT: 11221
               OP_BUS_PEERS: localhost:11220
               OP_SESSION:
@@ -86,7 +86,7 @@ spec:
                     port: *syncPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
               readiness:
                 enabled: true
@@ -97,7 +97,7 @@ spec:
                     port: *syncPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
             resources: *resources
             securityContext: *securityContext
@@ -106,13 +106,13 @@ spec:
         runAsNonRoot: true
         runAsUser: 999
         runAsGroup: 999
-    service:
-      app:
-        ports:
-          http:
-            port: *apiPort
     persistence:
       config:
         type: emptyDir
         globalMounts:
           - path: *configDir
+    service:
+      app:
+        ports:
+          http:
+            port: *apiPort

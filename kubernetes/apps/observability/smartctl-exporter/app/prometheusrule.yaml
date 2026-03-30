@@ -1,20 +1,19 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: smartctl-exporter-rules
+  name: smartctl-exporter
 spec:
   groups:
     - name: smartctl-exporter.rules
       rules:
         - alert: SmartDeviceHighTemperature
           expr: |-
-            smartctl_device_temperature{temperature_type="current"} > 65
+            smartctl_device_temperature > 65
           for: 5m
           annotations:
             summary: >-
-              Mounted drive {{ $labels.device }} on device {{ $labels.instance }} has a temperature higher than 65°C
+              Mounted drive {{ $labels.device }} on device {{ $labels.instance }} has a temperature higher than {{ $value }}°C
           labels:
             severity: critical
 
@@ -48,13 +47,13 @@ spec:
           labels:
             severity: critical
 
-        - alert: SmartDeviceAvailableSpareUnderThreshold
+        - alert: SmartDeviceAvailableSpareUnderThreadhold
           expr: |-
             smartctl_device_available_spare_threshold > smartctl_device_available_spare
           for: 5m
           annotations:
             summary: >-
-              Device {{ $labels.device }} on instance {{ $labels.instance }} is under available spare threshold
+              Device {{ $labels.device }} on instance {{ $labels.instance }} is under available spare threashold
           labels:
             severity: critical
 

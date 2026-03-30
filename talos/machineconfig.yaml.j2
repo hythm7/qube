@@ -58,7 +58,7 @@ machine:
     image: ghcr.io/siderolabs/kubelet:v1.35.3
     nodeIP:
       validSubnets:
-        - 192.168.42.0/24
+        - 192.168.10.0/24
   nodeLabels:
     node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: doomed
@@ -129,7 +129,7 @@ cluster:
     disabled: true
   etcd:
     advertisedSubnets:
-      - 192.168.42.0/24
+      - 192.168.10.0/24
     ca:
       crt: op://kubernetes/talos/CLUSTER_ETCD_CA_CRT
       key: op://kubernetes/talos/CLUSTER_ETCD_CA_KEY

@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -7,11 +6,13 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: kromgo
+    name: app-template
+    namespace: flux-system
   interval: 1h
   values:
     controllers:
       kromgo:
+        replicas: 2
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -21,36 +22,58 @@ spec:
               repository: ghcr.io/kashalls/kromgo
               tag: v0.8.2@sha256:bd2213c7e471ada38bfec5600f17ede76177815d560d2d6b9a0f433054c93080
             env:
+              HEALTH_PORT: &healthPort 8080
               PROMETHEUS_URL: http://prometheus-operated.observability.svc.cluster.local:9090
               SERVER_PORT: &port 80
-              HEALTH_PORT: &healthPort 8080
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /readyz
+                    path: /-/ready
                     port: *healthPort
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
             resources:
               requests:
                 cpu: 10m
               limits:
                 memory: 64Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+    persistence:
+      config:
+        type: configMap
+        name: "{{ .Release.Name }}-configmap"
+        globalMounts:
+          - path: /kromgo/config.yaml
+            subPath: config.yaml
+            readOnly: true
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            url: https://{{ .Release.Name }}.hythm.net/talos_version
+        hostnames:
+          - "{{ .Release.Name }}.hythm.net"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     service:
       app:
         ports:
@@ -58,24 +81,7 @@ spec:
             port: *port
           health:
             port: *healthPort
-    route:
+    serviceMonitor:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
-        hostnames:
-          - "{{ .Release.Name }}.hythm.net"
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
-    persistence:
-      config-file:
-        type: configMap
-        name: kromgo-configmap
-        globalMounts:
-          - path: /kromgo/config.yaml
-            subPath: config.yaml
+        endpoints:
+          - port: health
