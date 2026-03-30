@@ -26,7 +26,7 @@ spec:
     server:
       persistentVolume:
         enabled: true
-        storageClassName: ceph-block
+        storageClassName: openebs-hostpath
         size: 20Gi
       serviceMonitor:
         enabled: true
