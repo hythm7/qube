@@ -6,5 +6,4 @@ components:
   - ../../components/namespace
 resources:
   - ./snapshot-controller/ks.yaml
-  - ./kopia/ks.yaml
   - ./volsync/ks.yaml
