@@ -2,7 +2,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: ${APP}
+  name: ${APP}-nfs-scaler
 spec:
   cooldownPeriod: 0
   minReplicaCount: 0
