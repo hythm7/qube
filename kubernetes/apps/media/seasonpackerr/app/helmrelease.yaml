@@ -64,8 +64,6 @@ spec:
         type: nfs
         server: chthon.hythm.net
         path: /data/media
-        globalMounts:
-          - path: /media
       tmp:
         type: emptyDir
     service:
