@@ -78,9 +78,9 @@ spec:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
-        apc-ups:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/13524/revisions/1/download
+        #apc-ups:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/13524/revisions/1/download
         blackbox-exporter:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/7587/revisions/3/download
@@ -147,30 +147,30 @@ spec:
         smartctl-exporter:
           datasource: [{ name: DS_VICTORIAMETRICS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/22381/revisions/1/download
-        spegel:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/22104/revisions/1/download
-        unifi-insights:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11315/revisions/9/download
-        unifi-network-sites:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11311/revisions/5/download
-        unifi-pdu:
-          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/23027/revisions/1/download
-        unifi-uap:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11314/revisions/10/download
-        unifi-usw:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/11312/revisions/9/download
-        volsync:
-          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/21356/revisions/3/download
-        zfs:
-          datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
-          url: https://grafana.com/api/dashboards/24987/revisions/1/download
+        #spegel:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/22104/revisions/1/download
+        #unifi-insights:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/11315/revisions/9/download
+        #unifi-network-sites:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/11311/revisions/5/download
+        #unifi-pdu:
+        #  datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
+        #  url: https://grafana.com/api/dashboards/23027/revisions/1/download
+        #unifi-uap:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/11314/revisions/10/download
+        #unifi-usw:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/11312/revisions/9/download
+        #volsync:
+        #  datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
+        #  url: https://grafana.com/api/dashboards/21356/revisions/3/download
+        #zfs:
+        #  datasource: [{ name: DS_PROMETHEUS, value: Prometheus }]
+        #  url: https://grafana.com/api/dashboards/24987/revisions/1/download
     plugins:
       - grafana-clock-panel
       - grafana-piechart-panel
