@@ -81,18 +81,15 @@ spec:
         #apc-ups:
         #  datasource: Prometheus
         #  url: https://grafana.com/api/dashboards/13524/revisions/1/download
-        blackbox-exporter:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/7587/revisions/3/download
-        ceph-cluster:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/2842/revisions/18/download
-        ceph-osd:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/5336/revisions/9/download
-        ceph-pools:
-          datasource: Prometheus
-          url: https://grafana.com/api/dashboards/5342/revisions/9/download
+        #ceph-cluster:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/2842/revisions/18/download
+        #ceph-osd:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/5336/revisions/9/download
+        #ceph-pools:
+        #  datasource: Prometheus
+        #  url: https://grafana.com/api/dashboards/5342/revisions/9/download
         cert-manager:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/20842/revisions/3/download
@@ -144,6 +141,9 @@ spec:
         prometheus:
           datasource: Prometheus
           url: https://grafana.com/api/dashboards/19105/revisions/9/download
+        blackbox-exporter:
+          datasource: Prometheus
+          url: https://grafana.com/api/dashboards/7587/revisions/3/download
         smartctl-exporter:
           datasource: [{ name: DS_VICTORIAMETRICS, value: Prometheus }]
           url: https://grafana.com/api/dashboards/22381/revisions/1/download
