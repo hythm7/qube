@@ -41,12 +41,12 @@ machine:
         [ NFSMount_Global_Options ]
         nfsvers=4.2
         hard=True
-        nconnect=8
+        nconnect=16
         noatime=True
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/20a305a98f73fede5f6e52581dd184b7852e7d38f071dfe8a9ed8b1548df96db:v1.12.6
+    image: factory.talos.dev/metal-installer/a8a042a774fbea473eb100f4aecfbb023c168d10583ef7de4a54c526cee26cf4:v1.12.6
   #kernel:
   #  modules:
   #    - name: nbd   # ceph
