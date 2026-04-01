@@ -64,8 +64,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            #url: https://{{ .Release.Name }}.hythm.net/talos_version
-            conditions: ["[STATUS] == 200"]
+            url: https://{{ .Release.Name }}.hythm.net/talos_version
         hostnames:
           - "{{ .Release.Name }}.hythm.net"
         parentRefs:
