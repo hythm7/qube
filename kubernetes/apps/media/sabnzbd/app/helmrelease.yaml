@@ -24,7 +24,7 @@ spec:
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 {{ .Release.Name }}.hythm.net,
                 sab.hythm.net
-              TZ: America/Chicago
+              TZ: America/New_York
             probes:
               liveness: &probes
                 enabled: true

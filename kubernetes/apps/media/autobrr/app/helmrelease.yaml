@@ -27,7 +27,7 @@ spec:
               AUTOBRR__METRICS_PORT: &metricsPort 8080
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
-              TZ: America/Chicago
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

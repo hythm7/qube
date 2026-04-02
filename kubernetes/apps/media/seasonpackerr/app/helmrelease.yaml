@@ -29,7 +29,7 @@ spec:
               SEASONPACKARR__CLIENTS_DEFAULT_HOST: qbittorrent.media.svc.cluster.local
               SEASONPACKARR__CLIENTS_DEFAULT_PORT: 80
               SEASONPACKARR__CLIENTS_DEFAULT_PREIMPORTPATH: /media/downloads/qbittorrent/complete/sonarr
-              TZ: America/Chicago
+              TZ: America/New_York
             probes:
               liveness: &probes
                 enabled: true
