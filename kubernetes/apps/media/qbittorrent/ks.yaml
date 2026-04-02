@@ -6,13 +6,13 @@ metadata:
   name: qbittorrent
 spec:
   components:
-    - ../../../../components/nfs-scaler
+    - ../../../../components/keda/nfs-scaler
     - ../../../../components/volsync
   dependsOn:
     - name: openebs
       namespace: openebs-system
   interval: 1h
-  path: ./kubernetes/apps/default/qbittorrent/app
+  path: ./kubernetes/apps/media/qbittorrent/app
   postBuild:
     substitute:
       APP: qbittorrent
