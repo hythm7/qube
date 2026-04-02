@@ -62,15 +62,15 @@ spec:
         type: nfs
         server: chthon.hythm.net
         path: /data/media
-      tmp:
+      tmpfs:
         type: emptyDir
-        #advancedMounts:
-        #  qbittorrent:
-        #    app:
-        #      - path: /config/qBittorrent/logs
-        #        subPath: logs
-        #      - path: /tmp
-        #        subPath: tmp
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /config/qBittorrent/logs
+                subPath: logs
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         hostnames:
