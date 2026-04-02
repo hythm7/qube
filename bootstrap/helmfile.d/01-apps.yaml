@@ -12,15 +12,23 @@ releases:
     values: ['./templates/values.yaml.gotmpl']
     hooks:
       - # Advertise Kubernetes VIP
+        command: bash
+        args:
+          - -c
+          - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
         events: ['postsync']
+        showlogs: true
+      - # Apply Cilium Resources
         command: kubectl
         args:
           - apply
-          - --server-side
           - --namespace=kube-system
+          - --server-side
           - --field-manager=kustomize-controller
           - --kustomize
           - ../../kubernetes/apps/kube-system/cilium/config
+        events:
+          - postsync
         showlogs: true
 
   - name: coredns
