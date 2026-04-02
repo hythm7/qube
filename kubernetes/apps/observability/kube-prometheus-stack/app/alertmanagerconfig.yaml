@@ -19,13 +19,6 @@ spec:
           - name: alertname
             matchType: =
             value: InfoInhibitor
-      - receiver: heartbeat
-        groupWait: 0s
-        repeatInterval: 2m30s
-        matchers:
-          - name: alertname
-            matchType: =
-            value: Watchdog
       - receiver: pushover
         matchers:
           - name: severity
