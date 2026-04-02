@@ -48,16 +48,6 @@ spec:
   receivers:
     - name: blackhole
 
-    - name: heartbeat
-      webhookConfigs:
-        - httpConfig:
-            bearerTokenSecret:
-              name: alertmanager-secret
-              key: BUDDY_HEARTBEAT_TOKEN
-          urlSecret:
-            name: alertmanager-secret
-            key: BUDDY_HEARTBEAT_URL
-
     - name: pushover
       pushoverConfigs:
         - html: true
