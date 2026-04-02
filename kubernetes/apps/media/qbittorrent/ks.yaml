@@ -6,7 +6,7 @@ metadata:
   name: qbittorrent
 spec:
   components:
-    - ../../../../components/keda/nfs-scaler
+    - ../../../../components/keda
     - ../../../../components/volsync
   dependsOn:
     - name: openebs
