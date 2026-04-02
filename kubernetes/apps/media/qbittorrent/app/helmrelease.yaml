@@ -63,7 +63,7 @@ spec:
         server: chthon.hythm.net
         path: /data/media
       #tmpfs:
-      tmpfs:
+      tmp:
         type: emptyDir
         advancedMounts:
           qbittorrent:
