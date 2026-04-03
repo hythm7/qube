@@ -18,7 +18,7 @@ _... managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Renovate](https://img.shields.io/github/actions/workflow/status/hythm7/qube/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge)](https://github.com/hythm7/qube/actions/workflows/renovate.yaml)
+[![Renovate](https://img.shields.io/github/actions/workflow/status/hythm7/qube/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&logo=githubactions)](https://github.com/hythm7/qube/actions/workflows/renovate.yaml)
 
 </div>
 
