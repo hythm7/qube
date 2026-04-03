@@ -15,5 +15,5 @@ resources:
   - ./prowlarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./seasonpackerr/ks.yaml
-  - ./jellyfin/ks.yaml
+#  - ./jellyfin/ks.yaml
   - ./seerr/ks.yaml
