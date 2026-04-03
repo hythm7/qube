@@ -14,7 +14,7 @@ spec:
     - name: openebs
       namespace: openebs-system
   interval: 1h
-  path: ./kubernetes/apps/meda/jellyfin/app
+  path: ./kubernetes/apps/media/jellyfin/app
   postBuild:
     substitute:
       APP: *app

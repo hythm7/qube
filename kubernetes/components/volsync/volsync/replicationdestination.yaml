@@ -35,5 +35,3 @@ spec:
             path: /data/backup/qube/kopia
             server: chthon.hythm.net
     repository: ${APP}-volsync-secret
-    sourceIdentity:
-      sourceName: ${APP}
