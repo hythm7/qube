@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/namespace
-resources: []
-#  - ./home-assistant/ks.yaml
-#  - ./thelounge/ks.yaml
+resources:
+  - ./home-assistant/ks.yaml
+  - ./thelounge/ks.yaml
