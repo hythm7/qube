@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: radarr
+  name: jellyfin
 spec:
   chartRef:
     kind: OCIRepository
@@ -11,49 +11,48 @@ spec:
   interval: 1h
   values:
     controllers:
-      radarr:
-        annotations:
-          reloader.stakater.com/auto: "true"
+      jellyfin:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 6.1.2.10359@sha256:9967e56263a3c67eeaede5824103ee4c1c1f1511abd5965ac1e294bfd9b76dbb
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.11.6@sha256:25db4eb10143c1c12adb79ed978e31d94fc98dc499fbae2d38b2c935089ced3e
             env:
-              RADARR__APP__INSTANCENAME: Radarr
-              RADARR__APP__THEME: dark
-              RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 80
-              RADARR__UPDATE__BRANCH: develop
               TZ: America/New_York
-            envFrom:
-              - secretRef:
-                  name: "{{ .Release.Name }}-secret"
+              JELLYFIN_PublishedServerUrl: https://jellyfin.hythm.net
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
-                    port: *port
+                    path: /health
+                    port: &port 8096
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 5
+                  timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 4Gi
+              startup:
+                enabled: true
+                spec:
+                  periodSeconds: 10
+                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: {drop: ["ALL"]}
+            resources:
+              claims:
+                - name: gpu
+              requests:
+                cpu: 100m
+              limits:
+                memory: 16Gi
     defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -67,13 +66,17 @@ spec:
         type: nfs
         server: chthon.hythm.net
         path: /data/media
+        globalMounts:
+            readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
-          radarr:
+          jellyfin:
             app:
-              - path: /config/logs
-                subPath: logs
+              - path: /cache
+                subPath: cache
+              - path: /config/log
+                subPath: log
               - path: /tmp
                 subPath: tmp
     route:
@@ -81,10 +84,11 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.hythm.net"
         parentRefs:
-          - name: envoy-internal
-            namespace: networking
+          - name: envoy-external
+            namespace: network
     service:
       app:
         ports:
           http:
             port: *port
+

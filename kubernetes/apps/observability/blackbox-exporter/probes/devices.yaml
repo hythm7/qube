@@ -11,7 +11,5 @@ spec:
     staticConfig:
       static:
         - slipgate.hythm.net
-        - quad.internal
+        - quad.hythm.net
         - chthon.hythm.net
-        #- ups.internal
-        #- zigbee-controller.internal
