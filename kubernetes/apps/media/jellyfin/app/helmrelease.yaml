@@ -59,8 +59,6 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-        globalMounts:
-          - path: /app/config
       media:
         type: nfs
         server: chthon.hythm.net
