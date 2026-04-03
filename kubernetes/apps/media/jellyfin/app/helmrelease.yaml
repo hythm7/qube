@@ -87,7 +87,10 @@ spec:
           - "{{ .Release.Name }}.hythm.net"
         parentRefs:
           - name: envoy-external
-            namespace: network
+            namespace: networking
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            url: https://{{ .Release.Name }}.hythm.net/api/v1/status
     service:
       app:
         ports:
