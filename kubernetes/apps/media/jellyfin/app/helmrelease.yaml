@@ -44,8 +44,8 @@ spec:
                 cpu: 100m
               limits:
                 memory: 16Gi
-              #claims:
-              #  - name: gpu
+              claims:
+                - name: gpu
     defaultPodOptions:
       resourceClaims:
         - name: gpu
