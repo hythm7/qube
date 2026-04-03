@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
@@ -11,6 +12,7 @@ spec:
   ref:
     tag: 4.6.2
   url: oci://ghcr.io/bjw-s-labs/helm/app-template
+
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
