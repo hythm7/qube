@@ -10,21 +10,15 @@ _... managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
+[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=brown&label=%20)](https://talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
-[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
+[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=yellow&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
 </div>
 
 <div align="center">
 
-[![Renovate](https://img.shields.io/github/actions/workflow/status/hythm7/qube/renovate.yaml?branch=main&label=&logo=githubactions&style=for-the-badge&logoColor=white)](https://github.com/hythm7/qube/actions/workflows/renovate.yaml)
-
-</div>
-
-<div align="center">
-
-[![Home-Internet](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.hythm.net%2Fapi%2Fv1%2Fendpoints%2Fconnectivity_cloudflare%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=opnsense&logoColor=white&label=Home%20Internet)](https://status.hythm.net)&nbsp;&nbsp;
+[![Renovate](https://img.shields.io/github/actions/workflow/status/hythm7/qube/renovate.yaml?branch=main&label=&logo=githubactions&style=for-the-badge&logoColor=white&color=blue)](https://github.com/hythm7/qube/actions/workflows/renovate.yaml)
 
 </div>
 
