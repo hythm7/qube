@@ -6,4 +6,4 @@ components:
   - ../../components/namespace
 resources:
   - ./home-assistant/ks.yaml
-#  - ./thelounge/ks.yaml
+  - ./thelounge/ks.yaml
