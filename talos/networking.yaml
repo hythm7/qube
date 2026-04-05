@@ -42,9 +42,9 @@ parent: bond0
 mtu: 1500
 #mtu: 9000
 
----
-apiVersion: v1alpha1
-kind: DHCPv4Config
-name: bond0
-clientIdentifier: mac
-
+#---
+#apiVersion: v1alpha1
+#kind: DHCPv4Config
+#name: bond0
+#clientIdentifier: mac
+#
