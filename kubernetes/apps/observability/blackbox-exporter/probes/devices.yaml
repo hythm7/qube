@@ -10,5 +10,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - quad.hythm.net
         - chthon.hythm.net
+        - shambler.hythm.net
