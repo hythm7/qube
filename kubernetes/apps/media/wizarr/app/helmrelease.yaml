@@ -51,6 +51,13 @@ spec:
           wizarr:
             app:
               - path: /.cache
+                subPath: cache
+              - path: /etc/wizarr/wizard_steps
+                subPath: wizarr
+              - path: /opt/default_wizard_steps
+                subPath: default
+              - path: /tmp
+                subPath: tmp
     route:
       app:
         annotations:
