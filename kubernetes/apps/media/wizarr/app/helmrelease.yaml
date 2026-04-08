@@ -44,20 +44,13 @@ spec:
       config:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /data/database
+          - path: /data/databases
       tmpfs:
         type: emptyDir
         advancedMounts:
           wizarr:
             app:
               - path: /.cache
-                subPath: cache
-              - path: /etc/wizarr/wizard_steps
-                subPath: wizarr
-              - path: /opt/default_wizard_steps
-                subPath: default
-              - path: /tmp
-                subPath: tmp
     route:
       app:
         annotations:
