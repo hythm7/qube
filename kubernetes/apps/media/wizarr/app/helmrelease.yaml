@@ -95,7 +95,7 @@ spec:
             env:
               TZ: America/Edmonton
               PUID: &uid 1000
-              PGID: &gid 1000
+              PGID: &gid 100
             resources:
               requests:
                 cpu: 15m
