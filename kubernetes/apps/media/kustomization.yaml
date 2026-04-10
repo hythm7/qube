@@ -17,4 +17,4 @@ resources:
   - ./seasonpackerr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./seerr/ks.yaml
-  #- ./wizarr/ks.yaml
+  - ./wizarr/ks.yaml
