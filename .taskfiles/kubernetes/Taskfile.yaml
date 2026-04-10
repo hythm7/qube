@@ -49,3 +49,32 @@ tasks:
         cmd: kubectl delete pods --all-namespaces --field-selector status.phase={{.ITEM.PHASE}} --ignore-not-found=true
     preconditions:
       - which kubectl
+
+  logs:
+    desc: App logs [NS={{.NS}}] [APP=required]
+    ignore_error: true
+    cmd: kubectl --namespace {{.NS}} logs --tail -1 --follow --selector="app.kubernetes.io/name={{.APP}}"
+    vars:
+      NS: '{{.NS | default "media"}}'
+    requires:
+      vars: [APP]
+    preconditions:
+      - which kubectl
+
+  pods:
+    desc: kubectl pods [NS={{.NS}}
+    ignore_error: true
+    cmd: kubectl get pods --watch {{if .NS}}-n {{.NS}}{{else}}--all-namespaces{{end}}
+    vars:
+      NS: '{{.NS}}'
+    preconditions:
+      - which kubectl
+
+  events:
+    desc: kubectl events
+    ignore_error: true
+    cmd: kubectl get events --watch {{if .NS}}-n {{.NS}}{{else}}--all-namespaces{{end}}
+    vars:
+      NS: '{{.NS}}'
+    preconditions:
+      - which kubectl
