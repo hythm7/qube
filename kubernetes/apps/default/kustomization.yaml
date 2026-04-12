@@ -7,3 +7,4 @@ components:
 resources:
   - ./home-assistant/ks.yaml
   - ./thelounge/ks.yaml
+  - ./immich/ks.yaml
