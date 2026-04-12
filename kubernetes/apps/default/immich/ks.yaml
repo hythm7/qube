@@ -16,7 +16,7 @@ spec:
       namespace: database
     - name: dragonfly
       namespace: database
-    - name: onepassword-connector
+    - name: onepassword-connect
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/default/immich/app
