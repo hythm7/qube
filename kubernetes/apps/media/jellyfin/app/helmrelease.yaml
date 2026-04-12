@@ -66,8 +66,8 @@ spec:
     persistence:
       config:
         existingClaim: "{{ .Release.Name }}"
-     transcode:
-          type: emptyDir
+      transcode:
+        type: emptyDir
       media:
         type: nfs
         path: /data/@media
