@@ -47,5 +47,5 @@ spec:
           volumes:
             - name: backups
               nfs:
-                path: /var/nfs/shared/cluster/apps/postgres-backup-local
-                server: nebula.chestr.dev
+                path: /data/backup/postgres
+                server: chthon.hythm.net

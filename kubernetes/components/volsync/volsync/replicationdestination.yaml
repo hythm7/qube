@@ -32,6 +32,6 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /data/backup/qube/kopia
+            path: /data/backup/kopia
             server: chthon.hythm.net
     repository: ${APP}-volsync-secret
