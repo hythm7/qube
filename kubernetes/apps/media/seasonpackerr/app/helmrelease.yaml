@@ -62,8 +62,8 @@ spec:
     persistence:
       media:
         type: nfs
+        path: /data/@media
         server: chthon.hythm.net
-        path: /data/media
       tmp:
         type: emptyDir
     service:

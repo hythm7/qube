@@ -21,7 +21,7 @@ spec:
       - mountPath: repository
         volumeSource:
           nfs:
-            path: /data/backup/kopia
+            path: /data/@backup/kopia
             server: chthon.hythm.net
     parallelism: 2
     repository: ${APP}-volsync-secret

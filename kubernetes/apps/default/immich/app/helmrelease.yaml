@@ -134,6 +134,6 @@ spec:
         enabled: true
         type: nfs
         server: chthon.hythm.net
-        path: /data/media
+        path: /data/@apps/immich
         globalMounts:
           - path: /usr/src/app/upload

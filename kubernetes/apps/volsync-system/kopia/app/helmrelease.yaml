@@ -66,7 +66,7 @@ spec:
             subPath: repository.config
       repository:
         type: nfs
-        path: /data/backup/kopia
+        path: /data/@backup/kopia
         server: chthon.hythm.net
       tmpfs:
         type: emptyDir

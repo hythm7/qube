@@ -63,8 +63,8 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
+        path: /data/@media
         server: chthon.hythm.net
-        path: /data/media
     route:
       app:
         hostnames:

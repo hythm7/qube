@@ -54,8 +54,8 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
+        path: /data/@media
         server: chthon.hythm.net
-        path: /data/media
       tmpfs:
         type: emptyDir
         advancedMounts:

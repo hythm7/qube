@@ -47,5 +47,5 @@ spec:
           volumes:
             - name: backups
               nfs:
-                path: /data/backup/postgres
+                path: /data/@backup/postgres
                 server: chthon.hythm.net
