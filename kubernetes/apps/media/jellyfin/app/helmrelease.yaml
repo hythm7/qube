@@ -17,6 +17,13 @@ spec:
             image:
               repository: ghcr.io/jellyfin/jellyfin
               tag: 10.11.8@sha256:93227545077893cc9516f28b3adb733b67bc4691f41b6167428a2a0e3220b81c
+            env:
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              JELLYFIN_FFmpeg__probesize: 50000000
+              JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_PublishedServerUrl: https://play.hythm.net
+              TZ: America/New_York
+
             probes:
               liveness: &probes
                 enabled: true
@@ -85,6 +92,7 @@ spec:
             url: https://{{ .Release.Name }}.hythm.net/health
         hostnames:
           - "{{ .Release.Name }}.hythm.net"
+          - "play.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking
@@ -97,3 +105,8 @@ spec:
         ports:
           http:
             port: *port
+          discovery:
+            port: &discoveryPort 7359
+            protocol: UDP
+            targetPort: *discoveryPort
+
