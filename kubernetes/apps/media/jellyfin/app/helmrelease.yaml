@@ -105,8 +105,8 @@ spec:
         ports:
           http:
             port: *port
-          discovery:
-            port: &discoveryPort 7359
-            protocol: UDP
-            targetPort: *discoveryPort
+          #discovery:
+          #  port: &discoveryPort 7359
+          #  protocol: UDP
+          #  targetPort: *discoveryPort
 
