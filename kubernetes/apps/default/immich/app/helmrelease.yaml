@@ -116,7 +116,6 @@ spec:
       app:
         hostnames:
           - photos.hythm.net
-          - personal.hythm.net
           - "{{ .Release.Name }}.hythm.net"
         annotations:
         annotations:
