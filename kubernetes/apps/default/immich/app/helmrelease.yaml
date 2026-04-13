@@ -21,9 +21,9 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: immich
+      #resourceClaims:
+      #  - name: gpu
+      #    resourceClaimTemplateName: immich
       automountServiceAccountToken: false
       enableServiceLinks: false
 
