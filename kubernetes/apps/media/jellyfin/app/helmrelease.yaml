@@ -70,7 +70,7 @@ spec:
         type: emptyDir
       media:
         type: nfs
-        path: "/data/@media"
+        path: /data/@media
         server: chthon.hythm.net
         globalMounts:
           - readOnly: true
