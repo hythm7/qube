@@ -21,9 +21,9 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: immich
+      #resourceClaims:
+      #  - name: gpu
+      #    resourceClaimTemplateName: immich
       automountServiceAccountToken: false
       enableServiceLinks: false
 
@@ -78,13 +78,12 @@ spec:
               - configMapRef:
                   name: immich-configmap
             resources: &resources
-              claims:
-                - name: gpu
               requests: &requests
                 cpu: 100m
                 memory: 250Mi
               limits:
                 memory: 4Gi
+                amd.com/gpu: 1
 
       machine-learning:
         annotations:

@@ -6,4 +6,4 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
 #  - ./vmrule.yaml
-  - ./resourceclaimtemplate.yaml
+#  - ./resourceclaimtemplate.yaml
