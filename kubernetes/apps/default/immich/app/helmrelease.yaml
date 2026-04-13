@@ -86,19 +86,19 @@ spec:
               limits:
                 memory: 4Gi
 
-      machine-learning:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v2.7.3
-            envFrom: *envFrom
-            resources:
-              requests: *requests
-              limits:
-                memory: 8Gi
+      #machine-learning:
+      #  annotations:
+      #    reloader.stakater.com/auto: "true"
+      #  containers:
+      #    app:
+      #      image:
+      #        repository: ghcr.io/immich-app/immich-machine-learning
+      #        tag: v2.7.3
+      #      envFrom: *envFrom
+      #      resources:
+      #        requests: *requests
+      #        limits:
+      #          memory: 8Gi
 
     service:
       immich:
