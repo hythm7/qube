@@ -2,10 +2,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres17
+  name: postgres
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  imageName: ghcr.io/cloudnative-pg/postgresql:18
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
   storage:
@@ -43,7 +43,7 @@ spec:
       endpointURL: https://2f426071712d0a81525d59ac8b12f4bb.r2.cloudflarestorage.com
       # Note: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres17-v1
+      serverName: &currentCluster postgres18-v1
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -56,7 +56,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   # bootstrap:
   #   recovery:
-  #     source: &previousCluster postgres17-v1
+  #     source: &previousCluster postgres18-v1
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:
   #   - name: *previousCluster

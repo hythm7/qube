@@ -21,13 +21,13 @@ spec:
               - 65539
           containers:
             - name: *name
-              image: prodrigestivill/postgres-backup-local:17
+              image: prodrigestivill/postgres-backup-local:18
               imagePullPolicy: IfNotPresent
               command:
                 - /backup.sh
               env:
                 - name: POSTGRES_HOST
-                  value: ${CNPG_NAME:=postgres17}-rw.database.svc.cluster.local
+                  value: ${CNPG_NAME:=postgres}-rw.database.svc.cluster.local
                 - name: POSTGRES_DB
                   value: ${APP}
                 - name: POSTGRES_USER
