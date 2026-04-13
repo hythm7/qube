@@ -8,6 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: app-template
+    namespace: flux-system
   maxHistory: 2
   install:
     remediation:
@@ -54,7 +55,7 @@ spec:
               LLDAP_HTTP_PORT: &port 80
               LLDAP_HTTP_URL: https://lldap.hythm.net
               LLDAP_LDAP_PORT: &ldapPort 389
-              LLDAP_LDAP_BASE_DN: dc=home,dc=arpa
+              LLDAP_LDAP_BASE_DN: dc=hythm,dc=net
               LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.default.svc.cluster.local
               LLDAP_SMTP_OPTIONS__PORT: "25"
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
