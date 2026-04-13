@@ -47,10 +47,9 @@ spec:
               #  - name: gpu
               requests:
                 cpu: 100m
-                amd.com/gpu: 1
               limits:
                 memory: 8Gi
-                amd.com/gpu: 1
+                 gpu.amd.com: 1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
