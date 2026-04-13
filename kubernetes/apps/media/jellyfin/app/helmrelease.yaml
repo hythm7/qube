@@ -43,21 +43,20 @@ spec:
                   periodSeconds: 10
                   failureThreshold: 30
             resources:
-              #claims:
-              #  - name: gpu
+              claims:
+                - name: gpu
               requests:
                 cpu: 100m
               limits:
                 memory: 8Gi
-                amd.com/gpu: 1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
-      #resourceClaims:
-      #  - name: gpu
-      #    resourceClaimTemplateName: jellyfin
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
@@ -85,6 +84,19 @@ spec:
               - path: /config/log
                 subPath: log
               - path: /tmp
+
+    rawResources:
+      gpu:
+        apiVersion: resource.k8s.io/v1
+        kind: ResourceClaimTemplate
+        spec:
+          spec:
+            spec:
+              devices:
+                requests:
+                  - name: gpu
+                    exactly:
+                      deviceClassName: gpu.amd.com
                 subPath: tmp
     route:
       app:
