@@ -6,6 +6,6 @@ components:
   - ../../components/namespace
 resources:
   - ./lldap/ks.yaml
-  - ./immich/ks.yaml
+#  - ./immich/ks.yaml
   - ./home-assistant/ks.yaml
   - ./thelounge/ks.yaml
