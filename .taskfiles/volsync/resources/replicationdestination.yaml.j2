@@ -12,6 +12,7 @@ spec:
     sourceIdentity:
       sourceName: {{ ENV.APP }}
     destinationPVC: {{ ENV.CLAIM }}
+    previous: {{ ENV.PREVIOUS }}
     copyMethod: Direct
     storageClassName: {{ ENV.STORAGE_CLASS_NAME }}
     accessModes: {{ ENV.ACCESS_MODES }}

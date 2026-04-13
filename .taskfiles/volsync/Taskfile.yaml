@@ -39,7 +39,7 @@ tasks:
       - which kubectl
 
   restore:
-    desc: Restore an app [NS={{.NS}}] [APP=required]
+    desc: Restore an app [NS={{.NS}}] [APP=required] [PREVIOUS=required]
     cmds:
       # Suspend
       - flux --namespace {{.NS}} suspend kustomization {{.APP}}
@@ -66,6 +66,7 @@ tasks:
     env:
       NS: '{{.NS}}'
       APP: '{{.APP}}'
+      PREVIOUS: '{{.PREVIOUS}}'
       CAPACITY:
         sh: kubectl --namespace {{.NS}} get pvc/{{.APP}} --output=jsonpath='{.status.capacity.storage}'
       CLAIM:
@@ -79,7 +80,7 @@ tasks:
       PGID:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath='{.spec.kopia.moverSecurityContext.runAsGroup}'
     requires:
-      vars: [APP]
+      vars: [APP, PREVIOUS]
     preconditions:
       - kubectl --namespace {{.NS}} get kustomization {{.APP}}
       - kubectl --namespace {{.NS}} get helmrelease {{.APP}}
