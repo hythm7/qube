@@ -8,5 +8,5 @@ resources:
   - ./home-assistant/ks.yaml
   - ./lldap/ks.yaml
   - ./thelounge/ks.yaml
-#  - ./immich/ks.yaml
+  - ./immich/ks.yaml
 #  - ./paperless/ks.yaml
