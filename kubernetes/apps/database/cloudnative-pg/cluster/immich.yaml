@@ -13,15 +13,15 @@ spec:
     size: 20Gi
     storageClass: openebs-hostpath
   bootstrap:
-    initdb:
-      postInitSQL:
-        - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+    #initdb:
+    #  postInitSQL:
+    #    - CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
   postgresql:
-    shared_preload_libraries:
-      - vchord.so
+    #shared_preload_libraries:
+    #  - vchord.so
     parameters:
       max_connections: "400"
       shared_buffers: 256MB
