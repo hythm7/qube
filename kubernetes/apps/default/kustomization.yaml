@@ -6,6 +6,7 @@ components:
   - ../../components/namespace
 resources:
   - ./lldap/ks.yaml
+  - ./authelia/ks.yaml
 #  - ./immich/ks.yaml
   - ./home-assistant/ks.yaml
   - ./paperless/ks.yaml
