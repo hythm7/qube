@@ -39,7 +39,7 @@ spec:
               tag: "18"
             envFrom:
               - secretRef:
-                  name: immich-initdb-secret
+                  name: postgres-initdb-secret
 
         containers:
           app:
