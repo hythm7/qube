@@ -5,5 +5,4 @@ resources:
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./resourceclaimtemplate.yaml
 #  - ./vmrule.yaml
