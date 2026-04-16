@@ -18,7 +18,7 @@ _... managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Renovate](https://img.shields.io/github/actions/workflow/status/hythm7/qube/renovate.yaml?branch=main&label=&logo=githubactions&style=for-the-badge&logoColor=white)](https://github.com/hythm7/qube/actions/workflows/renovate.yaml)
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=for-the-badge&logoColor=white)](https://github.com/kashalls/kromgo)
 
 </div>
 
@@ -30,7 +30,7 @@ _... managed with Flux, Renovate, and GitHub Actions_
 [![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_pod_count&style=flat-square&label=Pods&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_cpu_usage&style=flat-square&label=CPU&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_memory_usage&style=flat-square&label=Memory&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=flat-square&label=Alerts&color=blue)](https://github.com/kashalls/kromgo)
+
 
 </div>
 
