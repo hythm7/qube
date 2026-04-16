@@ -18,12 +18,6 @@ _... managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=for-the-badge&logoColor=white)](https://github.com/kashalls/kromgo)
-
-</div>
-
-<div align="center">
-
 [![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_age_days&style=flat-square&label=Age&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_uptime_days&style=flat-square&label=Uptime&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_node_count&style=flat-square&label=Nodes&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
@@ -31,6 +25,11 @@ _... managed with Flux, Renovate, and GitHub Actions_
 [![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_cpu_usage&style=flat-square&label=CPU&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_memory_usage&style=flat-square&label=Memory&color=blue)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 
+</div>
+
+<div align="center">
+
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=for-the-badge&logoColor=white)](https://github.com/kashalls/kromgo)
 
 </div>
 
