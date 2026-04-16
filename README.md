@@ -29,7 +29,7 @@ _... managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=for-the-badge&logoColor=white)](https://github.com/kashalls/kromgo)
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.hythm.net%2Fcluster_alert_count&style=flat-square&logoColor=white)](https://github.com/kashalls/kromgo)
 
 </div>
 
