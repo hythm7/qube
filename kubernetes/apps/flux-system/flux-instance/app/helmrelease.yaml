@@ -38,8 +38,9 @@ spec:
         #pullSecret: github-deploy-key
         url: https://github.com/hythm7/qube
         provider: github
-        secretRef:
-          name: github-app-auth
+        pullSecret: github-app-auth
+        #secretRef:
+        #  name: github-app-auth
         ref: refs/heads/main
         path: ./kubernetes/flux/cluster
         interval: 1h
