@@ -43,7 +43,7 @@ metadata:
   name: github-app-auth
   namespace: flux-system
 type: Opaque
-data:
+stringData:
   # Base64 encoded App ID
   githubAppID: op://kubernetes/flux/FLUX_GITHUB_APP_ID
   # Base64 encoded Installation ID
