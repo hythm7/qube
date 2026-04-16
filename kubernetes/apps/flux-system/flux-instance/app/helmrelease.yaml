@@ -37,9 +37,9 @@ spec:
         #url: "ssh://git@github.com/hythm7/qube.git"
         #pullSecret: github-deploy-key
         url: https://github.com/hythm7/qube
-        provider: github
-        secretRef:
-          name: github-app-auth
+        #provider: github
+        #secretRef:
+        #  name: github-app-auth
         ref: refs/heads/main
         path: ./kubernetes/flux/cluster
         interval: 1h
