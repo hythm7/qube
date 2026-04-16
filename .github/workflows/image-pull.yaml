@@ -11,30 +11,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  generate-token:
-    runs-on: ubuntu-latest
-    outputs:
-      app_token: ${{ steps.get_token.outputs.token }}
-    steps:
-      - name: Create GitHub App Token
-        id: get_token
-        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
-        with:
-          client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-          skip-token-revoke: true 
   filter:
     name: Image Pull - Filter
     runs-on: ubuntu-latest
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        id: app-token
+        with:
+          client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Get Changed Files
         id: changed-files
         uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: kubernetes/**/*
-          token: ${{ needs.generate-token.outputs.app_token }}
+          token: ${{ steps.app-token.outputs.token }}
 
   extract:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -51,11 +46,18 @@ jobs:
       default: ${{ steps.extract.outputs.default }}
       pull: ${{ steps.extract.outputs.pull }}
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@1b10c78c7865c340bc4f6099eb2f838309f1e8c3 # v3.1.1
+        id: app-token
+        with:
+          client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ matrix.branch == 'default' && github.event.repository.default_branch || '' }}
-          token: ${{ needs.generate-token.outputs.app_token }}
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Gather Images
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
