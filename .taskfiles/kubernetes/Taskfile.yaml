@@ -3,6 +3,17 @@ version: '3'
 
 tasks:
 
+  hr:restart:
+    desc: Restart all failed Helm Releases
+    cmds:
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux suspend hr $0 -n $1'
+      - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux resume hr $0 -n $1 &'
+
+  reconcile:
+    desc: Force update Flux to pull in changes from your Git repository
+    cmds:
+      - flux reconcile source git flux-system {{.CLI_ARGS | default "-n flux-system"}}
+
   browse-pvc:
     desc: Mount a PVC to an temp container [NS={{.NS}}] [CLAIM=required]
     interactive: true
