@@ -37,7 +37,7 @@ spec:
         #url: "ssh://git@github.com/hythm7/qube.git"
         #pullSecret: github-deploy-key
         url: https://github.com/hythm7/qube
-        #provider: github
+        provider: github
         pullSecret: github-app-auth
         #secretRef:
         #  name: github-app-auth
