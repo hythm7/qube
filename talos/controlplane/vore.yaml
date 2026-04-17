@@ -1,0 +1,26 @@
+---
+machine:
+  install:
+    diskSelector:
+      serial: 2538533351EB
+
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: vore.kube.internal
+
+--- 
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  maxSize: 100GiB
+    
+---   
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+provisioning:
+  diskSelector:
+    match: system_disk
+  minSize: 100GiB

@@ -1,0 +1,9 @@
+*.crt
+*.env
+*.iso
+*.key
+
+/.task/
+
+kubeconfig
+talosconfig

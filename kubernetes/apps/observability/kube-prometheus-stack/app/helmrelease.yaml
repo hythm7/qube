@@ -1,0 +1,89 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 83.5.0
+  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
+  interval: 1h
+  values:
+    cleanPrometheusOperatorObjectNames: true
+    alertmanager:
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - alertmanager.ahla.show
+          parentRefs:
+            - name: envoy-internal
+              namespace: networking
+      alertmanagerSpec:
+        externalUrl: https://alertmanager.ahla.show
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: openebs-hostpath
+              resources:
+                requests:
+                  storage: 1Gi
+    kubeEtcd:
+      service:
+        selector:
+          component: kube-apiserver # etcd runs on control plane nodes
+    kubeProxy:
+      enabled: false
+    prometheus:
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.ahla.show
+          parentRefs:
+            - name: envoy-internal
+              namespace: networking
+      prometheusSpec:
+        externalUrl: https://prometheus.ahla.show
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        retention: 14d
+        retentionSize: 50GB
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 4Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: openebs-hostpath
+              resources:
+                requests:
+                  storage: 50Gi
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+    grafana:
+      enabled: false

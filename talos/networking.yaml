@@ -1,0 +1,29 @@
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: mac(link.permanent_addr).startsWith("28:d2:44:fc:")
+
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond0
+links:
+  - net0
+bondMode: active-backup
+mtu: 1500
+
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: bond0
+clientIdentifier: mac
+
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: bond0.60
+vlanID: 60
+parent: bond0
+mtu: 1500
