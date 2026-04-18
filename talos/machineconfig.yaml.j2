@@ -94,6 +94,7 @@ cluster:
     {% endif %}
   clusterName: qube
   controlPlane:
+    # TODO: use kube.internal
     endpoint: https://qube.hythm.net:6443
   discovery:
     enabled: true
@@ -119,6 +120,7 @@ cluster:
     key: op://kubernetes/talos/CLUSTER_AGGREGATORCA_KEY
   allowSchedulingOnControlPlanes: true
   apiServer:
+    # TODO: use kube.internal
     certSANs:
       - qube.hythm.net
     extraArgs:

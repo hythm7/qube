@@ -147,7 +147,7 @@ spec:
       data:
         enabled: true
         type: nfs
-        server: chthon.hythm.net
+        server: chthon.internal
         path: /data/@apps/immich
         globalMounts:
           - path: /usr/src/app/upload

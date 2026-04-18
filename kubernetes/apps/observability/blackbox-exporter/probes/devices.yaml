@@ -10,5 +10,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.hythm.net
+        - chthon.internal
         - shambler.hythm.net

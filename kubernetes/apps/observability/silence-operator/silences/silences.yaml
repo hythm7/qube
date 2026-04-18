@@ -20,4 +20,4 @@ spec:
     - name: alertname
       value: NodeMemoryHighUtilization
     - name: instance
-      value: chthon.hythm.net:9100
+      value: chthon.internal:9100

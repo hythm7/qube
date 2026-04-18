@@ -10,4 +10,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.hythm.net:2049
+        - chthon.internal:2049

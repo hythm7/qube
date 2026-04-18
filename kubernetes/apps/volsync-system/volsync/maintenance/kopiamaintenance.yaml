@@ -10,7 +10,7 @@ spec:
       volumeSource:
         nfs:
           path: /data/@backup/kopia
-          server: chthon.hythm.net
+          server: chthon.internal
   repository:
     repository: volsync-maintenance-secret
   trigger:

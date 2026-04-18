@@ -6,7 +6,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - chthon.hythm.net:9100
+        - chthon.internal:9100
   metricsPath: /metrics
   relabelings:
     - action: replace
@@ -20,7 +20,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - chthon.hythm.net:9633
+        - chthon.internal:9633
   metricsPath: /metrics
   relabelings:
     - action: replace

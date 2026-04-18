@@ -63,7 +63,7 @@ spec:
       media:
         type: nfs
         path: /data/@media
-        server: chthon.hythm.net
+        server: chthon.internal
       tmp:
         type: emptyDir
     service:
