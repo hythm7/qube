@@ -67,7 +67,7 @@ spec:
       repository:
         type: nfs
         path: /data/@backup/kopia
-        server: chthon.ahla.show
+        server: chthon.internal
       tmpfs:
         type: emptyDir
         advancedMounts:

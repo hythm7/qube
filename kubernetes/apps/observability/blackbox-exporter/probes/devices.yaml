@@ -10,5 +10,5 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.ahla.show
+        - chthon.internal
         - shambler.ahla.show

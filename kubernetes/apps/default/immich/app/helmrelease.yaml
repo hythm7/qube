@@ -147,7 +147,7 @@ spec:
       data:
         enabled: true
         type: nfs
-        server: chthon.ahla.show
+        server: chthon.internal
         path: /data/@apps/immich
         globalMounts:
           - path: /usr/src/app/upload

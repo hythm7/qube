@@ -55,7 +55,7 @@ spec:
       media:
         type: nfs
         path: /data/@media
-        server: chthon.ahla.show
+        server: chthon.internal
       tmpfs:
         type: emptyDir
         advancedMounts:

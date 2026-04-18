@@ -33,5 +33,5 @@ spec:
         volumeSource:
           nfs:
             path: /data/@backup/kopia
-            server: chthon.ahla.show
+            server: chthon.internal
     repository: ${APP}-volsync-secret

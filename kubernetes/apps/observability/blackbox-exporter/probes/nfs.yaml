@@ -10,4 +10,4 @@ spec:
   targets:
     staticConfig:
       static:
-        - chthon.ahla.show:2049
+        - chthon.internal:2049

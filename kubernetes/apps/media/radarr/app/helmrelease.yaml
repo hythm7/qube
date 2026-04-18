@@ -65,7 +65,7 @@ spec:
         existingClaim: "{{ .Release.Name }}"
       media:
         type: nfs
-        server: chthon.ahla.show
+        server: chthon.internal
         path: /data/@media
       tmpfs:
         type: emptyDir

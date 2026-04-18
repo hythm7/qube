@@ -48,4 +48,4 @@ spec:
             - name: backups
               nfs:
                 path: /data/@backup/postgres
-                server: chthon.ahla.show
+                server: chthon.internal

@@ -3,7 +3,7 @@ apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: mac(link.permanent_addr).startsWith("28:d2:44:fc:")
+  match: mac(link.permanent_addr).startsWith("28:d2:44:fc:0b:c3")
 
 ---
 apiVersion: v1alpha1
