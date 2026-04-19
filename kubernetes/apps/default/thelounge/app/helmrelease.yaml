@@ -46,7 +46,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.hythm.net"
+          - "{{ .Release.Name }}.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
