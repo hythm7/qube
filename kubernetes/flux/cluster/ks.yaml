@@ -62,7 +62,7 @@ spec:
                     substituteFrom:
                       - name: cluster-secrets
                         kind: Secret
-                        optional: false
+                        optional: true
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
