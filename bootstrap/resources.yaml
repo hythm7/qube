@@ -11,7 +11,7 @@ metadata:
   name: onepassword-connect-credentials-secret
   namespace: external-secrets
 stringData:
-  1password-credentials.json: 'op://kubernetes/1password/OP_CREDENTIALS_JSON' # quote
+  1password-credentials.json: 'op://ahlanet/1password/OP_CREDENTIALS_JSON' # quote
 
 ---
 apiVersion: v1
@@ -20,7 +20,7 @@ metadata:
   name: onepassword-connect-vault-secret
   namespace: external-secrets
 stringData:
-  token: op://kubernetes/1password/OP_CONNECT_TOKEN
+  token: op://ahlanet/1password/OP_CONNECT_TOKEN
 
 ---
 apiVersion: v1
@@ -30,6 +30,6 @@ metadata:
   namespace: flux-system
 type: Opaque
 data:
-  githubAppID:             op://kubernetes/flux/FLUX_GITHUB_APP_ID
-  githubAppInstallationID: op://kubernetes/flux/FLUX_GITHUB_APP_INSTALLATION_ID
-  githubAppPrivateKey:     op://kubernetes/flux/FLUX_GITHUB_APP_PRIVATE_KEY
+  githubAppID:             op://ahlanet/flux/FLUX_GITHUB_APP_ID
+  githubAppInstallationID: op://ahlanet/flux/FLUX_GITHUB_APP_INSTALLATION_ID
+  githubAppPrivateKey:     op://ahlanet/flux/FLUX_GITHUB_APP_PRIVATE_KEY
