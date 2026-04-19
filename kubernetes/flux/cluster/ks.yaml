@@ -38,6 +38,10 @@ spec:
         metadata:
           name: _
         spec:
+          postBuild:
+            substituteFrom:
+              - name: cluster-secrets
+                kind: Secret
           deletionPolicy: WaitForTermination
           patches:
             - patch: |-

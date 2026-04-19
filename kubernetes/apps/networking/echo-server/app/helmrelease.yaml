@@ -57,7 +57,8 @@ spec:
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.hythm.net/healthz
         hostnames:
-          - "{{ .Release.Name }}.hythm.net"
+          #- "{{ .Release.Name }}.hythm.net"
+          - "{{ .Release.Name }}.${DOMAIN}"
           - echo.hythm.net
         parentRefs:
           - name: envoy-external
