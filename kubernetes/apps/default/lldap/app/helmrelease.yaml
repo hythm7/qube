@@ -94,8 +94,7 @@ spec:
 
     route:
       app:
-        #hostnames: ["{{ .Release.Name }}.hythm.net"]
-        hostnames: ["{{ .Release.Name }}.${DOMAIN}"]
+        hostnames: ["{{ .Release.Name }}.hythm.net"]
         annotations:
           gatus.home-operations.com/endpoint: |
             conditions:
