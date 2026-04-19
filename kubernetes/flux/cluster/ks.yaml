@@ -41,7 +41,7 @@ spec:
           deletionPolicy: WaitForTermination
           patches:
             - patch: |-
-                apiVersion: helm.toolkit.fluxcd.io/v1
+                apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
                   name: _
@@ -58,10 +58,10 @@ spec:
                     remediation:
                       remediateLastFailure: true
                       retries: 2
-                  postBuild:
-                    substituteFrom:
-                      - name: cluster-secrets
-                        kind: Secret
+                  #postBuild:
+                  #  substituteFrom:
+                  #    - name: cluster-secrets
+                  #      kind: Secret
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
