@@ -58,10 +58,6 @@ spec:
                     remediation:
                       remediateLastFailure: true
                       retries: 2
-                  #postBuild:
-                  #  substituteFrom:
-                  #    - name: cluster-secrets
-                  #      kind: Secret
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
