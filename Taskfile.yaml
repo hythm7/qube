@@ -19,6 +19,8 @@ includes:
   kubernetes: .taskfiles/kubernetes
   talos: .taskfiles/talos
   volsync: .taskfiles/volsync
+  github: .taskfiles/github
+  workstation: .taskfiles/workstation
 
 tasks:
 
