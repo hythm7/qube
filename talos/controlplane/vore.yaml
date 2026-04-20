@@ -2,12 +2,13 @@
 machine:
   install:
     diskSelector:
-      serial: 2538533351EB
+      model: SAMSUNG MZ7TE256
+      #serial: 2538533351EB
 
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
-hostname: vore.kube.internal
+hostname: vore
 
 --- 
 apiVersion: v1alpha1
