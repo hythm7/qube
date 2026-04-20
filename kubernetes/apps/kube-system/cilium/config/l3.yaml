@@ -35,7 +35,7 @@ spec:
       kubernetes.io/os: linux
   bgpInstances:
     - name: cilium
-      localASN: 64514
+      localASN: 64515
       peers:
         - name: slipgate
           peerASN: 64513
