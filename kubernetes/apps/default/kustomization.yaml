@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: default
 components:
   - ../../components/namespace
-resources: []
-#  - ./lldap/ks.yaml
+resources:
+  - ./lldap/ks.yaml
 #  - ./thelounge/ks.yaml
