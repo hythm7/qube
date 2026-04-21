@@ -32,8 +32,8 @@ spec:
               - --provider=cloudflare
               - --registry=txt
               - --source=gateway-httproute
-              - --txt-owner-id=k8s
-              - --txt-prefix=k8s.
+              - --txt-owner-id=kube
+              - --txt-prefix=kube.
               - --zone-id-filter=$(CF_ZONE_ID)
             envFrom:
               - secretRef:
