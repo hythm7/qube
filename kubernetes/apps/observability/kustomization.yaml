@@ -4,11 +4,11 @@ kind: Kustomization
 namespace: observability
 components:
   - ../../components/namespace
-resources: []
+resources:
 #  - ./kube-prometheus-stack/ks.yaml
 #  - ./blackbox-exporter/ks.yaml
 #  - ./fluent-bit/ks.yaml
-#  - ./gatus/ks.yaml
+  - ./gatus/ks.yaml
 #  - ./grafana/ks.yaml
 #  - ./karma/ks.yaml
 #  - ./keda/ks.yaml
