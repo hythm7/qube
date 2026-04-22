@@ -82,6 +82,8 @@ spec:
               storageClassName: openebs-hostpath
               resources:
                 requests:
+                  # TODO: update storage
+                  storage: 20Gi
                   storage: 50Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
