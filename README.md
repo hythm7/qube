@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="ahlanet-logo.png" align="center" width="175px" height="175px"/>
+<img src="ahla-logo.png" align="center" width="175px" height="175px"/>
 
 ### Home Lab
 
