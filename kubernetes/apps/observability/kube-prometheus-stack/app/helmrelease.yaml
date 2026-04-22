@@ -73,7 +73,9 @@ spec:
           requests:
             cpu: 100m
           limits:
-            memory: 4Gi
+            # TODO update memory
+            #memory: 4Gi
+            memory: 1Gi
         storageSpec:
           volumeClaimTemplate:
             spec:
