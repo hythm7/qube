@@ -23,7 +23,7 @@ spec:
   interval: 1h
   values:
     githubConfigUrl: https://github.com/ahlanet/ahla-show
-    githubConfigSecret: ahlanet-runner-secret
+    githubConfigSecret: ahla-runner-secret
     minRunners: 1
     maxRunners: 3
     containerMode:
