@@ -83,8 +83,8 @@ spec:
               resources:
                 requests:
                   # TODO: update storage
+                  #storage: 50Gi
                   storage: 20Gi
-                  storage: 50Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     kube-state-metrics:
