@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-secrets
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flux-system
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bitwarden-secrets-manager
+  namespace: external-secrets
+stringData:
+  token: {{ ENV.BITWARDEN_AHLA_TOKEN }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-app-auth
+  namespace: flux-system
+type: Opaque
+data:
+  githubAppID:             {{ ENV.BOT_APP_ID              }}
+  githubAppInstallationID: {{ ENV.BOT_APP_INSTALLATION_ID }}
+  githubAppPrivateKey:     {{ ENV.BOT_APP_PRIVATE_KEY     }}

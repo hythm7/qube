@@ -2,9 +2,9 @@
 version: v1alpha1
 machine:
   ca:
-    crt: op://ahlanet/talos/MACHINE_CA_CRT
+    crt: {{ MACHINE_CA_CRT }}
     {% if ENV.MACHINE_TYPE == 'controlplane' %}
-    key: op://ahlanet/talos/MACHINE_CA_KEY
+    key: {{ MACHINE_CA_KEY }}
     {% endif %}
   features:
     diskQuotaSupport: true
@@ -46,7 +46,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/9711553129d32ec9e7f32632d2bf4a4150ec41d7c17422453565512dc98dd6f7:v1.12.7
+    image: factory.talos.dev/metal-installer/48acbcaa63af1cb61470c66bfd7f3054f09f784dbda1c29fb132fb47440094dd:v1.12.7
   network:
     nameservers:
       - 192.168.30.1
@@ -86,13 +86,13 @@ machine:
     sunrpc.tcp_slot_table_entries: 128      # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128  # 10Gb/s | NFS
     user.max_user_namespaces: 11255         # User Namespaces
-  token: op://ahlanet/talos/MACHINE_TOKEN
+  token: {{ MACHINE_TOKEN }}
   type: {{ ENV.MACHINE_TYPE }}
 cluster:
   ca:
-    crt: op://ahlanet/talos/CLUSTER_CA_CRT
+    crt: {{ CLUSTER_CA_CRT }}
     {% if ENV.MACHINE_TYPE == 'controlplane' %}
-    key: op://ahlanet/talos/CLUSTER_CA_KEY
+    key: {{ CLUSTER_CA_KEY }}
     {% endif %}
   clusterName: kube
   controlPlane:
@@ -104,7 +104,7 @@ cluster:
         disabled: true
       service:
         disabled: false
-  id: op://ahlanet/talos/CLUSTER_ID
+  id: {{ CLUSTER_ID }}
   network:
     cni:
       name: none
@@ -113,12 +113,12 @@ cluster:
       - 10.244.0.0/16
     serviceSubnets:
       - 10.245.0.0/16
-  secret: op://ahlanet/talos/CLUSTER_SECRET
-  token: op://ahlanet/talos/CLUSTER_TOKEN
+  secret: {{ CLUSTER_SECRET }}
+  token: {{ CLUSTER_TOKEN }}
   {% if ENV.MACHINE_TYPE == 'controlplane' %}
   aggregatorCA:
-    crt: op://ahlanet/talos/CLUSTER_AGGREGATORCA_CRT
-    key: op://ahlanet/talos/CLUSTER_AGGREGATORCA_KEY
+    crt: {{ CLUSTER_AGGREGATORCA_CRT }}
+    key: {{ CLUSTER_AGGREGATORCA_KEY }}
   allowSchedulingOnControlPlanes: true
   apiServer:
     certSANs:
@@ -139,14 +139,14 @@ cluster:
     advertisedSubnets:
       - 192.168.30.0/24
     ca:
-      crt: op://ahlanet/talos/CLUSTER_ETCD_CA_CRT
-      key: op://ahlanet/talos/CLUSTER_ETCD_CA_KEY
+      crt: {{ CLUSTER_ETCD_CA_CRT }}
+      key: {{ CLUSTER_ETCD_CA_KEY }}
     extraArgs:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.0
-  secretboxEncryptionSecret: op://ahlanet/talos/CLUSTER_SECRETBOXENCRYPTIONSECRET
+  secretboxEncryptionSecret: {{ CLUSTER_SECRETBOXENCRYPTIONSECRET }}
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -169,7 +169,7 @@ cluster:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.0
   serviceAccount:
-    key: op://ahlanet/talos/CLUSTER_SERVICEACCOUNT_KEY
+    key: {{ CLUSTER_SERVICEACCOUNT_KEY }}
   {% endif %}
 
 

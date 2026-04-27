@@ -18,25 +18,49 @@ tasks:
       - which jq talosctl
 
   apps:
-    desc: Bootstrap Kubernetes Apps
+    desc: Bootstrap Kubernetes Apps  [BWS_ACCESS_TOKEN=required]
     prompt: Bootstrap Kubernetes Apps ...?
     cmds:
       - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
       - defer: talosctl kubeconfig --nodes {{.RANDOM_CONTROLLER}} --force {{.KUBERNETES_DIR}}
       - until kubectl wait nodes --for=condition=Ready=False --all --timeout=10m; do sleep 5; done
-      - op inject --in-file {{.BOOTSTRAP_DIR}}/resources.yaml | kubectl apply --server-side --filename -
+      - task: resources 
       - task: helmfile
     vars:
       CONTEXT:
         sh: talosctl config info --output json | jq --raw-output '.context'
       RANDOM_CONTROLLER:
         sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
     preconditions:
-      - op user get --me
       - talosctl config info
       - talosctl --nodes {{.RANDOM_CONTROLLER}} get machineconfig
-      - test -f {{.BOOTSTRAP_DIR}}/resources.yaml
-      - which jq kubectl op talosctl
+      - which jq kubectl bws talosctl
+
+  resources:
+    internal: true
+    desc: Apply resources [PROJECT_ID={{.PROJECT_ID}}] [BWS_ACCESS_TOKEN=required]
+    cmd: |-
+      minijinja-cli {{.BOOTSTRAP_DIR}}/resources.yaml.j2 | kubectl apply --server-side --filename -
+    vars:
+      PROJECT_ID: '{{.PROJECT_ID | default "8cfc9211-d42e-45af-a73f-1e52d95c417b"}}' 
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
+    env:
+      BITWARDEN_AHLA_TOKEN:
+        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get e129e466-b46e-4c6a-a4b0-2cda7a847e0e | jq -r '.value | fromjson .BITWARDEN_AHLA_TOKEN'
+      BOT_APP_ID:
+        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_ID'
+      BOT_APP_INSTALLATION_ID:
+        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
+      BOT_APP_PRIVATE_KEY:
+        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_PRIVATE_KEY'
+
+    preconditions:
+      - test -f {{.BOOTSTRAP_DIR}}/resources.yaml.j2
+      - BWS_ACCESS_TOKE={{.BWS_ACCESS_TOKEN}} bws project get {{.PROJECT_ID}}
+      - which bws minijinja-cli kubectl
 
   helmfile:
     internal: true
