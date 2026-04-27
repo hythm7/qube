@@ -17,7 +17,7 @@ spec:
       namespace: database
     - name: dragonfly
       namespace: database
-    - name: onepassword-connect
+    - name: external-secrets
       namespace: external-secrets
     - name: openebs
       namespace: openebs-system
