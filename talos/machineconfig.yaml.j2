@@ -46,7 +46,7 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/48acbcaa63af1cb61470c66bfd7f3054f09f784dbda1c29fb132fb47440094dd:v1.12.7
+    image: factory.talos.dev/metal-installer/48acbcaa63af1cb61470c66bfd7f3054f09f784dbda1c29fb132fb47440094dd:v1.13.0
   network:
     nameservers:
       - 192.168.30.1
@@ -125,8 +125,7 @@ cluster:
       - kube.internal
     extraArgs:
       enable-aggregator-routing: true
-      feature-gates: MutatingAdmissionPolicy=true
-      runtime-config: admissionregistration.k8s.io/v1beta1=true
+      feature-gates: HPAScaleToZero=true
     image: registry.k8s.io/kube-apiserver:v1.36.0
   controllerManager:
     extraArgs:
