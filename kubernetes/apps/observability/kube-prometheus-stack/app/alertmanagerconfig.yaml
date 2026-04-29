@@ -6,6 +6,7 @@ metadata:
 spec:
   route:
     receiver: pushover
+    repeatInterval: 12h
     groupBy:
       - alertname
       - cluster
@@ -40,7 +41,6 @@ spec:
 
   receivers:
     - name: blackhole
-
     - name: pushover
       pushoverConfigs:
         - html: true
@@ -63,7 +63,6 @@ spec:
                 </small>
               {{- end }}
             {{- end }}
-          monospace: false
           priority: |-
             {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
           sendResolved: true

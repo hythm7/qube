@@ -18,10 +18,6 @@
     ":timezone(America/New_York)",
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  suppressNotifications: [
-    "prEditedNotification",
-    "prIgnoreNotification",
-  ],
   ignorePaths: [
     "**/resources/**",
   ],
@@ -30,5 +26,8 @@
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+  },
+  registryAliases: {
+    "mirror.gcr.io": "docker.io",
   },
 }

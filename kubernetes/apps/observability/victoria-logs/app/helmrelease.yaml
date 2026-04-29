@@ -22,31 +22,26 @@ spec:
     name: victoria-logs
   interval: 1h
   values:
-    fullnameOverride: victoria-logs
+    global:
+      image:
+        registry: quay.io
+    dashboards:
+      enabled: true
+      grafanaOperator:
+        enabled: true
     server:
+      fullnameOverride: victoria-logs
       persistentVolume:
         enabled: true
         storageClassName: openebs-hostpath
         size: 20Gi
-      serviceMonitor:
-        enabled: true
-      retentionPeriod: 14d
+      retentionPeriod: 90d
       route:
         enabled: true
         hostnames:
-          - logs.ahla.show
+          - vlogs.ahla.show
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        extraRules:
-          - filters:
-              - type: RequestRedirect
-                requestRedirect:
-                  path:
-                    type: ReplaceFullPath
-                    replaceFullPath: /select/vmui/
-                  statusCode: 302
-            matches:
-              - path:
-                  type: Exact
-                  value: /
+      serviceMonitor:
+        enabled: true

@@ -6,12 +6,11 @@ components:
   - ../../components/namespace
 resources:
   - ./kube-prometheus-stack/ks.yaml
+  - ./prometheus-adapter/ks.yaml
   - ./blackbox-exporter/ks.yaml
-  - ./fluent-bit/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./karma/ks.yaml
-  - ./keda/ks.yaml
   - ./kromgo/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
