@@ -13,7 +13,6 @@ spec:
       - job
     groupWait: 1m
     groupInterval: 5m
-    repeatInterval: 12h
     routes:
       - receiver: blackhole
         matchers:
