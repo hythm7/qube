@@ -22,13 +22,39 @@ spec:
             - ahla.show
 
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: self-ca-issuer
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-selfsigned-ca
+spec:
+  isCA: true
+  commonName: home-selfsigned-ca
+  subject:
+    organizations:
+      - ahla.show
+  secretName: root-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: home-ca-issuer
   namespace: cert-manager
 spec:
   ca:
     secretName: root-secret
-
