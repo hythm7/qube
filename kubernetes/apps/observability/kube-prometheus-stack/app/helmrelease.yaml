@@ -87,3 +87,10 @@ spec:
       fullnameOverride: kube-state-metrics
     grafana:
       enabled: false
+      forceDeployDashboards: true
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        folder: observability
+        matchLabels:
+          dashboards: grafana
+

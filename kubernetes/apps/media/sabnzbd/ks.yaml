@@ -5,8 +5,8 @@ metadata:
   name: sabnzbd
 spec:
   components:
-    - ../../../../components/keda
     - ../../../../components/volsync
+    - ../../../../components/zeroscaler
   dependsOn:
     - name: openebs
       namespace: openebs-system

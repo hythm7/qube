@@ -4,9 +4,14 @@ kind: Kustomization
 metadata:
   name: seasonpackerr
 spec:
+  components:
+    - ../../../../components/zeroscaler
   interval: 1h
   path: ./kubernetes/apps/media/seasonpackerr/app
   prune: true
+  postBuild:
+    substitute:
+      APP: seasonpackerr
   sourceRef:
     kind: GitRepository
     name: flux-system
