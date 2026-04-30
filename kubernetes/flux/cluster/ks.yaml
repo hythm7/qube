@@ -41,7 +41,7 @@ spec:
       CLUSTER: main
     substituteFrom:
       - kind: Secret
-        name: cluster-secrets
+        name: ahla-secrets
 
   patches:
     - # Add Kustomization defaults for all child Kustomizations
@@ -83,7 +83,7 @@ spec:
             substitute:
               NFS_ADDR: "192.168.1.161"
             substituteFrom:
-              - name: cluster-secrets
+              - name: ahla-secrets
                 kind: Secret
                 optional: false
       target:
