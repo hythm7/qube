@@ -1,8 +1,8 @@
 ---
 ingress:
-  - hostname: "*.ahla.show"
+  - hostname: "*.${AHLA_DOMAIN}"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      originServerName: external.ahla.show
+      originServerName: "external.${AHLA_DOMAIN}"
   - service: http_status:404
