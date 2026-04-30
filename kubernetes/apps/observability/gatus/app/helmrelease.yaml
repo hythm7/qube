@@ -84,7 +84,8 @@ spec:
           gatus.home-operations.com/enabled: "false"
         hostnames:
           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
-          - status.ahla.show
+          - "status.${SECRET_DOMAIN}"
+          #- status.ahla.show
         parentRefs:
           - name: envoy-external
             namespace: networking
