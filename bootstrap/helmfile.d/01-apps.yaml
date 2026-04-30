@@ -50,22 +50,7 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - kube-system/coredns
-
-  - name: external-secrets
-    namespace: external-secrets
-    chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 2.4.1
-    values:
-      - ./templates/values.yaml.gotmpl
     hooks:
-      - # Wait for ExternalSecrets CRDs to be available
-        command: bash
-        args:
-          - -c
-          - until kubectl get crd clustersecretstores.external-secrets.io &>/dev/null; do sleep 5; done
-        events:
-          - postsync
-        showlogs: true
       - # Apply cert-manager ClusterIssuers (needed before bitwarden TLS cert can be issued)
         command: kubectl
         args:
@@ -77,6 +62,16 @@ releases:
         events:
           - postsync
         showlogs: true
+
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 2.4.1
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - cert-manager/cert-manager
+    hooks:
       - # Apply bitwarden SDK TLS certificate (issued by home-ca, required by ClusterSecretStore)
         command: kubectl
         args:
@@ -88,6 +83,7 @@ releases:
         events:
           - postsync
         showlogs: true
+
       - # Apply ClusterSecretStore (bitwarden secrets manager)
         command: kubectl
         args:
@@ -99,8 +95,6 @@ releases:
         events:
           - postsync
         showlogs: true
-    needs:
-      - cert-manager/cert-manager
 
 
   - name: flux-operator

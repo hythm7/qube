@@ -23,21 +23,12 @@ spec:
   interval: 1h
   values:
     leaderElect: true
-    installCRDs: true
-    image:
-      repository: ghcr.io/external-secrets/external-secrets
-    #webhook:
-    #  replicaCount: 2
-    webhook:
-      image:
-        repository: ghcr.io/external-secrets/external-secrets
-      serviceMonitor:
-        enabled: true
-        interval: 1m
     serviceMonitor:
       enabled: true
     grafanaDashboard:
       enabled: true
+    webhook:
+      replicaCount: 2
     bitwarden-sdk-server:
       enabled: true
       podAnnotations:
