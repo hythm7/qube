@@ -63,15 +63,6 @@ releases:
           - postsync
         showlogs: true
 
-  - name: external-secrets
-    namespace: external-secrets
-    chart: oci://ghcr.io/external-secrets/charts/external-secrets
-    version: 2.4.1
-    values:
-      - ./templates/values.yaml.gotmpl
-    needs:
-      - cert-manager/cert-manager
-    hooks:
       - # Apply bitwarden SDK TLS certificate (issued by home-ca, required by ClusterSecretStore)
         command: kubectl
         args:
@@ -84,6 +75,15 @@ releases:
           - postsync
         showlogs: true
 
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 2.4.1
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - cert-manager/cert-manager
+    hooks:
       - # Apply ClusterSecretStore (bitwarden secrets manager)
         command: kubectl
         args:
