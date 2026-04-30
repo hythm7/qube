@@ -57,8 +57,8 @@ spec:
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.${AHLA_DOMAIN}/healthz
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
-          - "echo.${AHLA_DOMAIN}"
+          - {{ .Release.Name }}.${AHLA_DOMAIN}
+          - echo.${AHLA_DOMAIN}
         parentRefs:
           - name: envoy-external
             namespace: networking
