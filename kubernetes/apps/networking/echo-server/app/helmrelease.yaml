@@ -55,7 +55,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.ahla.show/healthz
+            url: https://{{ .Release.Name }}.${AHLA_DOMAIN}/healthz
         hostnames:
           - "{{ .Release.Name }}.${AHLA_DOMAIN}"
           - "echo.${AHLA_DOMAIN}"
