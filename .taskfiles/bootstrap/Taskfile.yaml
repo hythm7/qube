@@ -56,6 +56,8 @@ tasks:
         sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
       BOT_APP_PRIVATE_KEY:
         sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_PRIVATE_KEY'
+      ahla:
+        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value'
 
     preconditions:
       - test -f {{.BOOTSTRAP_DIR}}/resources.yaml.j2

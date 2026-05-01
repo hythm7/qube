@@ -83,19 +83,18 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - cert-manager/cert-manager
-    #hooks:
-    #  - # Apply ClusterSecretStore (bitwarden secrets manager)
-    #    command: kubectl
-    #    args:
-    #      - apply
-    #      - --namespace=external-secrets
-    #      - --server-side
-    #      - --field-manager=kustomize-controller
-    #      - --filename=../../kubernetes/apps/external-secrets/external-secrets/app/clustersecretstore.yaml
-    #    events:
-    #      - postsync
-    #    showlogs: true
-
+    hooks:
+      - # Apply ClusterSecretStore (bitwarden secrets manager)
+        command: kubectl
+        args:
+          - apply
+          - --namespace=external-secrets
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename=../../kubernetes/apps/external-secrets/external-secrets/app/clustersecretstore.yaml
+        events:
+          - postsync
+        showlogs: true
 
   - name: flux-operator
     namespace: flux-system
