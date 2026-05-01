@@ -5,6 +5,6 @@ metadata:
   name: github
 spec:
   type: github
-  address: https://github.com/ahlanet/ahla-show
+  address: https://github.com/ahlanet/ahla
   secretRef:
     name: github-token-secret

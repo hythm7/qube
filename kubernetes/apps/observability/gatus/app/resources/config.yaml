@@ -38,7 +38,7 @@ ui:
     - name: Github
       link: https://github.com/ahlanet
     - name: Homelab
-      link: https://github.com/ahlanet/ahla-show
+      link: https://github.com/ahlanet/ahla
   default-sort-by: group
   header: Status
   link: https://github.com/ahlanet

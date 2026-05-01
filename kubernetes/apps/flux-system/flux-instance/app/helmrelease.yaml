@@ -34,7 +34,7 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/ahlanet/ahla-show
+        url: https://github.com/ahlanet/ahla
         provider: github
         pullSecret: github-app-auth
         ref: refs/heads/main

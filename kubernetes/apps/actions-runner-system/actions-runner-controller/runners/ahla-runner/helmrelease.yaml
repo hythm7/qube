@@ -22,7 +22,6 @@ spec:
     name: gha-runner-scale-set
   interval: 1h
   values:
-    #githubConfigUrl: https://github.com/ahlanet/ahla-show
     githubConfigUrl: https://github.com/ahlanet
     githubConfigSecret: ahla-runner-secret
     minRunners: 1
