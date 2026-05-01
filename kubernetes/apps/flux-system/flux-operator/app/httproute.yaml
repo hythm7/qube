@@ -5,7 +5,7 @@ metadata:
   name: flux
 spec:
   hostnames:
-    - flux.ahla.show
+    - "flux.${AHLA_DOMAIN}"
   parentRefs:
     - name: envoy-internal
       namespace: networking

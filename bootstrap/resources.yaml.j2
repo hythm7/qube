@@ -23,6 +23,19 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
+  name: ahla-secrets
+  namespace: flux-system
+#  labels:
+#    kustomize.toolkit.fluxcd.io/name: cluster-apps
+#    kustomize.toolkit.fluxcd.io/namespace: flux-system
+#    reconcile.external-secrets.io/managed: "true"
+stringData:
+  {{ ENV.ahla | indent(2) | safe }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
   name: github-app-auth
   namespace: flux-system
 type: Opaque
