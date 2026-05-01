@@ -19,7 +19,7 @@ spec:
               key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
-            - ahla.show
+            - ${AHLA_DOMAIN} 
 
 ---
 apiVersion: cert-manager.io/v1
@@ -39,7 +39,7 @@ spec:
   commonName: home-selfsigned-ca
   subject:
     organizations:
-      - ahla.show
+      - ${AHLA_DOMAIN} 
   secretName: root-secret
   privateKey:
     algorithm: ECDSA

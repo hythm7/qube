@@ -70,7 +70,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.show"
+          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

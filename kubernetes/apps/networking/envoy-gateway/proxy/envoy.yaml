@@ -48,7 +48,7 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.ahla.show
+    external-dns.alpha.kubernetes.io/target: &hostname external.${AHLA_DOMAIN}
     gatus.home-operations.com/endpoint: |-
       client:
         dns-resolver: tcp://1.1.1.1:53
@@ -75,14 +75,14 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: ahla-show-tls
+            name: ahla-domain-tls
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.ahla.show
+    external-dns.alpha.kubernetes.io/target: &hostname internal.${AHLA_DOMAIN}
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -105,7 +105,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: ahla-show-tls
+            name: ahla-domain-tls
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy

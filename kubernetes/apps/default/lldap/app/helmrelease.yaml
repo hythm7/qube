@@ -53,13 +53,13 @@ spec:
             env:
               TZ: America/New_York
               LLDAP_HTTP_PORT: &port 80
-              LLDAP_HTTP_URL: https://lldap.ahla.show
+              LLDAP_HTTP_URL: https://lldap.${AHLA_DOMAIN}
               LLDAP_LDAP_PORT: &ldapPort 389
-              LLDAP_LDAP_BASE_DN: dc=ahla,dc=show
+              LLDAP_LDAP_BASE_DN: ${AHLA_DOMAIN_COMPONENTS}
               LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.default.svc.cluster.local
               LLDAP_SMTP_OPTIONS__PORT: "25"
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
-              LLDAP_SMTP_OPTIONS__FROM: no-reply <no-reply@ahla.show>
+              LLDAP_SMTP_OPTIONS__FROM: no-reply <no-reply@${AHLA_DOMAIN}>
               LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: "true"
               LLDAP_DATABASE_URL:
                 valueFrom:
@@ -94,7 +94,8 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.ahla.show"]
+        hostnames:
+          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
         annotations:
           gatus.home-operations.com/endpoint: |
             conditions:

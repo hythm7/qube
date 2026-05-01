@@ -55,10 +55,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.ahla.show/health
+            url: https://{{ .Release.Name }}.${AHLA_DOMAIN}/health
         hostnames:
-          - "{{ .Release.Name }}.ahla.show"
-          - join.ahla.show
+          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
+          - "join.${AHLA_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

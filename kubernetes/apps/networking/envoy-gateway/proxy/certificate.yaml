@@ -2,11 +2,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ahla-show
+  name: ahla-domain
 spec:
   dnsNames:
-    - ahla.show
-    - "*.ahla.show"
+    - "${AHLA_DOMAIN}"
+    - "*.${AHLA_DOMAIN}"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -15,6 +15,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: ahla-show-tls
+  secretName: ahla-domain-tls
   usages:
     - digital signature
