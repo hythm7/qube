@@ -11,6 +11,7 @@ spec:
   ref:
     tag: 0.12.4
   url: oci://ghcr.io/victoriametrics/helm-charts/victoria-logs-single
+
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -45,3 +46,6 @@ spec:
             namespace: networking
       serviceMonitor:
         enabled: true
+    vector:
+      enabled: false
+
