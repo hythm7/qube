@@ -8,12 +8,6 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: networking
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
   name: external-secrets
 
 ---
@@ -37,15 +31,6 @@ metadata:
     reconcile.external-secrets.io/managed: "true"
 stringData:
   {{ ENV.AHLA_SECRETS | indent(2) | safe }}
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: cloudflare-secrets
-  namespace: networking
-stringData:
-  {{ ENV.CLOUDFLARE_SECRETS | indent(2) | safe }}
 
 ---
 apiVersion: v1

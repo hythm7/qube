@@ -52,8 +52,6 @@ tasks:
         sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get e129e466-b46e-4c6a-a4b0-2cda7a847e0e | jq -r '.value | fromjson .BITWARDEN_AHLA_TOKEN'
       AHLA_SECRETS:
         sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value'
-      CLOUDFLARE_SECRETS:
-        sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 4673b521-dcbf-48dd-a227-948d2e314716 | jq -r '.value'
       BOT_APP_ID:
         sh: BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_ID'
       BOT_APP_INSTALLATION_ID:
