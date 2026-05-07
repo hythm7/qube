@@ -38,7 +38,7 @@ spec:
               GATUS_DELAY_START_SECONDS: 5
               GATUS_WEB_PORT: &port 80
               GATUS_CONFIG_PATH: /config
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true
@@ -84,8 +84,8 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
-          - "status.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - "status.${DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

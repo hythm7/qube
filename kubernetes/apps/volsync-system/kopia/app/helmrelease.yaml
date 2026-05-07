@@ -25,7 +25,7 @@ spec:
             env:
               KOPIA_WEB_ENABLED: true
               KOPIA_WEB_PORT: &port 80
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: kopia-secret
@@ -83,7 +83,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

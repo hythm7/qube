@@ -20,7 +20,7 @@ spec:
             env:
               QBT_TORRENTING_PORT: &bittorrentPort 50413
               QBT_WEBUI_PORT: &port 80
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
             probes:
               liveness: &probes
                 enabled: true
@@ -81,8 +81,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
-          - "qb.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - "qb.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

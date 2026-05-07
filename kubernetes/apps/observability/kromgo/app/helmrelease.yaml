@@ -64,9 +64,9 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${AHLA_DOMAIN}/talos_version
+            url: https://{{ .Release.Name }}.${DOMAIN}/talos_version
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

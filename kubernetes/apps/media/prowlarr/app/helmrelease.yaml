@@ -27,7 +27,7 @@ spec:
               PROWLARR__LOG__LEVEL: info
               PROWLARR__SERVER__PORT: &port 80
               PROWLARR__UPDATE__BRANCH: develop
-              TZ: America/New_York
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -75,7 +75,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

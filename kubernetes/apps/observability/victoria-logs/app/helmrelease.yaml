@@ -40,7 +40,7 @@ spec:
       route:
         enabled: true
         hostnames:
-          - vlogs.${AHLA_DOMAIN}
+          - vlogs.${DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

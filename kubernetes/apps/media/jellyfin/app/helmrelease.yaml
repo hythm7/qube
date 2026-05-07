@@ -21,8 +21,8 @@ spec:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000
               JELLYFIN_FFmpeg__analyzeduration: 50000000
-              JELLYFIN_PublishedServerUrl: https://play.${AHLA_DOMAIN}
-              TZ: America/New_York
+              JELLYFIN_PublishedServerUrl: https://play.${DOMAIN}
+              TZ: ${TIMEZONE}
 
             probes:
               liveness: &probes
@@ -90,10 +90,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${AHLA_DOMAIN}/health
+            url: https://{{ .Release.Name }}.${DOMAIN}/health
         hostnames:
-          - "{{ .Release.Name }}.${AHLA_DOMAIN}"
-          - "play.${AHLA_DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - "play.${DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking
