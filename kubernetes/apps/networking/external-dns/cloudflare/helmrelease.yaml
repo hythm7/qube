@@ -33,7 +33,6 @@ spec:
               - --policy=sync
               - --provider=cloudflare
               - --registry=txt
-              - --source=crd
               - --source=gateway-httproute
               - --txt-owner-id=kube
               - --txt-prefix=kube.
