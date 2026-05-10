@@ -59,7 +59,7 @@ spec:
             group: ${DOMAIN}
             url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
             ---
-            name: "{{ .Release.Name }}.hythm.net"
+            name: "{{ .Release.Name }}2.hythm.net"
             group: hythm.net
             url: "https://{{ .Release.Name }}.hythm.net/healthz"
         hostnames:
