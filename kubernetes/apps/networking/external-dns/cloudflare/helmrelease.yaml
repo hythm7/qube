@@ -23,6 +23,7 @@ spec:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
               - --domain-filter=${DOMAIN}
+              - --domain-filter=hythm.net
               - --events
               - --gateway-name=envoy-external
               - --interval=1m
