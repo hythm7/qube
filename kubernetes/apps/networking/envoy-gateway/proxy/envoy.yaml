@@ -49,7 +49,7 @@ metadata:
   name: envoy-external
   annotations:
     #external-dns.alpha.kubernetes.io/target: &hostname external.${DOMAIN},external.hythm.net
-    external-dns.alpha.kubernetes.io/target: &hostname external.${DOMAIN}
+    external-dns.alpha.kubernetes.io/target: &hostname 2676fe29-2de4-4a2e-8f30-9f224d60a943.cfargotunnel.com
     gatus.home-operations.com/endpoint: |-
       client:
         dns-resolver: tcp://1.1.1.1:53
