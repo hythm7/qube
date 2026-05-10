@@ -67,6 +67,7 @@ spec:
             url: https://{{ .Release.Name }}.${DOMAIN}/talos_version
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
+          - "{{ .Release.Name }}.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking
