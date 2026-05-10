@@ -55,11 +55,11 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |
-            group: ${DOMAIN}
-            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
-            ---
             group: hythm.net
             url: "https://{{ .Release.Name }}.hythm.net/healthz"
+            ---
+            group: ${DOMAIN}
+            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
           - "{{ .Release.Name }}.hythm.net"
