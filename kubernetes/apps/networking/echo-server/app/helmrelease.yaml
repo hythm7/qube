@@ -54,11 +54,8 @@ spec:
     route:
       app:
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${DOMAIN},external.hythm.net"
-          external-dns.alpha.kubernetes.io/hostname: "external.${DOMAIN},external.hythm.net"
           gatus.home-operations.com/endpoint: |-
             url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
-            group: "${DOMAIN}"
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
           - "{{ .Release.Name }}.hythm.net"
