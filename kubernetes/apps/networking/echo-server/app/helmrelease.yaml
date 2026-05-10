@@ -54,8 +54,9 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/endpoint: |-
-            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz,https://{{ .Release.Name }}.hythm.net/healthz"
+          gatus.home-operations.com/endpoint:
+            - url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
+            - url: "https://{{ .Release.Name }}.hythm.net/healthz"
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
           - "{{ .Release.Name }}.hythm.net"
