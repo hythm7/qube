@@ -54,7 +54,7 @@ spec:
     route:
       app:
         annotations:
-          gatus.home-operations.com/endpoint:
+          gatus.home-operations.com/endpoint: |
             - name: test1
               url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
             - name: test2
