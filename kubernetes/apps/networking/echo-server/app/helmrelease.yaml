@@ -55,6 +55,7 @@ spec:
       app:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${DOMAIN}
+          external-dns.alpha.kubernetes.io/hostname: external.${DOMAIN}
           gatus.home-operations.com/endpoint: |-
             url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
             group: ${DOMAIN}
@@ -68,6 +69,7 @@ spec:
       app:
         annotations:
           external-dns.alpha.kubernetes.io/target: external.hythm.net
+          external-dns.alpha.kubernetes.io/hostname: external.hythm.net
           gatus.home-operations.com/endpoint: |-
             url: "https://{{ .Release.Name }}.hythm.net/healthz"
             group: hythm.net
