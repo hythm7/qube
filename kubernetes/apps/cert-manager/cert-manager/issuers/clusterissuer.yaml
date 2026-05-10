@@ -20,6 +20,7 @@ spec:
         selector:
           dnsZones:
             - ${DOMAIN} 
+            - hythm.net
 
 ---
 apiVersion: cert-manager.io/v1
@@ -40,6 +41,7 @@ spec:
   subject:
     organizations:
       - ${DOMAIN} 
+      - hythm.net
   secretName: root-secret
   privateKey:
     algorithm: ECDSA
