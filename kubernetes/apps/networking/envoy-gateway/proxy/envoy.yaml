@@ -106,6 +106,7 @@ spec:
   listeners:
     - name: ${DOMAIN}
       protocol: HTTPS
+      hostname: "*.${DOMAIN}"
       port: 443
       allowedRoutes:
         namespaces:
@@ -116,6 +117,7 @@ spec:
             name: ${DOMAIN/./-}-tls-secret
     - name: hythm.net
       protocol: HTTPS
+      hostname: "*.hythm.net"
       port: 443
       allowedRoutes:
         namespaces:
