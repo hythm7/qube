@@ -7,6 +7,8 @@ spec:
   dnsNames:
     - "${DOMAIN}"
     - "*.${DOMAIN}"
+    - "hythm.net"
+    - "*.hythm.net"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
