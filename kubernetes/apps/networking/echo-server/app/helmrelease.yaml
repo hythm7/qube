@@ -55,8 +55,6 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |
-            - name: test1
-              url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
             - name: test2
               url: "https://{{ .Release.Name }}.hythm.net/healthz"
         hostnames:
