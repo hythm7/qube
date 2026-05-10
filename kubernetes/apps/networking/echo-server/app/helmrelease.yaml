@@ -58,7 +58,9 @@ spec:
             url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
+          - "{{ .Release.Name }}.hythm.net"
           - "echo.${DOMAIN}"
+          - "echo.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking

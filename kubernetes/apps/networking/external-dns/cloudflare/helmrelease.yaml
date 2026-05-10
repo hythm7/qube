@@ -35,6 +35,7 @@ spec:
               - --txt-owner-id=kube
               - --txt-prefix=kube.
               - --zone-id-filter=$(CF_ZONE_ID)
+              - --zone-id-filter=560989daecebf43811f14a95f7757f8b
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
