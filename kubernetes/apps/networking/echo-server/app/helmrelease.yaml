@@ -54,12 +54,25 @@ spec:
     route:
       app:
         annotations:
+          external-dns.alpha.kubernetes.io/target: external.${DOMAIN}
           gatus.home-operations.com/endpoint: |-
-            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz,https://{{ .Release.Name }}.hythm.net/healthz"
+            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
+            group: ${DOMAIN}
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN}"
-          - "{{ .Release.Name }}.hythm.net"
           - "echo.${DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+    route:
+      app:
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.hythm.net
+          gatus.home-operations.com/endpoint: |-
+            url: "https://{{ .Release.Name }}.hythm.net/healthz"
+            group: hythm.net
+        hostnames:
+          - "{{ .Release.Name }}.hythm.net"
           - "echo.hythm.net"
         parentRefs:
           - name: envoy-external
