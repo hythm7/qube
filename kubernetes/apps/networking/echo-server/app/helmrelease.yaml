@@ -55,7 +55,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |
-            name: "{{ .Release.Name }}.${DOMAIN}"
+            name: "{{ .Release.Name }}1.${DOMAIN}"
             group: ${DOMAIN}
             url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
             ---
