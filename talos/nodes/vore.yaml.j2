@@ -1,21 +1,22 @@
 ---
 machine:
+  type: controlplane
   install:
     diskSelector:
-      model: SAMSUNG MZ7TE256
-      #serial: 2538533351EB
+      model: CT2000P310SSD8
+      serial: 2538533351EB
 
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
-hostname: vore
+hostname: vore.internal
 
 --- 
 apiVersion: v1alpha1
 kind: VolumeConfig
 name: EPHEMERAL
 provisioning:
-  maxSize: 100GiB
+  maxSize: 512GiB
     
 ---   
 apiVersion: v1alpha1
@@ -24,4 +25,4 @@ name: local-hostpath
 provisioning:
   diskSelector:
     match: system_disk
-  minSize: 100GiB
+  minSize: 1TB

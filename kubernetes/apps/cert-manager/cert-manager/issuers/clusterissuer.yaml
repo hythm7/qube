@@ -19,8 +19,8 @@ spec:
               key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
-            - ${DOMAIN} 
-            - hythm.net
+            - ${DOMAIN_MAIN} 
+            - ${DOMAIN_BACKUP} 
 
 ---
 apiVersion: cert-manager.io/v1
@@ -40,8 +40,8 @@ spec:
   commonName: home-selfsigned-ca
   subject:
     organizations:
-      - ${DOMAIN} 
-      - hythm.net
+      - ${DOMAIN_MAIN} 
+      - ${DOMAIN_BACKUP} 
   secretName: root-secret
   privateKey:
     algorithm: ECDSA

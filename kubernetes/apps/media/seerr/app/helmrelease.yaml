@@ -73,10 +73,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${DOMAIN}/api/v1/status
+            url: https://{{ .Release.Name }}.${DOMAIN_MAIN}/api/v1/status
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "requests.${DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "requests.${DOMAIN_MAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

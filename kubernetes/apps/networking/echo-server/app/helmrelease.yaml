@@ -55,12 +55,12 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |
-            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
+            url: "https://{{ .Release.Name }}.${DOMAIN_MAIN}/healthz"
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "{{ .Release.Name }}.hythm.net"
-          - "echo.${DOMAIN}"
-          - "echo.hythm.net"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
+          - "echo.${DOMAIN_MAIN}"
+          - "echo.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking

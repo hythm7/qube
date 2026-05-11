@@ -8,14 +8,13 @@ metadata:
       conditions: ["[STATUS] == 404"]
 spec:
   hostnames:
-    - "flux-webhook.${DOMAIN}"
+    - "flux-webhook.${DOMAIN_MAIN}"
   parentRefs:
     - name: envoy-external
       namespace: networking
   rules:
     - backendRefs:
         - name: webhook-receiver
-          namespace: flux-system
           port: 80
       matches:
         - path:

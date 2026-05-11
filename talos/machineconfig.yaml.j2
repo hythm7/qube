@@ -3,7 +3,7 @@ version: v1alpha1
 machine:
   ca:
     crt: {{ MACHINE_CA_CRT }}
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if ENV.CONTROLPLANE %}
     key: {{ MACHINE_CA_KEY }}
     {% endif %}
   features:
@@ -15,7 +15,7 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if ENV.CONTROLPLANE %}
     kubernetesTalosAPIAccess:
       enabled: true
       allowedKubernetesNamespaces:
@@ -46,10 +46,10 @@ machine:
         rsize=1048576
         wsize=1048576
   install:
-    image: factory.talos.dev/metal-installer/48acbcaa63af1cb61470c66bfd7f3054f09f784dbda1c29fb132fb47440094dd:v1.13.0
-  network:
-    nameservers:
-      - 192.168.30.1
+    image: factory.talos.dev/metal-installer/{{ ENV.SCHEMATIC }}:v1.13.0
+  #network:
+  #  nameservers:
+  #    - 192.168.10.1
   #kernel:
   #  modules:
   #    - name: nbd   # ceph
@@ -62,11 +62,10 @@ machine:
     # TODO: update based on nodes subnet
     nodeIP:
       validSubnets:
-        - 192.168.30.0/24
+        - 192.168.10.0/24
   nodeLabels:
-    node.kubernetes.io/gpu: "true"
     topology.kubernetes.io/region: kube
-    topology.kubernetes.io/zone: {{ 'm' if ENV.MACHINE_TYPE == 'controlplane' else 'w' }}
+    topology.kubernetes.io/zone: {{ 'm' if ENV.CONTROLPLANE else 'w' }}
   # TODO: optimize for link bandwidth
   sysctls:
     fs.inotify.max_user_instances: 8192     # Watchdog
@@ -85,13 +84,12 @@ machine:
     net.ipv4.tcp_window_scaling: 1          # 10Gb/s
     sunrpc.tcp_slot_table_entries: 128      # 10Gb/s | NFS
     sunrpc.tcp_max_slot_table_entries: 128  # 10Gb/s | NFS
-    user.max_user_namespaces: 11255         # User Namespaces
   token: {{ MACHINE_TOKEN }}
-  type: {{ ENV.MACHINE_TYPE }}
+  # type: {{ ENV.MACHINE_TYPE }}
 cluster:
   ca:
     crt: {{ CLUSTER_CA_CRT }}
-    {% if ENV.MACHINE_TYPE == 'controlplane' %}
+    {% if ENV.CONTROLPLANE %}
     key: {{ CLUSTER_CA_KEY }}
     {% endif %}
   clusterName: kube
@@ -115,7 +113,7 @@ cluster:
       - 10.245.0.0/16
   secret: {{ CLUSTER_SECRET }}
   token: {{ CLUSTER_TOKEN }}
-  {% if ENV.MACHINE_TYPE == 'controlplane' %}
+  {% if ENV.CONTROLPLANE %}
   aggregatorCA:
     crt: {{ CLUSTER_AGGREGATORCA_CRT }}
     key: {{ CLUSTER_AGGREGATORCA_KEY }}
@@ -136,7 +134,7 @@ cluster:
   # TODO: update for subnet
   etcd:
     advertisedSubnets:
-      - 192.168.30.0/24
+      - 192.168.10.0/24
     ca:
       crt: {{ CLUSTER_ETCD_CA_CRT }}
       key: {{ CLUSTER_ETCD_CA_KEY }}
@@ -145,7 +143,6 @@ cluster:
   proxy:
     disabled: true
     image: registry.k8s.io/kube-proxy:v1.36.0
-  secretboxEncryptionSecret: {{ CLUSTER_SECRETBOXENCRYPTIONSECRET }}
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -167,6 +164,7 @@ cluster:
     extraArgs:
       bind-address: 0.0.0.0
     image: registry.k8s.io/kube-scheduler:v1.36.0
+  secretboxEncryptionSecret: {{ CLUSTER_SECRETBOXENCRYPTIONSECRET }}
   serviceAccount:
     key: {{ CLUSTER_SERVICEACCOUNT_KEY }}
   {% endif %}

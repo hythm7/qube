@@ -2,13 +2,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${DOMAIN/./-}-tls
+  name: ${DOMAIN_MAIN/./-}-tls
 spec:
   dnsNames:
-    - "${DOMAIN}"
-    - "*.${DOMAIN}"
-    - "hythm.net"
-    - "*.hythm.net"
+    - "${DOMAIN_MAIN}"
+    - "*.${DOMAIN_MAIN}"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -17,7 +15,7 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: ${DOMAIN/./-}-tls-secret
+  secretName: ${DOMAIN_MAIN/./-}-tls-secret
   usages:
     - digital signature
 
@@ -25,11 +23,11 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hythm-net-tls
+  name: ${DOMAIN_BACKUP/./-}-tls
 spec:
   dnsNames:
-    - "hythm.net"
-    - "*.hythm.net"
+    - "${DOMAIN_BACKUP}"
+    - "*.${DOMAIN_BACKUP}"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -38,6 +36,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: hythm-net-tls-secret
+  secretName: ${DOMAIN_BACKUP/./-}-tls-secret
   usages:
     - digital signature

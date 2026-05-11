@@ -84,10 +84,10 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "{{ .Release.Name }}.hythm.net"
-          - "status.${DOMAIN}"
-          - "status.hythm.net"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
+          - "status.${DOMAIN_MAIN}"
+          - "status.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking

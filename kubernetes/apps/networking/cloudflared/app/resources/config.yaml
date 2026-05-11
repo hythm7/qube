@@ -1,13 +1,13 @@
 ---
 ingress:
-  - hostname: "*.${DOMAIN}"
+  - hostname: "*.${DOMAIN_MAIN}"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      originServerName: "external.${DOMAIN}"
-  - hostname: "*.hythm.net"
+      originServerName: "external.${DOMAIN_MAIN}"
+  - hostname: "*.${DOMAIN_BACKUP}"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      originServerName: "external.hythm.net"
+      originServerName: "external.${DOMAIN_BACKUP}"
   - service: http_status:404

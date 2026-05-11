@@ -53,13 +53,13 @@ spec:
             env:
               TZ: ${TIMEZONE}
               LLDAP_HTTP_PORT: &port 80
-              LLDAP_HTTP_URL: https://lldap.${DOMAIN}
+              LLDAP_HTTP_URL: https://lldap.${DOMAIN_MAIN}
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_LDAP_BASE_DN: dc=ahlanet
               LLDAP_SMTP_OPTIONS__SERVER: smtp-relay.default.svc.cluster.local
               LLDAP_SMTP_OPTIONS__PORT: "25"
               LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: NONE
-              LLDAP_SMTP_OPTIONS__FROM: no-reply <no-reply@${DOMAIN}>
+              LLDAP_SMTP_OPTIONS__FROM: no-reply <no-reply@${DOMAIN_MAIN}>
               LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: "true"
               LLDAP_DATABASE_URL:
                 valueFrom:
@@ -95,7 +95,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
         annotations:
           gatus.home-operations.com/endpoint: |
             conditions:

@@ -64,10 +64,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${DOMAIN}/talos_version
+            url: https://{{ .Release.Name }}.${DOMAIN_MAIN}/talos_version
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "{{ .Release.Name }}.hythm.net"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking

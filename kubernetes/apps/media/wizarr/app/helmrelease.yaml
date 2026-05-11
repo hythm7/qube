@@ -55,10 +55,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${DOMAIN}/health
+            url: https://{{ .Release.Name }}.${DOMAIN_MAIN}/health
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "join.${DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "join.${DOMAIN_MAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

@@ -1,5 +1,7 @@
 ---
 helmDefaults:
+  args:
+    - --force-conflicts
   cleanupOnFail: true
   wait: true
   waitForJobs: true
@@ -24,11 +26,10 @@ releases:
         command: kubectl
         args:
           - apply
-          - --namespace=kube-system
-          - --server-side
           - --field-manager=kustomize-controller
-          - --kustomize
-          - ../../kubernetes/apps/kube-system/cilium/config
+          - --namespace={{ .Release.Namespace }}
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/config
+          - --server-side
         events:
           - postsync
         showlogs: true
@@ -88,10 +89,10 @@ releases:
         command: kubectl
         args:
           - apply
-          - --namespace=external-secrets
-          - --server-side
           - --field-manager=kustomize-controller
-          - --filename=../../kubernetes/apps/external-secrets/external-secrets/app/clustersecretstore.yaml
+          - --namespace={{ .Release.Namespace }}
+          - --filename=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/app/clustersecretstore.yaml
+          - --server-side
         events:
           - postsync
         showlogs: true

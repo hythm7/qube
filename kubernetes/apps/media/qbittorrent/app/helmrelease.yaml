@@ -81,8 +81,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "qb.${DOMAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "qb.${DOMAIN_MAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

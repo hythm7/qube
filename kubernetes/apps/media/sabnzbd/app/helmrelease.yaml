@@ -22,8 +22,8 @@ spec:
             env:
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                {{ .Release.Name }}.${DOMAIN},
-                sab.${DOMAIN}
+                {{ .Release.Name }}.${DOMAIN_MAIN},
+                sab.${DOMAIN_MAIN}
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
@@ -78,8 +78,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - sab.${DOMAIN}
+          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - sab.${DOMAIN_MAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

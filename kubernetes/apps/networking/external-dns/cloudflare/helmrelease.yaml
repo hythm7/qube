@@ -22,8 +22,8 @@ spec:
             args:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
-              - --domain-filter=${DOMAIN}
-              - --domain-filter=hythm.net
+              - --domain-filter=${DOMAIN_MAIN}
+              - --domain-filter=${DOMAIN_BACKUP}
               - --events
               - --gateway-name=envoy-external
               - --interval=1m
@@ -35,8 +35,8 @@ spec:
               - --source=gateway-httproute
               - --txt-owner-id=kube
               - --txt-prefix=kube.
-              - --zone-id-filter=$(CF_ZONE_ID)
-              - --zone-id-filter=560989daecebf43811f14a95f7757f8b
+              - --zone-id-filter=$(CF_DOMAIN_MAIN_ZONE_ID)
+              - --zone-id-filter=$(CF_DOMAIN_BACKUP_ZONE_ID)
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
