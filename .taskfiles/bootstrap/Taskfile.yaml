@@ -39,11 +39,9 @@ tasks:
 
   kustomize:
     internal: true
-    desc: Apply kustomize [PROJECT_ID={{.PROJECT_ID}}] [BWS_ACCESS_TOKEN=required]
+    desc: Apply kustomize [BWS_ACCESS_TOKEN=required]
     cmd: |-
       kustomize build {{.BOOTSTRAP_DIR}}/kustomize | minijinja-cli - | kubectl apply --server-side --force-conflicts -f -
-    vars:
-      PROJECT_ID: '{{.PROJECT_ID | default "8cfc9211-d42e-45af-a73f-1e52d95c417b"}}' 
     env:
       DOMAIN_MAIN:
         sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .DOMAIN_MAIN'
@@ -53,14 +51,14 @@ tasks:
         sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .TIMEZONE'
       BOT_APP_ID:
         sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_ID'
-      BOT_APP_INSTALLATION_ID:
-        sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
       BOT_APP_PRIVATE_KEY:
         sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_PRIVATE_KEY'
+      BOT_APP_INSTALLATION_ID:
+        sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
 
     preconditions:
       - test -d {{.BOOTSTRAP_DIR}}/kustomize
-      - BWS_ACCESS_TOKE={{.BWS_ACCESS_TOKEN}} bws project get {{.PROJECT_ID}}
+      - bws project get 8cfc9211-d42e-45af-a73f-1e52d95c417b
       - which bws minijinja-cli kubectl
 
   helmfile:
