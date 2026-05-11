@@ -49,10 +49,6 @@ tasks:
         sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .DOMAIN_MAIN'
       DOMAIN_BACKUP:
         sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .DOMAIN_BACKUP'
-      ORGANIZATION_ID:
-        sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .ORGANIZATION_ID'
-      PROJECT_ID:
-        sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .PROJECT_ID'
       TIMEZONE:
         sh: bws secret get 9b34a3f0-ec7d-4a58-b418-b43c014ee14d | jq -r '.value | fromjson .TIMEZONE'
       BOT_APP_ID:
