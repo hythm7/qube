@@ -1,7 +1,6 @@
 ---
 helmDefaults:
-  args:
-    - --force-conflicts
+  #args: ['--force-conflicts']
   cleanupOnFail: true
   wait: true
   waitForJobs: true
