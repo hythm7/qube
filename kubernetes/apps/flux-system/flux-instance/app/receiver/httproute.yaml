@@ -9,6 +9,7 @@ metadata:
 spec:
   hostnames:
     - "flux-webhook.${DOMAIN_MAIN}"
+    - "flux-webhook.${DOMAIN_BACKUP}"
   parentRefs:
     - name: envoy-external
       namespace: networking

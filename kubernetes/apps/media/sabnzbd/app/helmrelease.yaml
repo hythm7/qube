@@ -23,7 +23,9 @@ spec:
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
                 {{ .Release.Name }}.${DOMAIN_MAIN},
+                {{ .Release.Name }}.${DOMAIN_BACKUP},
                 sab.${DOMAIN_MAIN}
+                sab.${DOMAIN_BACKUP}
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes

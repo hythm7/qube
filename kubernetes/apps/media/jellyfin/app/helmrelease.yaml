@@ -93,7 +93,9 @@ spec:
             url: https://{{ .Release.Name }}.${DOMAIN_MAIN}/health
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
           - "play.${DOMAIN_MAIN}"
+          - "play.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking

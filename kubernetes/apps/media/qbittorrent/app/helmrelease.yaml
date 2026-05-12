@@ -82,7 +82,9 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
           - "qb.${DOMAIN_MAIN}"
+          - "qb.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

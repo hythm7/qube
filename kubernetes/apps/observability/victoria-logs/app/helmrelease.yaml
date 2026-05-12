@@ -41,6 +41,7 @@ spec:
         enabled: true
         hostnames:
           - vlogs.${DOMAIN_MAIN}
+          - vlogs.${DOMAIN_BACKUP}
         parentRefs:
           - name: envoy-internal
             namespace: networking

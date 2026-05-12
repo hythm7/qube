@@ -76,7 +76,9 @@ spec:
             url: https://{{ .Release.Name }}.${DOMAIN_MAIN}/api/v1/status
         hostnames:
           - "{{ .Release.Name }}.${DOMAIN_MAIN}"
+          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
           - "requests.${DOMAIN_MAIN}"
+          - "requests.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking

@@ -29,6 +29,7 @@ spec:
           enabled: true
           hostnames:
             - alertmanager.${DOMAIN_MAIN}
+            - alertmanager.${DOMAIN_BACKUP}
           parentRefs:
             - name: envoy-internal
               namespace: networking
@@ -57,6 +58,7 @@ spec:
           enabled: true
           hostnames:
             - prometheus.${DOMAIN_MAIN}
+            - prometheus.${DOMAIN_BACKUP}
           parentRefs:
             - name: envoy-internal
               namespace: networking
