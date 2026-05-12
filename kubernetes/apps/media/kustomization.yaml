@@ -7,8 +7,8 @@ components:
 resources:
   - ./autobrr/ks.yaml
   - ./sabnzbd/ks.yaml
-  - ./qbittorrent/ks.yaml
-  - ./qui/ks.yaml
+#  - ./qbittorrent/ks.yaml
+#  - ./qui/ks.yaml
   - ./bazarr/ks.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
