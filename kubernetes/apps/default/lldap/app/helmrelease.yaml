@@ -106,10 +106,11 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: networking
-        #rules:
-        #  - backendRefs:
-        #      - name: *app
-        #        port: *port
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
 
     persistence:
       data:
