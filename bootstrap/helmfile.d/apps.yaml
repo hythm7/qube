@@ -1,6 +1,7 @@
 ---
 helmDefaults:
-  #args: ['--force-conflicts']
+  args:
+    - --force-conflicts
   cleanupOnFail: true
   wait: true
   waitForJobs: true
@@ -13,11 +14,16 @@ releases:
     values:
       - ./templates/values.yaml.gotmpl
     hooks:
-      - # Advertise Kubernetes VIP
-        command: bash
+      - # Wait for CRDs to be available
+        command: kubectl
         args:
-          - -c
-          - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
+          - wait
+          - --for=create
+          - crd/ciliumbgpadvertisements.cilium.io
+          - crd/ciliumbgpclusterconfigs.cilium.io
+          - crd/ciliumbgppeerconfigs.cilium.io
+          - crd/ciliumloadbalancerippools.cilium.io
+          - --timeout=2m
         events:
           - postsync
         showlogs: true
@@ -58,11 +64,10 @@ releases:
           - --namespace=cert-manager
           - --server-side
           - --field-manager=kustomize-controller
-          - --filename=../../kubernetes/apps/cert-manager/cert-manager/issuers/clusterissuer.yaml
+          - --filename=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/issuers/clusterissuer.yaml
         events:
           - postsync
         showlogs: true
-
       - # Apply bitwarden SDK TLS certificate (issued by home-ca, required by ClusterSecretStore)
         command: kubectl
         args:
