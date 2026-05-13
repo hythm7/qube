@@ -14,7 +14,9 @@ spec:
   postBuild:
     substitute:
       APP: recyclarr
-      TIMEZONE: ${TIMEZONE}
+  #  substituteFrom:
+  #    - kind: Secret
+  #      name: ahla-secrets
   prune: true
   sourceRef:
     kind: GitRepository
