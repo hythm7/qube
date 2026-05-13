@@ -11,32 +11,17 @@ vars:
 
 tasks:
 
-  backup:
-    desc: Backup an app [NS={{.NS}}] [APP=required]
-    cmds:
-      - kubectl --namespace {{.NS}} patch replicationsources/{{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
-      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=create             --timeout=120s
-      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
-    vars:
-      NS: '{{.NS | default "default"}}'
-      JOB: volsync-src-{{.APP}}
-    requires:
-      vars: [APP]
-    preconditions:
-      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
-      - which kubectl
-
   restore:
-    desc: Restore an app [NS={{.NS}}] [APP=required] [PREVIOUS=required]
+    desc: Restore an app [NS={{.NS}}] [PREVIOUS={{.PREVIOUS}}] [APP=required]
     cmds:
       - task: restore-suspend
       - task: restore-data
       - task: restore-resume
 
     vars:
-      NS: '{{.NS | default "default"}}'
+      NS:       '{{.NS       | default "default"}}'
     requires:
-      vars: [APP, PREVIOUS]
+      vars: [APP]
     preconditions:
       - kubectl --namespace {{.NS}} get kustomization {{.APP}}
       - kubectl --namespace {{.NS}} get helmrelease {{.APP}}
@@ -69,7 +54,7 @@ tasks:
     env:
       NS: '{{.NS}}'
       APP: '{{.APP}}'
-      PREVIOUS: '{{.PREVIOUS}}'
+      PREVIOUS: '{{.PREVIOUS | default 0}}'
       CLAIM:
         sh: kubectl --namespace {{.NS}} get replicationsources/{{.APP}} --output=jsonpath='{.spec.sourcePVC}'
       CAPACITY:
@@ -92,3 +77,20 @@ tasks:
       - kubectl --namespace {{.NS}} wait pod --for=condition=ready --selector="app.kubernetes.io/name={{.APP}}" --timeout=5m
     vars:
       NS: '{{.NS | default "default"}}'
+
+  backup:
+    desc: Backup an app [NS={{.NS}}] [APP=required]
+    cmds:
+      - kubectl --namespace {{.NS}} patch replicationsources/{{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=create             --timeout=120s
+      - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
+    vars:
+      NS: '{{.NS | default "default"}}'
+      JOB: volsync-src-{{.APP}}
+    requires:
+      vars: [APP]
+    preconditions:
+      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
+      - which kubectl
+
+

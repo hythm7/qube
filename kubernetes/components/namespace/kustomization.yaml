@@ -4,4 +4,4 @@ kind: Component
 resources:
   - ./alerts
   - ./namespace
-  - ./externalsecret.yaml
+  - ./ahla-secrets
