@@ -15,9 +15,13 @@
     ":automergeBranch",
     ":dependencyDashboard",
     ":disableRateLimiting",
+    ":gitSignOff",
     ":semanticCommits",
     ":timezone(America/New_York)",
   ],
+  registryAliases: {
+    "mirror.gcr.io": "docker.io",
+  },
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   ignorePaths: [
     "**/resources/**",
@@ -27,8 +31,5 @@
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
-  registryAliases: {
-    "mirror.gcr.io": "docker.io",
   },
 }
