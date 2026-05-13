@@ -10,3 +10,9 @@ tasks:
     preconditions:
       - kubectl krew version
       - which kubectl
+  upgrade-tolosctl:
+    desc: Upgrade talosctl
+    cmds:
+      - sudo rm /usr/local/bin/talosctl && curl -sL https://talos.dev/install | sh
+    preconditions:
+      - test -f /usr/local/bin/talosctl
