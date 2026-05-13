@@ -14,6 +14,7 @@ spec:
   postBuild:
     substitute:
       APP: recyclarr
+      TIMEZONE: ${TIMEZONE}
   prune: true
   sourceRef:
     kind: GitRepository
