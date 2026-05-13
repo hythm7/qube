@@ -59,7 +59,6 @@ machine:
     extraConfig:
       serializeImagePulls: false
     image: ghcr.io/siderolabs/kubelet:v1.36.0
-    # TODO: update based on nodes subnet
     nodeIP:
       validSubnets:
         - 192.168.10.0/24
@@ -131,7 +130,6 @@ cluster:
     image: registry.k8s.io/kube-controller-manager:v1.36.0
   coreDNS:
     disabled: true
-  # TODO: update for subnet
   etcd:
     advertisedSubnets:
       - 192.168.10.0/24
