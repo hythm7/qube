@@ -8,10 +8,10 @@ spec:
     - ../../../../components/zeroscaler
   interval: 1h
   path: ./kubernetes/apps/media/seasonpackerr/app
-  prune: true
-    postBuild:
+  postBuild:
     substitute:
       APP: seasonpackerr
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
