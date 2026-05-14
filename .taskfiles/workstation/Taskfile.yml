@@ -3,6 +3,25 @@ version: "3"
 
 tasks:
 
+  upgrade-kubectl:
+    desc: Upgrade kubectl
+    cmds:
+      - curl -LO "https://dl.k8s.io/release/{{ .VERSION }}/bin/linux/amd64/kubectl"
+      - sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - rm kubectl
+    vars:
+      VERSION:
+        sh: curl -L -s https://dl.k8s.io/release/stable.txt
+    preconditions:
+      - sudo rm /usr/local/bin/kubectl
+
+  upgrade-tolosctl:
+    desc: Upgrade talosctl
+    cmds:
+      -  curl -sL https://talos.dev/install | sh
+    preconditions:
+      - sudo rm /usr/local/bin/talosctl
+
   krew:
     desc: Set up Krew tools
     cmds:
@@ -10,9 +29,3 @@ tasks:
     preconditions:
       - kubectl krew version
       - which kubectl
-  upgrade-tolosctl:
-    desc: Upgrade talosctl
-    cmds:
-      - sudo rm /usr/local/bin/talosctl && curl -sL https://talos.dev/install | sh
-    preconditions:
-      - test -f /usr/local/bin/talosctl
