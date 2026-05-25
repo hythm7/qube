@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
@@ -28,7 +29,9 @@ spec:
       prometheus:
         compression:
           type: Zstd
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gatewayclass_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
@@ -40,14 +43,15 @@ spec:
     kind: EnvoyProxy
     name: envoy
     namespace: networking
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
-    external-dns.alpha.kubernetes.io/target: &hostname 2676fe29-2de4-4a2e-8f30-9f224d60a943.cfargotunnel.com
+    external-dns.alpha.kubernetes.io/target: &hostname external.ahla.dev
     gatus.home-operations.com/endpoint: |-
       client:
         dns-resolver: tcp://1.1.1.1:53
@@ -57,79 +61,59 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.20.252
+      lbipam.cilium.io/ips: 192.168.20.80
   listeners:
-    - name: ${DOMAIN_MAIN}
-      protocol: HTTPS
-      hostname: "*.${DOMAIN_MAIN}"
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: ${DOMAIN_MAIN/./-}-tls-secret
-    - name: ${DOMAIN_BACKUP}
-      protocol: HTTPS
-      hostname: "*.${DOMAIN_BACKUP}"
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: ${DOMAIN_BACKUP/./-}-tls-secret
     - name: http
       protocol: HTTP
       port: 80
       allowedRoutes:
         namespaces:
           from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: ahla-dev-tls
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.${DOMAIN_MAIN}
+    external-dns.alpha.kubernetes.io/target: &hostname internal.ahla.dev
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: *hostname
-      lbipam.cilium.io/ips: 192.168.20.251
+      lbipam.cilium.io/ips: 192.168.20.81
   listeners:
-    - name: ${DOMAIN_MAIN}
-      protocol: HTTPS
-      hostname: "*.${DOMAIN_MAIN}"
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: ${DOMAIN_MAIN/./-}-tls-secret
-    - name: ${DOMAIN_BACKUP}
-      protocol: HTTPS
-      hostname: "*.${DOMAIN_BACKUP}"
-      port: 443
-      allowedRoutes:
-        namespaces:
-          from: All
-      tls:
-        certificateRefs:
-          - kind: Secret
-            name: ${DOMAIN_BACKUP/./-}-tls-secret
     - name: http
       protocol: HTTP
       port: 80
       allowedRoutes:
         namespaces:
           from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: ahla-dev-tls
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
@@ -155,7 +139,9 @@ spec:
     http:
       connectionIdleTimeout: 30s
       requestTimeout: 0s
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
@@ -180,7 +166,9 @@ spec:
     alpnProtocols:
       - h2
       - http/1.1
+
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

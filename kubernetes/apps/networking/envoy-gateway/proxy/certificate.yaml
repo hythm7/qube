@@ -1,12 +1,13 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ${DOMAIN_MAIN/./-}-tls
+  name: ahla-dev
 spec:
   dnsNames:
-    - "${DOMAIN_MAIN}"
-    - "*.${DOMAIN_MAIN}"
+    - "ahla.dev"
+    - "*.ahla.dev"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -15,27 +16,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: ${DOMAIN_MAIN/./-}-tls-secret
-  usages:
-    - digital signature
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ${DOMAIN_BACKUP/./-}-tls
-spec:
-  dnsNames:
-    - "${DOMAIN_BACKUP}"
-    - "*.${DOMAIN_BACKUP}"
-  duration: 160h
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
-  secretName: ${DOMAIN_BACKUP/./-}-tls-secret
+  secretName: ahla-dev-tls
   usages:
     - digital signature

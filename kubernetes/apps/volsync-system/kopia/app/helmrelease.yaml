@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -86,8 +87,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN_MAIN}"
-          - "{{ .Release.Name }}.${DOMAIN_BACKUP}"
+          - "{{ .Release.Name }}.ahla.dev"
         parentRefs:
           - name: envoy-internal
             namespace: networking

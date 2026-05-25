@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/clusterissuer_v1.json
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -17,8 +18,7 @@ spec:
               key: CLOUDFLARE_API_TOKEN
         selector:
           dnsZones:
-            - ${DOMAIN_MAIN} 
-            - ${DOMAIN_BACKUP} 
+            - ahla.dev 
 
 ---
 apiVersion: cert-manager.io/v1
@@ -38,8 +38,7 @@ spec:
   commonName: home-selfsigned-ca
   subject:
     organizations:
-      - ${DOMAIN_MAIN} 
-      - ${DOMAIN_BACKUP} 
+      - ahla.dev 
   secretName: root-secret
   privateKey:
     algorithm: ECDSA

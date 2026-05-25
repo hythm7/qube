@@ -1,13 +1,8 @@
 ---
 ingress:
-  - hostname: "*.${DOMAIN_MAIN}"
+  - hostname: "*.ahla.dev"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
       http2Origin: true
-      originServerName: "external.${DOMAIN_MAIN}"
-  - hostname: "*.${DOMAIN_BACKUP}"
-    service: https://envoy-external.networking.svc.cluster.local
-    originRequest:
-      http2Origin: true
-      originServerName: "external.${DOMAIN_BACKUP}"
+      originServerName: "external.ahla.dev"
   - service: http_status:404

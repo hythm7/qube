@@ -10,7 +10,7 @@ machine:
     diskQuotaSupport: true
     hostDNS:
       enabled: true
-      forwardKubeDNSToHost: true # Requires Cilium socketLB features
+      forwardKubeDNSToHost: true
       resolveMemberNames: true
     kubePrism:
       enabled: true
@@ -166,7 +166,6 @@ cluster:
   serviceAccount:
     key: {{ CLUSTER_SERVICEACCOUNT_KEY }}
   {% endif %}
-
 
 ---
 apiVersion: v1alpha1
