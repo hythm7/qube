@@ -60,6 +60,7 @@ spec:
         hostnames:
           - "{{ .Release.Name }}.ahla.dev"
           - "echo.ahla.dev"
+          - "echo.ahla.me"
         parentRefs:
           - name: envoy-external
             namespace: networking
