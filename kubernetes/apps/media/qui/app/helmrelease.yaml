@@ -29,7 +29,7 @@ spec:
               QUI__I_ACKNOWLEDGE_THIS_IS_A_BAD_IDEA: true
               QUI__HOST: 0.0.0.0
               QUI__PORT: &port 80
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -72,7 +72,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
+          - "{{ .Release.Name }}.ahla.dev"
         parentRefs:
           - name: envoy-internal
             namespace: networking

@@ -28,7 +28,7 @@ spec:
               AUTOBRR__METRICS_PORT: &metricsPort 8080
               AUTOBRR__CHECK_FOR_UPDATES: false
               AUTOBRR__LOG_LEVEL: INFO
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -86,7 +86,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
+          - "{{ .Release.Name }}.ahla.dev"
         parentRefs:
           - name: envoy-internal
             namespace: networking

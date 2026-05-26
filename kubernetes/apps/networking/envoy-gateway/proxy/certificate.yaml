@@ -6,8 +6,8 @@ metadata:
   name: ahla-dev
 spec:
   dnsNames:
-    - "${DOMAIN}"
-    - "*.${DOMAIN}"
+    - "ahla.dev"
+    - "*.ahla.dev"
   duration: 160h
   issuerRef:
     name: letsencrypt-production

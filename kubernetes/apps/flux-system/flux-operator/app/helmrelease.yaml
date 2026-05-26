@@ -23,7 +23,7 @@ spec:
       httpRoute:
         enabled: true
         hostnames:
-          - flux-operator.${DOMAIN}
+          - flux-operator.ahla.dev
         parentRefs:
           - name: envoy-internal
             namespace: networking

@@ -56,10 +56,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |
-            url: "https://{{ .Release.Name }}.${DOMAIN}/healthz"
+            url: "https://{{ .Release.Name }}.ahla.dev/healthz"
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "echo.${DOMAIN}"
+          - "{{ .Release.Name }}.ahla.dev"
+          - "echo.ahla.dev"
           - "echo.ahla.me"
         parentRefs:
           - name: envoy-external

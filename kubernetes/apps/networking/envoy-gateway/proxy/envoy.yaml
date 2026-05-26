@@ -51,7 +51,7 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.${DOMAIN}
+    external-dns.alpha.kubernetes.io/target: &hostname external.ahla.dev
     gatus.home-operations.com/endpoint: |-
       client:
         dns-resolver: tcp://1.1.1.1:53
@@ -87,7 +87,7 @@ kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.${DOMAIN}
+    external-dns.alpha.kubernetes.io/target: &hostname internal.ahla.dev
 spec:
   gatewayClassName: envoy
   infrastructure:

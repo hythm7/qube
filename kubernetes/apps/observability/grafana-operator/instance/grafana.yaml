@@ -60,7 +60,7 @@ spec:
   httpRoute:
     spec:
       hostnames:
-        - grafana.${DOMAIN}
+        - grafana.ahla.dev
       parentRefs:
         - name: envoy-internal
           namespace: networking

@@ -23,7 +23,7 @@ spec:
             env:
               LOG_LEVEL: info
               PORT: &port 80
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
@@ -74,10 +74,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.${DOMAIN}/api/v1/status
+            url: https://{{ .Release.Name }}.ahla.dev/api/v1/status
         hostnames:
-          - "{{ .Release.Name }}.${DOMAIN}"
-          - "requests.${DOMAIN}"
+          - "{{ .Release.Name }}.ahla.dev"
+          - "requests.ahla.dev"
         parentRefs:
           - name: envoy-external
             namespace: networking
