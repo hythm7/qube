@@ -34,17 +34,17 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-#  # Level 1 substitution: runs when cluster-apps processes child ks.yaml FILES.
-#  # Use this to resolve variables that appear as VALUES inside child ks.yaml
-#  # postBuild.substitute blocks (e.g. CLOUDFLARED_TUNNEL_ID: ${MAIN_CLOUDFLARE_TUNNEL_ID}).
-#  # Variables here are available when Flux writes the child Kustomization objects
-#  # to the cluster, before those child KS's reconcile their own resources.
-#  postBuild:
-#    substitute:
-#      CLUSTER: main
-#    substituteFrom:
-#      - kind: Secret
-#        name: ahla-secrets
+  # Level 1 substitution: runs when cluster-apps processes child ks.yaml FILES.
+  # Use this to resolve variables that appear as VALUES inside child ks.yaml
+  # postBuild.substitute blocks (e.g. CLOUDFLARED_TUNNEL_ID: ${MAIN_CLOUDFLARE_TUNNEL_ID}).
+  # Variables here are available when Flux writes the child Kustomization objects
+  # to the cluster, before those child KS's reconcile their own resources.
+  postBuild:
+    substitute:
+      CLUSTER: main
+    substituteFrom:
+      - kind: Secret
+        name: ahla-secrets
 
   patches:
     - # Add Kustomization defaults for all child Kustomizations
@@ -81,13 +81,13 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
-#          postBuild:
-#            #substitute:
-#            #  NFS_ADDR: "192.168.1.161"
-#            substituteFrom:
-#              - name: ahla-secrets
-#                kind: Secret
-#                optional: false
+          postBuild:
+            #substitute:
+            #  NFS_ADDR: "192.168.1.161"
+            substituteFrom:
+              - name: ahla-secrets
+                kind: Secret
+                optional: false
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization

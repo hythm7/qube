@@ -23,7 +23,9 @@ spec:
             args:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
-              - --domain-filter=ahla.dev
+              - --domain-filter=${DOMAIN}
+              - --domain-filter=${DOMAIN_MAIN}
+              - --domain-filter=${DOMAIN_BACKUP}
               - --events
               - --gateway-name=envoy-external
               - --interval=1m
@@ -35,7 +37,7 @@ spec:
               - --source=gateway-httproute
               - --txt-owner-id=kube
               - --txt-prefix=kube.
-              - --zone-id-filter=$(CF_ZONE_ID)
+              #- --zone-id-filter=$(CF_ZONE_ID)
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"

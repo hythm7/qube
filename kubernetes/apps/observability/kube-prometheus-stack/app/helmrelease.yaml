@@ -16,12 +16,12 @@ spec:
         main:
           enabled: true
           hostnames:
-            - alertmanager.ahla.dev
+            - alertmanager.${DOMAIN}
           parentRefs:
             - name: envoy-internal
               namespace: networking
       alertmanagerSpec:
-        externalUrl: https://alertmanager.ahla.dev
+        externalUrl: https://alertmanager.${DOMAIN}
         alertmanagerConfiguration:
           name: alertmanager
           global:
@@ -44,12 +44,12 @@ spec:
         main:
           enabled: true
           hostnames:
-            - prometheus.ahla.dev
+            - prometheus.${DOMAIN}
           parentRefs:
             - name: envoy-internal
               namespace: networking
       prometheusSpec:
-        externalUrl: https://prometheus.ahla.dev
+        externalUrl: https://prometheus.${DOMAIN}
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false

@@ -23,8 +23,8 @@ spec:
             env:
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                {{ .Release.Name }}.ahla.dev,
-                sab.ahla.dev
+                {{ .Release.Name }}.${DOMAIN},
+                sab.${DOMAIN}
               TZ: ${TIMEZONE}
             probes:
               liveness: &probes
@@ -79,8 +79,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - sab.ahla.dev
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - sab.${DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: networking

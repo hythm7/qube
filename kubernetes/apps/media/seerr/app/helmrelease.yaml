@@ -74,10 +74,10 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.ahla.dev/api/v1/status
+            url: https://{{ .Release.Name }}.${DOMAIN}/api/v1/status
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - "requests.ahla.dev"
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - "requests.${DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: networking

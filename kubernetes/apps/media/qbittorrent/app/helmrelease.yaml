@@ -82,8 +82,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - "qb.ahla.dev"
+          - "{{ .Release.Name }}.${DOMAIN}"
+          - "qb.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking

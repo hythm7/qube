@@ -72,7 +72,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
+          - "{{ .Release.Name }}.${DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: networking
