@@ -16,9 +16,9 @@ spec:
             apiTokenSecretRef:
               name: cloudflare-issuer-secret
               key: CLOUDFLARE_API_TOKEN
-        selector:
-          dnsZones:
-            - ahla.dev 
+        #selector:
+        #  dnsZones:
+        #    - ahla.dev 
 
 ---
 apiVersion: cert-manager.io/v1
