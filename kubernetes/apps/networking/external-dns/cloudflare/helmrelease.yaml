@@ -23,9 +23,9 @@ spec:
             args:
               - --cloudflare-dns-records-per-page=1000
               - --cloudflare-proxied
-              - --domain-filter=ahla.dev
-              - --domain-filter=${DOMAIN_MAIN}
-              - --domain-filter=${DOMAIN_BACKUP}
+              #- --domain-filter=ahla.dev
+              #- --domain-filter=${DOMAIN_MAIN}
+              #- --domain-filter=${DOMAIN_BACKUP}
               - --events
               - --gateway-name=envoy-external
               - --interval=1m

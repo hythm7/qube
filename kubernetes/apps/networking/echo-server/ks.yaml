@@ -17,4 +17,3 @@ spec:
     substituteFrom:
       - kind: Secret
         name: ahla-domains
-
