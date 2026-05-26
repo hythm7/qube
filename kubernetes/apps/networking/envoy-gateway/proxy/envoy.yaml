@@ -79,6 +79,10 @@ spec:
         certificateRefs:
           - kind: Secret
             name: ahla-dev-tls
+          - kind: Secret
+            name: ${DOMAIN_MAIN/./-}-tls
+          - kind: Secret
+            name: ${DOMAIN_BACKUP/./-}-tls
 
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
@@ -111,10 +115,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: ahla-dev-tls
-          - kind: Secret
-            name: ${DOMAIN_MAIN/./-}-tls
-          - kind: Secret
-            name: ${DOMAIN_BACKUP/./-}-tls
 
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
