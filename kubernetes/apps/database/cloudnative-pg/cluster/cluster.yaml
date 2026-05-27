@@ -31,9 +31,15 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  # 1. Point to the old cluster name via anchor
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres18-v1
+
   backup:
     retentionPolicy: 30d
-    barmanObjectStore: &barmanObjectStore
+    # 2. Anchor the entire base configuration map
+    barmanObjectStore: &barmanConfig
       data:
         compression: bzip2
       wal:
@@ -41,9 +47,6 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: https://2f426071712d0a81525d59ac8b12f4bb.r2.cloudflarestorage.com
-      # Note: serverName version needs to be incremented
-      # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres18-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -51,29 +54,14 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-secret
           key: aws-secret-access-key
+      # 3. Explicitly set the name for your NEW backup trail
+      serverName: postgres18-v2
 
-  # Note: previousCluster needs to be set to the name of the previous
-  # cluster when recovering from an existing cnpg cluster
-   bootstrap:
-     recovery:
-       source: &previousCluster postgres18-v1
-   # Note: externalClusters is needed when recovering from an existing cnpg cluster
-   externalClusters:
-     - name: *previousCluster
-       barmanObjectStore:
-         data:
-           compression: bzip2
-         wal:
-           compression: bzip2
-           maxParallel: 8
-         destinationPath: s3://cloudnative-pg/
-         endpointURL: https://2f426071712d0a81525d59ac8b12f4bb.r2.cloudflarestorage.com
-         # Must strictly match the serverName used by the deleted cluster
-         serverName: *previousCluster
-         s3Credentials:
-           accessKeyId:
-             name: cloudnative-pg-secret
-             key: aws-access-key-id
-           secretAccessKey:
-             name: cloudnative-pg-secret
-             key: aws-secret-access-key
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        # 4. Merge all shared settings (including endpointURL) from the anchor
+        <<: *barmanConfig
+        # 5. Override ONLY the server name to point to your old data
+        serverName: *previousCluster
+
