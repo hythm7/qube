@@ -79,7 +79,7 @@ spec:
           - "{{ .Release.Name }}.ahla.dev"
           - "requests.ahla.dev"
         parentRefs:
-          - name: envoy-external
+          - name: envoy-internal
             namespace: networking
     service:
       app:
