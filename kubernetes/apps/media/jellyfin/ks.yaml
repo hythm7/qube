@@ -25,3 +25,7 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: ahla-domains

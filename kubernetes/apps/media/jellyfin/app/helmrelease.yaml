@@ -92,8 +92,8 @@ spec:
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.ahla.dev/health
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - "play.ahla.dev"
+          - "play.${DOMAIN_MAIN}"
+          - "play.${DOMAIN_BACKUP}"
         parentRefs:
           - name: envoy-external
             namespace: networking
@@ -110,4 +110,3 @@ spec:
           #  port: &discoveryPort 7359
           #  protocol: UDP
           #  targetPort: *discoveryPort
-

@@ -57,7 +57,6 @@ spec:
           gatus.home-operations.com/endpoint: |-
             url: https://{{ .Release.Name }}.ahla.dev/health
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
           - "join.ahla.dev"
         parentRefs:
           - name: envoy-external
