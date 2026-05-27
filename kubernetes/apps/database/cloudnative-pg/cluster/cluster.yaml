@@ -61,5 +61,19 @@ spec:
    externalClusters:
      - name: *previousCluster
        barmanObjectStore:
-         <<: *barmanObjectStore
+         data:
+           compression: bzip2
+         wal:
+           compression: bzip2
+           maxParallel: 8
+         destinationPath: s3://cloudnative-pg/
+         endpointURL: https://2f426071712d0a81525d59ac8b12f4bb.r2.cloudflarestorage.com
+         # Must strictly match the serverName used by the deleted cluster
          serverName: *previousCluster
+         s3Credentials:
+           accessKeyId:
+             name: cloudnative-pg-secret
+             key: aws-access-key-id
+           secretAccessKey:
+             name: cloudnative-pg-secret
+             key: aws-secret-access-key
