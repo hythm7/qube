@@ -90,6 +90,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
+            name: play
             url: https://play.${DOMAIN_MAIN}/health
         hostnames:
           - "play.${DOMAIN_MAIN}"

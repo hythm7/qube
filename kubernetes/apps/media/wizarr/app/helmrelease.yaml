@@ -55,6 +55,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
+            name: join
             url: https://join.ahla.dev/health
         hostnames:
           - "join.ahla.dev"
