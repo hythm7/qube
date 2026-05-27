@@ -57,7 +57,8 @@ metadata:
         dns-resolver: tcp://1.1.1.1:53
       group: external
       ui:
-        hide-url: true
+        hide-url:      true
+        hide-hostname: true
 
 
 spec:
