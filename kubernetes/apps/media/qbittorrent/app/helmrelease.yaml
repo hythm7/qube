@@ -25,7 +25,7 @@ spec:
             probes:
               liveness: &probes
                 enabled: true
-                custom: true
+                #custom: true
                 spec:
                   httpGet:
                     path: /api/v2/app/version
@@ -70,20 +70,13 @@ spec:
         type: nfs
         path: /data/@media
         server: chthon.internal
-      tmpfs:
+      tmp:
         type: emptyDir
-        advancedMounts:
-          qbittorrent:
-            app:
-              - path: /config/qBittorrent/logs
-                subPath: logs
-              - path: /tmp
-                subPath: tmp
+
     route:
       app:
         hostnames:
           - "{{ .Release.Name }}.ahla.dev"
-          - "qb.ahla.dev"
         parentRefs:
           - name: envoy-internal
             namespace: networking
