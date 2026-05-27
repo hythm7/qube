@@ -55,7 +55,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.ahla.dev/health
+            url: https://join.ahla.dev/health
         hostnames:
           - "join.ahla.dev"
         parentRefs:

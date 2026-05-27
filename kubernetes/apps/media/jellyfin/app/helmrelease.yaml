@@ -90,7 +90,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://{{ .Release.Name }}.ahla.dev/health
+            url: https://play.ahla.dev/health
         hostnames:
           - "play.${DOMAIN_MAIN}"
           - "play.${DOMAIN_BACKUP}"
