@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wizarr-stripe-bridge
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 1h
+  values:
+    controllers:
+      wizarr-stripe-bridge:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ahlanet/wizarr-stripe-bridge
+              tag: latest
+            env:
+              TZ: America/New_York
+              BRIDGE_HOST: 0.0.0.0
+              BRIDGE_PORT: &port 80
+              WIZARR_BASE_URL: http://wizarr.media.svc.cluster.local:5690
+              RESEND_FROM_EMAIL: support@ahla.dev
+              BRIDGE_PORTAL_RETURN_URL: ""
+              TRIAL_DAYS: "14"
+              ABUSE_DETECTION: "false"
+            envFrom:
+              - secretRef:
+                  name: wizarr-stripe-bridge-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            url: https://bridge.ahla.dev/health
+        hostnames:
+          - bridge.ahla.dev
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
