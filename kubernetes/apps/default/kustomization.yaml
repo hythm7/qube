@@ -6,5 +6,5 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
-  - ./lldap/ks.yaml
+  # - ./lldap/ks.yaml
   - ./thelounge/ks.yaml
