@@ -90,9 +90,13 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            group: play
-            name: play
-            url: https://play.${DOMAIN_MAIN}/health
+            endpoints:
+              - name: "play-main"
+                group: play
+                url: https://play.${DOMAIN_MAIN}/health
+              - name: "play-backup"
+                group: play
+                url: https://play.${DOMAIN_MAIN}/health
         hostnames:
           - "play.${DOMAIN_MAIN}"
           - "play.${DOMAIN_BACKUP}"
