@@ -96,7 +96,7 @@ spec:
                 url: https://play.${DOMAIN_MAIN}/health
               - name: "play-backup"
                 group: play
-                url: https://play.${DOMAIN_MAIN}/health
+                url: https://play.${DOMAIN_backup}/health
         hostnames:
           - "play.${DOMAIN_MAIN}"
           - "play.${DOMAIN_BACKUP}"
