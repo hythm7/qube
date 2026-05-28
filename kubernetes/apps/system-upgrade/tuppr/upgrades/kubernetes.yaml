@@ -7,8 +7,3 @@ metadata:
 spec:
   kubernetes:
     version: v1.36.1
-  # CRITICAL FOR SINGLE-NODE:
-  policy:
-    force: true          # Moves the force override flag inside the policy block
-  node:
-    maxParallel: 1       # Bypass multi-node sequencing:
