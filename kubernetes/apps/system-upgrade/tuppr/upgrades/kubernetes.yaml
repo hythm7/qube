@@ -7,7 +7,8 @@ metadata:
 spec:
   kubernetes:
     version: v1.36.1
-  # Bypass multi-node sequencing:
   # CRITICAL FOR SINGLE-NODE:
-  maxParallel: 1
-  force: true  # Instructs tuppr to ignore blocking pod-eviction constraints
+  policy:
+    force: true          # Moves the force override flag inside the policy block
+  node:
+    maxParallel: 1       # Bypass multi-node sequencing:
