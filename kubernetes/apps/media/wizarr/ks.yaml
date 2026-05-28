@@ -15,9 +15,6 @@ spec:
   postBuild:
     substitute:
       APP: wizarr
-    substituteFrom:
-      - kind: Secret
-        name: ahla-domains
   prune: true
   sourceRef:
     kind: GitRepository
