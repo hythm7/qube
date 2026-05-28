@@ -11,6 +11,10 @@ spec:
     - name: wizarr
   interval: 1h
   path: ./kubernetes/apps/media/wizarr-stripe-bridge/app
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: ahla-domains
   prune: true
   sourceRef:
     kind: GitRepository
