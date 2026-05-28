@@ -50,7 +50,7 @@ spec:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
                     key: password
-              POSTGRES_DB:
+              POSTGRES_DATABASE:
                 valueFrom:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
@@ -100,7 +100,7 @@ spec:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
                     key: password
-              POSTGRES_DB:
+              POSTGRES_DATABASE:
                 valueFrom:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
@@ -165,7 +165,7 @@ spec:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
                     key: password
-              POSTGRES_DB:
+              POSTGRES_DATABASE:
                 valueFrom:
                   secretKeyRef:
                     name: chatwoot-pguser-secret
