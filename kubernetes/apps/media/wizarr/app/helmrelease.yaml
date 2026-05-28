@@ -56,7 +56,7 @@ spec:
           gatus.home-operations.com/endpoint: |-
             group: join
             name: join
-            url: https://join.${DOMAIN_MAIN}/health
+            url: https://join.ahla.dev/health
         hostnames:
           - "join.ahla.dev"
           - "join.${DOMAIN_MAIN}"
