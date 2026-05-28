@@ -29,7 +29,9 @@ spec:
             command:
               - /bin/sh
               - -c
-              - psql -c "CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"
+              - |
+                psql -c "CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"
+                psql -c "CREATE EXTENSION IF NOT EXISTS vector;"
             env:
               PGHOST: postgres-rw.database.svc.cluster.local
               PGPORT: "5432"
