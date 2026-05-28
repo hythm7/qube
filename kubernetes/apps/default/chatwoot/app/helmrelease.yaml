@@ -96,7 +96,7 @@ spec:
               ACTIVE_STORAGE_SERVICE: local
               REDIS_URL: redis://chatwoot-dragonfly.default.svc.cluster.local:6379
               MAILER_SENDER_EMAIL: support@ahla.dev
-              SMTP_ADDRESS: smtp-relay.default.svc.cluster.local
+              SMTP_ADDRESS: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: "25"
               SMTP_AUTHENTICATION: plain
               SMTP_ENABLE_STARTTLS_AUTO: "false"
@@ -164,7 +164,7 @@ spec:
               ACTIVE_STORAGE_SERVICE: local
               REDIS_URL: redis://chatwoot-dragonfly.default.svc.cluster.local:6379
               MAILER_SENDER_EMAIL: support@ahla.dev
-              SMTP_ADDRESS: smtp-relay.default.svc.cluster.local
+              SMTP_ADDRESS: smtp-relay.networking.svc.cluster.local
               SMTP_PORT: "25"
               SMTP_AUTHENTICATION: plain
               SMTP_ENABLE_STARTTLS_AUTO: "false"
