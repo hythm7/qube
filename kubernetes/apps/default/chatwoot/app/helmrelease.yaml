@@ -22,6 +22,24 @@ spec:
             envFrom:
               - secretRef:
                   name: chatwoot-initdb-secret
+          01b-create-extensions:
+            image:
+              repository: ghcr.io/cloudnative-pg/postgresql
+              tag: "18"
+            command:
+              - /bin/sh
+              - -c
+              - psql -c "CREATE EXTENSION IF NOT EXISTS pg_stat_statements;"
+            env:
+              PGHOST: postgres-rw.database.svc.cluster.local
+              PGPORT: "5432"
+              PGDATABASE: chatwoot
+              PGUSER: postgres
+              PGPASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: chatwoot-initdb-secret
+                    key: INIT_POSTGRES_SUPER_PASS
           02-migrate:
             image:
               repository: chatwoot/chatwoot
