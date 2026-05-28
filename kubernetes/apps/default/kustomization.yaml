@@ -8,3 +8,4 @@ components:
 resources:
   # - ./lldap/ks.yaml
   - ./thelounge/ks.yaml
+  - ./chatwoot/ks.yaml
