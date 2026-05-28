@@ -18,29 +18,21 @@ jobs:
     outputs:
       changed-files: ${{ steps.changed-files.outputs.changed_files }}
     steps:
-      - name: Generate Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: app-token
-        with:
-          client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-
       - name: Get Changed Files
         id: changed-files
         uses: bjw-s-labs/action-changed-files@a9a36fb08ce06db9b02fbd8026cc2c0945eb9841 # v0.6.0
         with:
           patterns: kubernetes/**/*
-          token: ${{ steps.app-token.outputs.token }}
 
-  extract:
+  flate:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
-    name: Image Pull - Extract Images
+    name: Image Pull - Flate
     runs-on: ubuntu-latest
     permissions:
       contents: read
     outputs:
-      images: ${{ steps.extract.outputs.images }}
+      images: ${{ steps.flate.outputs.images }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -49,47 +41,44 @@ jobs:
           client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
-      - name: Checkout Pull Request Branch
+      - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          path: pull
+          fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: Checkout Default Branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Setup Flate
+        uses: home-operations/flate/action@aef47adc856bb97038ff321e5136cf65e0fa23cf # 0.1.27
         with:
-          ref: ${{ github.event.repository.default_branch }}
-          path: default
-          token: ${{ steps.app-token.outputs.token }}
+          cache: true
 
-      - name: Setup Mise
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
-        with:
-          tool_versions: |
-            github:home-operations/flate latest
-
-      - name: Extract Images
-        id: extract
-        run: |-
-          {
-            echo 'images<<EOF'
-            flate diff images --output json --path ./pull --path-orig ./default
-            echo 'EOF'
-          } >> $GITHUB_OUTPUT
+      - name: Run Flate
+        id: flate
+        env:
+          FLATE_OUTPUT: json
+          FLATE_PATH: ./kubernetes/flux/cluster
+        run: |
+          echo 'images<<EOF' >> $GITHUB_OUTPUT
+          flate diff images >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: extract
+    if: ${{ needs.flate.outputs.images != '[]' }}
+    needs: flate
     name: Image Pull - Pull Images
-    runs-on: ahla-runner
+    runs-on: k8s-gitops-runner
     strategy:
       matrix:
-        image: ${{ fromJSON(needs.extract.outputs.images) }}
+        image: ${{ fromJSON(needs.flate.outputs.images) }}
       max-parallel: 4
       fail-fast: false
     steps:
       - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
+        with:
+          cache: false
+          tool_versions: |
+            aqua:siderolabs/talos latest
 
       - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.image }}
@@ -107,3 +96,4 @@ jobs:
       - name: All jobs passed or skipped?
         if: ${{ !(contains(needs.*.result, 'failure')) }}
         run: echo "All jobs passed or skipped" && echo "${{ toJSON(needs.*.result) }}"
+

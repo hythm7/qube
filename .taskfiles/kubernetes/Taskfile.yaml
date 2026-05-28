@@ -3,6 +3,30 @@ version: '3'
 
 tasks:
 
+  #apply-ks:
+  #  desc: Apply local ks [NS=required] [APP=required]
+  #  ignore_error: true
+  #  cmd: kubectl --namespace {{.NS}} logs --tail -1 --follow --selector="app.kubernetes.io/name={{.APP}}"
+  #  vars:
+  #    NS: '{{.NS | default "media"}}'
+  #  requires:
+  #    vars: [APP]
+  #  preconditions:
+  #    - which kubectl
+
+  render-ks:
+    desc: Render local ks [NS=required] [KS=required]
+    #internal: true
+    cmd: flate build ks --namespace "{{.NS}}" --output yaml "{{.KS}}"
+    vars:
+      NS: '{{ .NS }}'
+      KS: '{{ .KS }}'
+    requires:
+      vars: [NS, KS]
+    preconditions:
+      - which flate
+
+
   hr:restart:
     desc: Restart all failed Helm Releases
     cmds:

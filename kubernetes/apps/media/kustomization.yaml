@@ -13,6 +13,8 @@ resources:
   - ./qbittorrent/ks.yaml
   - ./qui/ks.yaml
   - ./bazarr/ks.yaml
+  - ./brrpolice/ks.yaml
+  - ./deduparr/ks.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./prowlarr/ks.yaml
