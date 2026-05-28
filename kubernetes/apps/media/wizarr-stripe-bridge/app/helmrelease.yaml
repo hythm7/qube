@@ -28,7 +28,7 @@ spec:
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
               TRIAL_DAYS: "14"
-              ABUSE_DETECTION: "false"
+              ABUSE_DETECTION: ""
             envFrom:
               - secretRef:
                   name: wizarr-stripe-bridge-secret
@@ -49,7 +49,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
     service:
       app:
         ports:
