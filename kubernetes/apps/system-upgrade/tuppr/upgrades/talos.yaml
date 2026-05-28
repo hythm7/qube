@@ -7,9 +7,10 @@ metadata:
 spec:
   talos:
     version: v1.13.2
+  policy:
     # CRITICAL FOR SINGLE-NODE:
-    rebootMode: default  # Avoids hanging on cluster drain commands
-    preserve: true      # Direct command equivalent to --preserve to skip drain phases
+    rebootMode: default  # Tells tuppr to skip complex power cycle actions
+    force: true          # For
   healthChecks:
     - apiVersion: volsync.backube/v1alpha1
       kind: ReplicationSource
