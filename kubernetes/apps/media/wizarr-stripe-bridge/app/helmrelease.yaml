@@ -24,7 +24,7 @@ spec:
               TZ: America/New_York
               BRIDGE_HOST: 0.0.0.0
               BRIDGE_PORT: &port 80
-              WIZARR_BASE_URL: http://wizarr.media.svc.cluster.local
+              WIZARR_BASE_URL: http://wizarr.media.svc.cluster.local:5690
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
               TRIAL_DAYS: "14"
