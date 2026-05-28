@@ -136,6 +136,9 @@ spec:
                   httpGet:
                     path: /auth/sign_in
                     port: &port 3000
+                    httpHeaders:
+                      - name: Host
+                        value: support.ahla.dev
                   initialDelaySeconds: 60
                   periodSeconds: 15
                   timeoutSeconds: 5
