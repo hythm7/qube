@@ -74,6 +74,11 @@ spec:
                     name: listmonk-pguser-secret
                     key: password
               LISTMONK_db__database: listmonk
+              LISTMONK_smtp__host: smtp-relay.networking.svc.cluster.local
+              LISTMONK_smtp__port: "25"
+              LISTMONK_smtp__auth_protocol: ""
+              LISTMONK_smtp__tls_type: none
+              LISTMONK_smtp__from_email: support@ahla.dev
             envFrom:
               - secretRef:
                   name: listmonk-secret
