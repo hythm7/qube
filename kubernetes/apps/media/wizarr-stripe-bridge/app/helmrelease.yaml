@@ -91,6 +91,7 @@ spec:
                 memory: 1Gi
     service:
       app:
+        controller: wizarr-stripe-bridge
         ports:
           http:
             port: *port
