@@ -28,6 +28,7 @@ spec:
               JELLYFIN_URL: https://play.${DOMAIN_MAIN}
               JELLYFIN_API_URL: http://jellyfin.media.svc.cluster.local:8096
               RESEND_FROM_EMAIL: support@ahla.dev
+              BRIDGE_PUBLIC_URL: https://bridge.ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
               TRIAL_DAYS: "14"
               ABUSE_DETECTION: ""
