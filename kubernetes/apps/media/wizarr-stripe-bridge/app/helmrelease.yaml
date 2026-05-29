@@ -33,7 +33,6 @@ spec:
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PUBLIC_URL: https://bridge.ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
-              TRIAL_DAYS: "14"
               STRIPE_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/test_3cIdR8gEqcnuaFKd7y6c005
               STRIPE_PAYMENT_LINK_QUARTERLY: https://buy.stripe.com/test_28E14m1Jwafm9BGd7y6c006
               STRIPE_PAYMENT_LINK_YEARLY: https://buy.stripe.com/test_fZu5kC1Jw9bi4hm3wY6c007
@@ -63,7 +62,6 @@ spec:
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PUBLIC_URL: https://bridge.ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
-              TRIAL_DAYS: "14"
               ABUSE_DETECTION: ""
               STRIPE_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/test_3cIdR8gEqcnuaFKd7y6c005
               STRIPE_PAYMENT_LINK_QUARTERLY: https://buy.stripe.com/test_28E14m1Jwafm9BGd7y6c006
