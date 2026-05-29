@@ -12,6 +12,39 @@ spec:
   interval: 1h
   values:
     controllers:
+      reconcile:
+        type: cronjob
+        cronjob:
+          schedule: "0 */4 * * *"
+          timeZone: America/New_York
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 3
+          failedJobsHistory: 3
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ahlanet/wizarr-stripe-bridge
+              tag: latest
+            command: ["raku", "-I.", "bin/wizarr-bridge", "reconcile"]
+            env:
+              WIZARR_BASE_URL: http://wizarr.media.svc.cluster.local:5690
+              JELLYFIN_URL: https://play.${DOMAIN_MAIN}
+              JELLYFIN_API_URL: http://jellyfin.media.svc.cluster.local:8096
+              RESEND_FROM_EMAIL: support@ahla.dev
+              BRIDGE_PUBLIC_URL: https://bridge.ahla.dev
+              BRIDGE_PORTAL_RETURN_URL: ""
+              TRIAL_DAYS: "14"
+              STRIPE_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/test_3cIdR8gEqcnuaFKd7y6c005
+              STRIPE_PAYMENT_LINK_QUARTERLY: https://buy.stripe.com/test_28E14m1Jwafm9BGd7y6c006
+              STRIPE_PAYMENT_LINK_YEARLY: https://buy.stripe.com/test_fZu5kC1Jw9bi4hm3wY6c007
+            envFrom:
+              - secretRef:
+                  name: wizarr-stripe-bridge-secret
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
       wizarr-stripe-bridge:
         annotations:
           reloader.stakater.com/auto: "true"
