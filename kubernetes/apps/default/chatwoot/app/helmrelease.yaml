@@ -134,7 +134,7 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /auth/sign_in
+                    path: /app/login
                     port: &port 3000
                     httpHeaders:
                       - name: Host
@@ -216,7 +216,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            url: https://support.ahla.dev/auth/sign_in
+            url: https://support.ahla.dev/app/login
         hostnames:
           - support.ahla.dev
         parentRefs:
