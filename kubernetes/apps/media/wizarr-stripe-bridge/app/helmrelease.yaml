@@ -26,10 +26,14 @@ spec:
               BRIDGE_PORT: &port 80
               WIZARR_BASE_URL: http://wizarr.media.svc.cluster.local:5690
               JELLYFIN_URL: https://play.${DOMAIN_MAIN}
+              JELLYFIN_API_URL: http://jellyfin.media.svc.cluster.local:8096
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PORTAL_RETURN_URL: ""
               TRIAL_DAYS: "14"
               ABUSE_DETECTION: ""
+              STRIPE_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/test_6oU9AScoagDK3diffG6c002
+              STRIPE_PAYMENT_LINK_QUARTERLY: https://buy.stripe.com/test_28EcN40Fs0EM7ty8Ri6c003
+              STRIPE_PAYMENT_LINK_YEARLY: https://buy.stripe.com/test_28E00i5ZC5Z60163wY6c004
             envFrom:
               - secretRef:
                   name: wizarr-stripe-bridge-secret
