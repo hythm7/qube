@@ -16,7 +16,9 @@ resources:
   - ./brrpolice/ks.yaml
   - ./deduparr/ks.yaml
   - ./radarr/ks.yaml
+  - ./radarr-4k/ks.yaml
   - ./sonarr/ks.yaml
+  - ./sonarr-4k/ks.yaml
   - ./prowlarr/ks.yaml
   - ./recyclarr/ks.yaml
   - ./jellyfin/ks.yaml
