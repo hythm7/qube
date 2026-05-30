@@ -105,6 +105,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
+            name: bridge
             url: https://bridge.ahla.dev/health
         hostnames:
           - bridge.ahla.dev
