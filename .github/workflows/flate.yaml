@@ -63,10 +63,8 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: Setup Flate
-        uses: home-operations/flate/action@aef47adc856bb97038ff321e5136cf65e0fa23cf # 0.1.27
-        with:
-          cache: true
+      - name: Install Flate
+        uses: home-operations/flate/action@46bd035df3d0eba88e334567ebb76318ff6be1d7 # 0.1.35
 
       - name: Run Flate
         id: flate

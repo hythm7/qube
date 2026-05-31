@@ -55,10 +55,8 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: Setup Flate
-        uses: home-operations/flate/action@aef47adc856bb97038ff321e5136cf65e0fa23cf # 0.1.27
-        with:
-          cache: true
+      - name: Install Flate
+        uses: home-operations/flate/action@46bd035df3d0eba88e334567ebb76318ff6be1d7 # 0.1.35
 
       - name: Run Flate
         id: flate
@@ -82,18 +80,14 @@ jobs:
       fail-fast: false
     steps:
       - name: Install talosctl
-        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4.0.1
-        with:
-          cache: false
-          tool_versions: |
-            aqua:siderolabs/talos latest
+        run: curl -fsSL https://talos.dev/install | sh
 
       - name: Pull Image
         run: talosctl --nodes $NODE image pull ${{ matrix.image }}
 
   success:
     if: ${{ !cancelled() }}
-    needs: pull
+    needs: [flate, pull]
     name: Image Pull - Success
     runs-on: ubuntu-latest
     steps:
