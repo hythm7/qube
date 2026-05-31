@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ahla-web
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 1h
+  values:
+    controllers:
+      ahla-web:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ahlanet/ahla-web
+              tag: latest
+            env:
+              TZ: America/New_York
+              APP_HOST: 0.0.0.0
+              APP_PORT: &port 80
+              PORTAL_RETURN_URL: https://ahla.dev/
+            envFrom:
+              - secretRef:
+                  name: ahla-web-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 10
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 5m
+              limits:
+                memory: 256Mi
+    service:
+      app:
+        controller: ahla-web
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            name: ahla
+            url: https://ahla.dev/health
+        hostnames:
+          - ahla.dev
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
