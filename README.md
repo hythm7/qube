@@ -2,7 +2,7 @@
 
 <img src="ahla-logo-animated.svg" align="center" width="175px" height="175px"/>
 
-### Home Lab
+### A<bdi>ح</bdi>la
 
 _... managed with Flux, Renovate, and GitHub Actions_
 
