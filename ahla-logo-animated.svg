@@ -45,7 +45,7 @@
     <g
        id="g9"
        inkscape:label="crescent"
-       style="fill:#c6afe9;stroke:none;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#c9a06a;stroke:none;stroke-width:1.5;stroke-dasharray:none;stroke-dashoffset:0"
        transform="translate(4.5886602,2.0745147)">
       <path
          fill="#fcea2b"
@@ -53,7 +53,7 @@
          d="m 7.3634,42.4095 c 4.5525,6.1703 11.874,10.1726 20.1303,10.1726 13.8071,0 25,-11.1929 25,-25 0,-8.5226 -4.2646,-16.0492 -10.7763,-20.5621 13.0383,2.8385 22.7812,14.4426 22.7812,28.3317 0,16.0163 -12.9837,29 -29,29 -13.5877,0 -24.9889,-9.3288 -28.1352,-21.9422 z"
          id="path1"
          opacity="0"
-         style="display:inline;fill:#c6afe9;fill-opacity:1;stroke:none;stroke-width:0.510236;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="display:inline;fill:#c9a06a;fill-opacity:1;stroke:none;stroke-width:0.510236;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          transform="matrix(-0.90427876,2.6808237,-2.8550341,-1.0933224,266.53826,73.700942)"
          inkscape:label="crescent">
         <animate attributeName="opacity" from="0" to="1" dur="0.7s" begin="0.1s" fill="freeze" />
