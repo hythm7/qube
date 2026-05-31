@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="ahla-logo-animated.svg" align="center" width="175px" height="175px"/>
+<img src="https://ahla.dev/assets/logo-animated.svg" align="center" width="175px" height="175px"/>
 
 ### A<bdi>ح</bdi>la
 
