@@ -65,7 +65,7 @@ spec:
               SEERR_API_URL: http://seerr.media.svc.cluster.local
               RESEND_FROM_EMAIL: support@ahla.dev
               BRIDGE_PUBLIC_URL: https://ahla.dev
-              ABUSE_DETECTION: ""
+              ABUSE_DETECTION: "true"
               STRIPE_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/test_3cIdR8gEqcnuaFKd7y6c005
               STRIPE_PAYMENT_LINK_QUARTERLY: https://buy.stripe.com/test_28E14m1Jwafm9BGd7y6c006
               STRIPE_PAYMENT_LINK_YEARLY: https://buy.stripe.com/test_fZu5kC1Jw9bi4hm3wY6c007
