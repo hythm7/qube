@@ -1,5 +1,10 @@
 ---
 ingress:
+  - hostname: "ahla.dev"
+    service: https://envoy-external.networking.svc.cluster.local
+    originRequest:
+      http2Origin: true
+      originServerName: "external.ahla.dev"
   - hostname: "*.ahla.dev"
     service: https://envoy-external.networking.svc.cluster.local
     originRequest:
