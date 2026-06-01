@@ -65,7 +65,7 @@ spec:
       app:
         annotations:
           gatus.home-operations.com/endpoint: |-
-            path: /talos_version
+            conditions: ["[STATUS] == 200"]
         hostnames:
           - "{{ .Release.Name }}.ahla.dev"
         parentRefs:
