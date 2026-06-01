@@ -76,7 +76,7 @@ spec:
           gatus.home-operations.com/endpoint: |-
             name: requests
             group: requests
-            url: https://requests.${DOMAIN_MAIN}/api/v1/status
+            path: /api/v1/status
         hostnames:
           - "requests.${DOMAIN_MAIN}"
           - "requests.${DOMAIN_BACKUP}"
