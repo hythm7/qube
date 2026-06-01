@@ -36,8 +36,7 @@ spec:
               - --registry=txt
               - --source=gateway-httproute
               - --txt-owner-id=kube
-              - --txt-prefix=kube.
-              #- --zone-id-filter=$(CF_ZONE_ID)
+              - --txt-prefix=kube.%{record_type}-
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
