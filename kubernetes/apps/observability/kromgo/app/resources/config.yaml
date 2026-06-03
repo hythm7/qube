@@ -13,12 +13,14 @@ badges:
     query: label_replace(kubernetes_build_info{service="kubernetes"}, "git_version", "$1", "git_version", "v(.+)")
     valueExpr: labels["git_version"]
     icon: si:kubernetes
+    colorExpr: '"yellow"'
 
   - title: Flux
     id: flux_version
     query: label_replace(flux_instance_info, "revision", "$1", "revision", "v(.+)@sha256:.+")
     valueExpr: labels["revision"]
     icon: si:flux
+    colorExpr: '"yellow"'
 
   - title: Nodes
     id: cluster_node_count
