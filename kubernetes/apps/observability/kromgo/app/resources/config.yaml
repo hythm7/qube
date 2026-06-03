@@ -6,7 +6,7 @@ badges:
     query: label_replace(node_os_info{name="Talos"}, "version_id", "$1", "version_id", "v(.+)")
     valueExpr: labels["version_id"]
     icon: si:talos
-    colorExpr: '"brown"'
+    color: '"brown"'
 
   - title: Kubernetes
     id: kubernetes_version
