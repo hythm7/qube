@@ -40,9 +40,6 @@ jobs:
     needs: filter
     name: Flate
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     strategy:
       matrix:
         resource:
@@ -64,15 +61,17 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Install Flate
-        uses: home-operations/flate/action@20a1136f27b21974591bb6ad319d31b858e6fa3e # 0.2.3
+        uses: home-operations/flate/action@1109b9ff85a55dcc47576d73e3ffc92336ad4513 # 0.2.10
 
       - name: Run Flate
         id: flate
         env:
+          FLATE_OUTPUT: github
           FLATE_PATH: ./kubernetes/flux/cluster
+          KIND: ${{ matrix.resource }}
         run: |-
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
-          flate diff ${{ matrix.resource }} >> $GITHUB_OUTPUT
+          flate diff $KIND >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
       - if: ${{ steps.flate.outputs.diff != '' }}
