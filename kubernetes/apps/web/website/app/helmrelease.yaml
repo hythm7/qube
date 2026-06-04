@@ -24,10 +24,6 @@ spec:
               TZ: America/New_York
               APP_HOST: 0.0.0.0
               APP_PORT: &port 80
-              PORTAL_RETURN_URL: https://ahla.dev/
-            envFrom:
-              - secretRef:
-                  name: ahla-web-secret
             probes:
               liveness: &probes
                 enabled: true
