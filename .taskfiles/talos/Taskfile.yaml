@@ -18,7 +18,7 @@ tasks:
           --mode {{.MODE}} \
           --config-patch @{{.TALOS_DIR}}/networking.yaml \
           --config-patch @{{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2 \
-          --file /dev/stdin {{if not  .SECURE}}--insecure{{end}}
+          --file /dev/stdin {{if .INSECURE}}--insecure{{end}}
     vars:
       PROJECT_ID:      '{{.PROJECT_ID      | default "8cfc9211-d42e-45af-a73f-1e52d95c417b"}}'
       TALOS_SECRET_ID: '{{.TALOS_SECRET_ID | default "5d74df36-943a-4214-be04-22e23a74e781"}}'
