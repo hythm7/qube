@@ -6,7 +6,7 @@ metadata:
   name: talos
 spec:
   talos:
-    version: v1.13.2
+    version: v1.13.4
   policy:
     ## CRITICAL FOR SINGLE-NODE:
     #rebootMode: default  # Tells tuppr to skip complex power cycle actions
