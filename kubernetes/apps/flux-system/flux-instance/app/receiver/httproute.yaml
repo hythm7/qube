@@ -9,7 +9,7 @@ metadata:
       conditions: ["[STATUS] == 404"]
 spec:
   hostnames:
-    - "flux-webhook.ahla.dev"
+    - "flux-webhook.ahla.show"
   parentRefs:
     - name: envoy-external
       namespace: networking

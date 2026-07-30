@@ -3,11 +3,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ahla-dev
+  name: ahla-show
 spec:
   dnsNames:
-    - "ahla.dev"
-    - "*.ahla.dev"
+    - "ahla.show"
+    - "*.ahla.show"
   duration: 160h
   issuerRef:
     name: letsencrypt-production
@@ -16,50 +16,6 @@ spec:
     algorithm: ECDSA
     size: 256
     rotationPolicy: Always
-  secretName: ahla-dev-tls
-  usages:
-    - digital signature
-
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ${DOMAIN_MAIN/./-}
-spec:
-  dnsNames:
-    - "${DOMAIN_MAIN}"
-    - "*.${DOMAIN_MAIN}"
-  duration: 160h
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
-  secretName: ${DOMAIN_MAIN/./-}-tls
-  usages:
-    - digital signature
-
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ${DOMAIN_BACKUP/./-}
-spec:
-  dnsNames:
-    - "${DOMAIN_BACKUP}"
-    - "*.${DOMAIN_BACKUP}"
-  duration: 160h
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
-  secretName: ${DOMAIN_BACKUP/./-}-tls
+  secretName: ahla-show-tls
   usages:
     - digital signature

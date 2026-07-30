@@ -19,9 +19,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 50Gi
-    substituteFrom:
-      - kind: Secret
-        name: ahla-domains
   prune: true
   sourceRef:
     kind: GitRepository

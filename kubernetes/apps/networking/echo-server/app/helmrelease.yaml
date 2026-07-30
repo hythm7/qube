@@ -58,8 +58,8 @@ spec:
           gatus.home-operations.com/endpoint: |
             path: /healthz
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - "echo.ahla.dev"
+          - "{{ .Release.Name }}.ahla.show"
+          - "echo.ahla.show"
         parentRefs:
           - name: envoy-external
             namespace: networking

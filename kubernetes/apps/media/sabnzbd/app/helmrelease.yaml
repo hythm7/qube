@@ -23,8 +23,8 @@ spec:
             env:
               SABNZBD__PORT: &port 80
               SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                {{ .Release.Name }}.ahla.dev,
-                sab.ahla.dev
+                {{ .Release.Name }}.ahla.show,
+                sab.ahla.show
               TZ: America/New_York
             envFrom:
               - secretRef:
@@ -82,8 +82,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.dev"
-          - sab.ahla.dev
+          - "{{ .Release.Name }}.ahla.show"
+          - sab.ahla.show
         parentRefs:
           - name: envoy-internal
             namespace: networking
