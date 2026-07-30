@@ -64,12 +64,9 @@ jobs:
 
       - name: Run Flate
         id: flate
-        env:
-          FLATE_OUTPUT: json
-          FLATE_PATH: ./kubernetes/flux/cluster
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
-          flate diff images >> $GITHUB_OUTPUT
+          flate diff images -p ./kubernetes/flux/cluster -o json >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
@@ -83,8 +80,12 @@ jobs:
       max-parallel: 4
       fail-fast: false
     steps:
-      - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
+      - name: Setup Mise
+        uses: jdx/mise-action@9e7f7633ff6f6d6048a9418a68d48f288f50eb14 # v4.2.3
+        with:
+          cache: false
+          tool_versions: |
+            talosctl latest
 
       - name: Pull Image
         env:
