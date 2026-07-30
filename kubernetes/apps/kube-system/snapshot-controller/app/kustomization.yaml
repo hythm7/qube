@@ -3,5 +3,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  # CRDs are not shipped by the home-operations chart (upstream sources them
+  # from Ceph CSI, which this cluster does not run)
+  # renovate: datasource=github-releases depName=kubernetes-csi/external-snapshotter
+  - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v8.6.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+  - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v8.6.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+  - https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v8.6.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
