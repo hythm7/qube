@@ -14,7 +14,6 @@ spec:
     namespace: flux-system
   targetNamespace: networking
   wait: true
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -24,6 +23,7 @@ metadata:
 spec:
   dependsOn:
     - name: multus
+      namespace: networking
   interval: 1h
   path: ./kubernetes/apps/networking/multus/networks
   prune: true

@@ -10,9 +10,7 @@ spec:
   advertisements:
     - advertisementType: Service
       service: { addresses: ["LoadBalancerIP"] }
-      selector:
-        matchExpressions:
-          - { key: somekey, operator: NotIn, values: ["never-used-value"] }
+      selector: {}
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumbgppeerconfig_v2.json
 apiVersion: cilium.io/v2

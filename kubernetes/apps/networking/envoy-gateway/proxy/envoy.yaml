@@ -29,7 +29,6 @@ spec:
       prometheus:
         compression:
           type: Zstd
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gatewayclass_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -43,7 +42,6 @@ spec:
     kind: EnvoyProxy
     name: envoy
     namespace: networking
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -84,7 +82,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: ahla-show-tls
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1
@@ -116,7 +113,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: ahla-show-tls
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -144,7 +140,6 @@ spec:
     http:
       connectionIdleTimeout: 30s
       requestTimeout: 0s
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.envoyproxy.io/clienttrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -173,7 +168,6 @@ spec:
     alpnProtocols:
       - h2
       - http/1.1
-
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
