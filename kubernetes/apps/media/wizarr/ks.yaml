@@ -8,6 +8,7 @@ spec:
     - ../../../../components/volsync
   dependsOn:
     - name: jellyfin
+      namespace: media
     - name: openebs
       namespace: openebs-system
   interval: 1h

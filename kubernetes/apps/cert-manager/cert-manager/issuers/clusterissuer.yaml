@@ -19,7 +19,6 @@ spec:
         #selector:
         #  dnsZones:
         #    - ahla.show 
-
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -27,7 +26,6 @@ metadata:
   name: selfsigned-issuer
 spec:
   selfSigned: {}
-
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -47,7 +45,6 @@ spec:
     name: selfsigned-issuer
     kind: ClusterIssuer
     group: cert-manager.io
-
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

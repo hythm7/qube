@@ -7,13 +7,13 @@ components:
   - ../../components/alerts
   - ../../components/namespace
 resources:
-  - ./kube-prometheus-stack/ks.yaml
-  - ./prometheus-adapter/ks.yaml
   - ./blackbox-exporter/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana-operator/ks.yaml
   - ./karma/ks.yaml
   - ./kromgo/ks.yaml
+  - ./kube-prometheus-stack/ks.yaml
+  - ./prometheus-adapter/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./snmp-exporter/ks.yaml
