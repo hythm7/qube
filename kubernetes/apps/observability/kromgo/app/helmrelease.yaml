@@ -21,24 +21,34 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/kromgo
-              tag: 0.14.10@sha256:70efc194c057c834b3d4935f4fd6dd65a4ba813f097b5fffc2ace41cfa8b9ec7
+              tag: 0.15.2@sha256:31505404ef793846bcb1111f321c8ace9b418083477fc2a1934dd3b298afb8a6
             env:
-              HEALTH_PORT: &healthPort 8080
-              PROMETHEUS_URL: http://prometheus-operated.observability.svc.cluster.local:9090
-              SERVER_PORT: &port 80
+              KROMGO_METRICS_PORT: &metricsPort 8080
+              KROMGO_PROMETHEUS_URL: http://prometheus-operated.observability.svc.cluster.local:9090
+              KROMGO_SERVER_PORT: &port 80
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /-/ready
-                    port: *healthPort
+                    path: /healthz
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /readyz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
             resources:
               requests:
                 cpu: 10m
@@ -63,9 +73,6 @@ spec:
             readOnly: true
     route:
       app:
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 200"]
         hostnames:
           - "{{ .Release.Name }}.ahla.dev"
         parentRefs:
@@ -80,9 +87,9 @@ spec:
         ports:
           http:
             port: *port
-          health:
-            port: *healthPort
+          metrics:
+            port: *metricsPort
     serviceMonitor:
       app:
         endpoints:
-          - port: health
+          - port: metrics
