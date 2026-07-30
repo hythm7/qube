@@ -7,6 +7,10 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/networking/external-dns/cloudflare
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: ahla-domains
   prune: true
   sourceRef:
     kind: GitRepository
