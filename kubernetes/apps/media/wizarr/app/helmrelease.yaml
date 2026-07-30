@@ -56,9 +56,9 @@ spec:
           gatus.home-operations.com/endpoint: |-
             group: join
             name: join
-            url: https://join.ahla.dev/health
+            url: https://join.ahla.show/health
         hostnames:
-          - "join.ahla.dev"
+          - "join.ahla.show"
         parentRefs:
           - name: envoy-external
             namespace: networking
