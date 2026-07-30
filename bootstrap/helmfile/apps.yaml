@@ -76,7 +76,7 @@ releases:
           - --namespace=external-secrets
           - --server-side
           - --field-manager=kustomize-controller
-          - --filename=../../kubernetes/apps/external-secrets/external-secrets/app/certificate.yaml
+          - --filename=../../kubernetes/apps/external-secrets/external-secrets/stores/certificate.yaml
         events:
           - postsync
         showlogs: true
@@ -86,13 +86,13 @@ releases:
     needs:
       - cert-manager/cert-manager
     hooks:
-      - # Apply ClusterSecretStore (bitwarden secrets manager)
+      - # Apply secret stores (bitwarden secrets manager + SDK TLS cert)
         command: kubectl
         args:
           - apply
           - --field-manager=kustomize-controller
           - --namespace={{ .Release.Namespace }}
-          - --filename=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/app/clustersecretstore.yaml
+          - --kustomize=../../kubernetes/apps/{{ .Release.Namespace }}/{{ .Release.Name }}/stores
           - --server-side
         events:
           - postsync
