@@ -25,7 +25,7 @@ tasks:
   krew:
     desc: Set up Krew tools
     cmds:
-      - kubectl krew install cert-manager cnpg browse-pvc node-shell view-secret
+      - kubectl krew install cert-manager browse-pvc node-shell view-secret
     preconditions:
       - kubectl krew version
       - which kubectl
