@@ -7,4 +7,3 @@ components:
   - ../../components/namespace
 resources:
   - ./thelounge/ks.yaml
-  - ./jobs/ks.yaml
