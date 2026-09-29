@@ -20,7 +20,7 @@ spec:
         - notification-controller
       sync:
         kind: GitRepository
-        url: https://github.com/ahlanet/ahla
+        url: https://github.com/hythm7/qube
         provider: github
         pullSecret: github-app-auth
         ref: refs/heads/main
