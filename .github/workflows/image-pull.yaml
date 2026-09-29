@@ -73,7 +73,7 @@ jobs:
     if: ${{ needs.flate.outputs.images != '[]' }}
     needs: flate
     name: Image Pull - Pull Images
-    runs-on: ahla-runner
+    runs-on: qube-runner
     strategy:
       matrix:
         image: ${{ fromJSON(needs.flate.outputs.images) }}

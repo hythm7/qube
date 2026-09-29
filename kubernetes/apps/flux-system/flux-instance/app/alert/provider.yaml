@@ -6,6 +6,6 @@ metadata:
   name: github
 spec:
   type: github
-  address: https://github.com/ahlanet/ahla
+  address: https://github.com/hythm7/qube
   secretRef:
     name: github-token-secret
