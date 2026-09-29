@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: kube-vip
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: kube.ahla.show
+    external-dns.alpha.kubernetes.io/hostname: kube.hythm.net
     lbipam.cilium.io/ips: 192.168.20.254
 spec:
   type: LoadBalancer
