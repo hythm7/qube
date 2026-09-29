@@ -3,27 +3,6 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ahla-show
-spec:
-  dnsNames:
-    - "ahla.show"
-    - "*.ahla.show"
-  duration: 160h
-  issuerRef:
-    name: letsencrypt-production
-    kind: ClusterIssuer
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-    rotationPolicy: Always
-  secretName: ahla-show-tls
-  usages:
-    - digital signature
----
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: hythm-net
 spec:
   dnsNames:

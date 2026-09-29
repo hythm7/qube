@@ -78,8 +78,8 @@ spec:
             group: requests
             path: /api/v1/status
         hostnames:
-          - "requests.ahla.show"
-          - "{{ .Release.Name }}.ahla.show"
+          - "requests.hythm.net"
+          - "{{ .Release.Name }}.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking

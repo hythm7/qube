@@ -21,7 +21,7 @@ spec:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000
               JELLYFIN_FFmpeg__analyzeduration: 50000000
-              JELLYFIN_PublishedServerUrl: https://play.ahla.show
+              JELLYFIN_PublishedServerUrl: https://play.hythm.net
               TZ: America/New_York
 
             probes:
@@ -92,9 +92,9 @@ spec:
           gatus.home-operations.com/endpoint: |-
             name: play
             group: play
-            url: https://play.ahla.show/health
+            url: https://play.hythm.net/health
         hostnames:
-          - "play.ahla.show"
+          - "play.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking

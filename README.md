@@ -1,35 +1,35 @@
 <div align="center">
 
-<img src="https://ahla.show/assets/logo-animated.svg" align="center" width="175px" height="175px"/>
+<img src="qube-logo.png" align="center" width="175px" height="175px"/>
 
-### Aحla
+### qube
 
-_Home media server on Kubernetes — managed with Flux, Renovate, and GitHub Actions_
-
-</div>
-
-<div align="center">
-
-[![Talos](https://kromgo.ahla.show/badges/talos_version?style=for-the-badge&logo=talos&logoColor=white&color=brown)](https://talos.dev)&nbsp;&nbsp;
-[![Kubernetes](https://kromgo.ahla.show/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
-[![Flux](https://kromgo.ahla.show/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
+_Home lab on Kubernetes — managed with Flux, Renovate, and GitHub Actions_
 
 </div>
 
 <div align="center">
 
-[![Age](https://kromgo.ahla.show/badges/cluster_birth_age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Uptime](https://kromgo.ahla.show/badges/cluster_uptime_age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Nodes](https://kromgo.ahla.show/badges/cluster_node_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Pods](https://kromgo.ahla.show/badges/cluster_pod_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![CPU](https://kromgo.ahla.show/badges/cluster_cpu_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Memory](https://kromgo.ahla.show/badges/cluster_memory_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Talos](https://kromgo.hythm.net/badges/talos_version?style=for-the-badge&logo=talos&logoColor=white&color=brown)](https://talos.dev)&nbsp;&nbsp;
+[![Kubernetes](https://kromgo.hythm.net/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
+[![Flux](https://kromgo.hythm.net/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
 
 </div>
 
 <div align="center">
 
-[![Alerts](https://kromgo.ahla.show/badges/cluster_alert_count)](https://github.com/home-operations/kromgo)
+[![Age](https://kromgo.hythm.net/badges/cluster_birth_age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Uptime](https://kromgo.hythm.net/badges/cluster_uptime_age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Nodes](https://kromgo.hythm.net/badges/cluster_node_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Pods](https://kromgo.hythm.net/badges/cluster_pod_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![CPU](https://kromgo.hythm.net/badges/cluster_cpu_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Memory](https://kromgo.hythm.net/badges/cluster_memory_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+
+</div>
+
+<div align="center">
+
+[![Alerts](https://kromgo.hythm.net/badges/cluster_alert_count)](https://github.com/home-operations/kromgo)
 
 </div>
 
@@ -37,7 +37,7 @@ _Home media server on Kubernetes — managed with Flux, Renovate, and GitHub Act
 
 ## Overview
 
-Single-node [Talos Linux](https://talos.dev) cluster serving media at home:
+Single-node [Talos Linux](https://talos.dev) cluster running the home lab. Media stack:
 [Jellyfin](https://jellyfin.org) (AMD GPU transcoding via DRA), the *arr stack,
 [Seerr](https://github.com/seerr-team/seerr) for requests, and
 [Wizarr](https://github.com/wizarrrr/wizarr) for invites. Everything is
@@ -58,7 +58,7 @@ updated by [Renovate](https://renovatebot.com).
 ## Core components
 
 - **[Cilium](https://cilium.io)** — networking, BGP, and LoadBalancer IPAM
-- **[Envoy Gateway](https://gateway.envoyproxy.io)** — internal + external Gateway API ingress for `ahla.show`
+- **[Envoy Gateway](https://gateway.envoyproxy.io)** — internal + external Gateway API ingress for `hythm.net`
 - **[cloudflared](https://github.com/cloudflare/cloudflared)** — public entry via Cloudflare Tunnel
 - **[external-dns](https://github.com/kubernetes-sigs/external-dns)** / **[k8s-gateway](https://github.com/k8s-gateway/k8s_gateway)** — public and LAN DNS
 - **[external-secrets](https://external-secrets.io)** — secrets from Bitwarden Secrets Manager

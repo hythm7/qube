@@ -85,8 +85,8 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "false"
         hostnames:
-          - "{{ .Release.Name }}.ahla.show"
-          - "status.ahla.show"
+          - "{{ .Release.Name }}.hythm.net"
+          - "status.hythm.net"
         parentRefs:
           - name: envoy-external
             namespace: networking

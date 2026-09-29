@@ -10,8 +10,27 @@ spec:
     name: k8s-gateway
   interval: 1h
   values:
-    domain: ahla.show
+    domain: hythm.net
     ttl: 1
+    # hythm.net also carries non-cluster records (apex, mail, slipgate). Names
+    # k8s-gateway doesn't know fall through to Cloudflare directly: the nodes'
+    # resolver is OPNsense, which forwards hythm.net back here (loop).
+    fallthrough:
+      enabled: true
+    extraZonePlugins:
+      - name: log
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . 1.1.1.1 1.0.0.1
+      - name: loop
+      - name: reload
+      - name: loadbalance
     service:
       type: LoadBalancer
       port: 53

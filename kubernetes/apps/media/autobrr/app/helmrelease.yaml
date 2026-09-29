@@ -86,7 +86,7 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.ahla.show"
+          - "{{ .Release.Name }}.hythm.net"
         parentRefs:
           - name: envoy-internal
             namespace: networking
