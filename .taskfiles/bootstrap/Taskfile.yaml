@@ -7,11 +7,35 @@ vars:
 
 tasks:
 
+  nodes:
+    desc: Apply Talos config to every node that is still in maintenance mode [BWS_ACCESS_TOKEN=required]
+    cmd: |-
+      for node in {{.NODES}}; do
+        if out="$(task --silent talos:apply-node BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} NODE="$node" INSECURE=true 2>&1)"; then
+          echo "applied config to $node"
+        elif [[ "$out" == *"certificate required"* ]]; then
+          echo "$node already configured, skipping"
+        else
+          echo "$out"; exit 1
+        fi
+      done
+    vars:
+      NODES:
+        sh: talosctl config info --output json | jq --raw-output '.nodes | join(" ")'
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
+    preconditions:
+      - talosctl config info
+      - which jq talosctl
+
   talos:
-    desc: Bootstrap Talos
+    desc: Bootstrap Talos (idempotent; retries until etcd reports AlreadyExists)
     prompt: Bootstrap Talos ...?
     cmds:
-      - talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap
+      - |-
+        until out="$(talosctl --nodes {{.RANDOM_CONTROLLER}} bootstrap 2>&1 || true)" && [[ "$out" == *"AlreadyExists"* ]]; do
+          echo "bootstrap in progress, retrying in 5s..."; sleep 5
+        done
       - talosctl --nodes {{.RANDOM_CONTROLLER}} kubeconfig --force {{.KUBERNETES_DIR}}
     preconditions:
       - talosctl config info
@@ -24,7 +48,10 @@ tasks:
     cmds:
       - kubectl config set-cluster {{.CONTEXT}} --server https://{{.RANDOM_CONTROLLER}}:6443
       - defer: talosctl --nodes {{.RANDOM_CONTROLLER}} kubeconfig --force {{.KUBERNETES_DIR}}
-      - kubectl wait nodes --for=condition=Ready=False --all --timeout=10m
+      # nodes only turn Ready=True once the CNI is up; on a healthy cluster skip the wait entirely
+      - |-
+        kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null \
+          || until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do echo "waiting for nodes..."; sleep 5; done
       - task: kustomize 
       - task: helmfile
     vars:
