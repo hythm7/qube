@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   filter:
+    # never run for pull requests from forks (the pull job runs on the in-cluster runner)
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     name: Image Pull - Filter
     runs-on: ubuntu-latest
     permissions:
@@ -57,7 +59,7 @@ jobs:
           echo 'EOF' >> $GITHUB_OUTPUT
 
   pull:
-    if: ${{ needs.flate.outputs.images != '[]' }}
+    if: ${{ needs.flate.outputs.images != '[]' && github.event.pull_request.head.repo.full_name == github.repository }}
     needs: flate
     name: Image Pull - Pull Images
     runs-on: qube-runner
