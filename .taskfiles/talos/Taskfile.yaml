@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
 vars:
@@ -6,56 +7,75 @@ vars:
     sh: talosctl config info --output json | jq --join-output '[.nodes[]] | join(",")'
   RANDOM_CONTROLLER:
     sh: talosctl config info --output json | jq --raw-output '.endpoints[]' | shuf -n 1
+  PROJECT_ID: 8cfc9211-d42e-45af-a73f-1e52d95c417b
+  TALOS_SECRET_ID: 5d74df36-943a-4214-be04-22e23a74e781
 
 tasks:
 
-  apply-node:
-    desc: Apply Talos config to a node [BWS_ACCESS_TOKEN=required] [NODE=required] [PROJECT_ID={{.PROJECT_ID}}]  [TALOS_SECRET_ID={{.TALOS_SECRET_ID}}] [MODE={{.MODE}}]
+  render-config:
+    desc: Render Talos config for a node [BWS_ACCESS_TOKEN=required] [NODE=required]
     cmd: |-
-       bws --access-token {{ .BWS_ACCESS_TOKEN }} secret get {{ .TALOS_SECRET_ID }} | jq -r '.value' \
-        | minijinja-cli {{.TALOS_DIR}}/machineconfig.yaml.j2  - --format json \
-        | talosctl --nodes {{.NODE}} apply-config \
-          --mode {{.MODE}} \
-          --config-patch @{{.TALOS_DIR}}/networking.yaml \
-          --config-patch @{{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2 \
-          --file /dev/stdin {{if .INSECURE}}--insecure{{end}}
-    vars:
-      PROJECT_ID:      '{{.PROJECT_ID      | default "8cfc9211-d42e-45af-a73f-1e52d95c417b"}}'
-      TALOS_SECRET_ID: '{{.TALOS_SECRET_ID | default "5d74df36-943a-4214-be04-22e23a74e781"}}'
-      MODE:            '{{.MODE            | default "auto"}}'
-      INSECURE:
-        sh: talosctl version --nodes {{.NODE}} &> /dev/null || echo true
+      SECRETS="$(mktemp)"; trap 'rm -f "$SECRETS"' EXIT
+      bws --access-token {{ .BWS_ACCESS_TOKEN }} secret get {{ .TALOS_SECRET_ID }} | jq -r '.value' > "$SECRETS"
+      TYPE="$(minijinja-cli {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2 | yq -r -e 'select(.machine) | .machine.type')"
+      talosctl machineconfig patch <(minijinja-cli {{.TALOS_DIR}}/cluster.yaml.j2 "$SECRETS" --format json) \
+        -p @<(minijinja-cli {{.TALOS_DIR}}/networking.yaml.j2) \
+        -p @<(minijinja-cli {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2) \
+        -p @<(minijinja-cli {{.TALOS_DIR}}/${TYPE}.yaml.j2 "$SECRETS" --format json)
     env:
-      CONTROLPLANE: true
-        # TODO: Need fix
-        #sh: minijinja-cli {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2 \
-        #  | yq -e 'select(.machine) | (.machine.type == "controlplane") // ""'
       SCHEMATIC:
         sh: task --silent talos:generate-schematic
     requires:
       vars: [BWS_ACCESS_TOKEN, NODE]
     preconditions:
-      - talosctl config info
-      - test -f {{.TALOS_DIR}}/machineconfig.yaml.j2
-      - test -f {{.TALOS_DIR}}/networking.yaml
+      - test -f {{.TALOS_DIR}}/cluster.yaml.j2
+      - test -f {{.TALOS_DIR}}/networking.yaml.j2
       - test -f {{.TALOS_DIR}}/nodes/{{.NODE}}.yaml.j2
-      - bws project get {{.PROJECT_ID}}
-      - which bws minijinja-cli talosctl
+      - bws --access-token {{ .BWS_ACCESS_TOKEN }} project get {{.PROJECT_ID}}
+      - which bws jq minijinja-cli talosctl yq
+
+  apply-node:
+    desc: Apply Talos config to a node [BWS_ACCESS_TOKEN=required] [NODE=required] [MODE={{.MODE}}] [INSECURE=]
+    cmd: |-
+      task --silent talos:render-config BWS_ACCESS_TOKEN={{.BWS_ACCESS_TOKEN}} NODE={{.NODE}} \
+        | talosctl --nodes {{.NODE}} apply-config --mode {{.MODE}} --file /dev/stdin {{if .INSECURE}}--insecure{{end}} {{.CLI_ARGS}}
+    vars:
+      MODE: '{{.MODE | default "auto"}}'
+      INSECURE:
+        sh: talosctl version --nodes {{.NODE}} &> /dev/null || echo true
+    requires:
+      vars: [BWS_ACCESS_TOKEN, NODE]
+    preconditions:
+      - talosctl config info
+      - which talosctl
 
   upgrade-node:
     desc: Upgrade Talos on a single node [NODE=required]
-    cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --timeout=10m
+    prompt: Upgrade Talos node '{{.NODE}}' to {{.TALOS_IMAGE}} ... continue?
+    cmd: talosctl --nodes {{.NODE}} upgrade --image={{.TALOS_IMAGE}} --mode=powercycle --timeout=10m
     vars:
-      TALOS_IMAGE:
-        sh: |-
-          talosctl --nodes {{.NODE}} get machineconfig --output=jsonpath='{.spec}' \
-            | yq '.machine.install.image | select(. != null)'
+      # version comes from the installer pin in cluster.yaml.j2 (Renovate keeps it and tuppr in sync)
+      TALOS_VERSION:
+        sh: grep -oE 'metal-installer/[^:]+:(v[0-9.]+)' {{.TALOS_DIR}}/cluster.yaml.j2 | sed 's/.*://'
+      SCHEMATIC:
+        sh: task --silent talos:generate-schematic
+      TALOS_IMAGE: factory.talos.dev/metal-installer/{{.SCHEMATIC}}:{{.TALOS_VERSION}}
     requires:
       vars: [NODE]
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
-      - which minijinja-cli talosctl yq
+      - which grep sed talosctl
+
+  upgrade-k8s:
+    desc: Upgrade Kubernetes on the cluster [VERSION=required]
+    prompt: Upgrade Kubernetes to {{.VERSION}} ... continue?
+    cmd: talosctl --nodes {{.RANDOM_CONTROLLER}} upgrade-k8s --to {{.VERSION}}
+    requires:
+      vars: [VERSION]
+    preconditions:
+      - talosctl config info
+      - which talosctl
 
   reboot-node:
     desc: Reboot Talos on a single node [NODE=required] [MODE={{.MODE}}]
@@ -67,6 +87,16 @@ tasks:
     preconditions:
       - talosctl config info
       - talosctl --nodes {{.NODE}} get machineconfig
+      - which talosctl
+
+  shutdown-node:
+    desc: Shutdown Talos on a single node [NODE=required]
+    prompt: Shutdown Talos node '{{.NODE}}' ... continue?
+    cmd: talosctl --nodes {{.NODE}} shutdown --force
+    requires:
+      vars: [NODE]
+    preconditions:
+      - talosctl config info
       - which talosctl
 
   shutdown-cluster:
@@ -110,7 +140,7 @@ tasks:
     desc: Generate a Talos ISO for a specific version [VERSION=required]
     cmd: |-
       curl -L -o {{.TALOS_DIR}}/talos-{{.VERSION}}.iso \
-        https://factory.talos.dev/image/{{.TALOS_SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
+        https://factory.talos.dev/image/{{.SCHEMATIC}}/{{.VERSION}}/metal-amd64.iso
     vars:
       SCHEMATIC:
         sh: task --silent talos:generate-schematic
@@ -127,8 +157,8 @@ tasks:
         | jq --raw-output '.id'
     env:
       CONFIG_EARLY:
-        sh: zstd -c {{.TALOS_DIR}}/networking.yaml | base64 -w0
+        sh: minijinja-cli {{.TALOS_DIR}}/networking.yaml.j2 | zstd --compress --ultra -22 | base64 -w0
     preconditions:
       - test -f {{.TALOS_DIR}}/schematic.yaml.j2
-      - test -f {{.TALOS_DIR}}/networking.yaml
+      - test -f {{.TALOS_DIR}}/networking.yaml.j2
       - which base64 curl jq minijinja-cli zstd

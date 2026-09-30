@@ -1,24 +1,23 @@
 ---
 machine:
   type: controlplane
-  install:
-    diskSelector:
-      model: CT2000P310SSD8
-      serial: 2538533351EB
-
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
 hostname: vore
-
---- 
+---
+apiVersion: v1alpha1
+kind: UnattendedInstallConfig
+provisioning:
+  diskSelector:
+    match: disk.model == "CT2000P310SSD8" && disk.serial == "2538533351EB"
+---
 apiVersion: v1alpha1
 kind: VolumeConfig
 name: EPHEMERAL
 provisioning:
   maxSize: 512GiB
-    
----   
+---
 apiVersion: v1alpha1
 kind: UserVolumeConfig
 name: local-hostpath
