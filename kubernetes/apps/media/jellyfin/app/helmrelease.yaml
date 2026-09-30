@@ -99,7 +99,8 @@ spec:
           - name: envoy-external
             namespace: networking
         rules:
-          - backendRefs:
+          - name: app
+            backendRefs:
               - identifier: app
                 port: *port
     service:
