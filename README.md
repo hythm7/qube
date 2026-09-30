@@ -55,6 +55,44 @@ updated by [Renovate](https://renovatebot.com).
 📁 talos         # machine configuration templates (minijinja)
 ```
 
+## Bootstrap from scratch
+
+Prerequisites (tools, the Bitwarden machine token, which Bitwarden keys must exist, the OPNsense
+overrides) are listed in [`bootstrap/README.md`](bootstrap/README.md). Every step below is idempotent
+and can be re-run.
+
+```sh
+# 0. secrets: a Bitwarden Secrets Manager machine-account token for the `ahla` project
+export BWS_ACCESS_TOKEN=…
+
+# 1. install media: factory ISO built from talos/schematic.yaml.j2 (kernel args + extensions);
+#    write it to a USB stick, boot the node, leave it in maintenance mode
+task talos:generate-iso VERSION=v1.14.2
+
+# 2. client credentials: talos/talosconfig (gitignored) minted from the Bitwarden `talos` bundle
+task talos:generate-talosconfig
+
+# 3. the cluster, end to end — or run the three stages one at a time:
+task bootstrap:cluster
+#    task bootstrap:nodes   # render cluster/controlplane/networking/node templates with the Bitwarden
+#                           # secrets and apply them --insecure (skips nodes already configured)
+#    task bootstrap:talos   # talosctl bootstrap (retries until etcd says AlreadyExists) + kubeconfig
+#    task bootstrap:apps    # namespaces + BWS token + github-app-auth, CRDs, then helmfile:
+#                           # cilium → coredns → cert-manager → external-secrets → flux-operator → flux-instance
+
+# 4. optional: replace the 1-year admin cert with a 5-year one, issued through the running node
+task talos:renew-talosconfig
+
+# 5. Flux takes over from here
+task kubernetes:reconcile
+flux get ks -A && flux get hr -A
+```
+
+After bootstrap, apps that carry the `volsync` component restore their PVC from the kopia repository
+on `chthon` automatically (`restore-once`); if one comes up empty, run
+`task volsync:restore NS=<ns> APP=<app>`. Day-2 Talos operations are `task talos:apply-node NODE=vore`
+and `task talos:upgrade-node NODE=vore`.
+
 ## Core components
 
 - **[Cilium](https://cilium.io)** — networking, BGP, and LoadBalancer IPAM
