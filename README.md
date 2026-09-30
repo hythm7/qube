@@ -10,7 +10,7 @@ _Home lab on Kubernetes — managed with Flux, Renovate, and GitHub Actions_
 
 <div align="center">
 
-[![Talos](https://kromgo.hythm.net/badges/talos_version?style=for-the-badge&logo=talos&logoColor=white&color=brown)](https://talos.dev)&nbsp;&nbsp;
+[![Talos](https://kromgo.hythm.net/badges/talos_version)](https://talos.dev)&nbsp;&nbsp;
 [![Kubernetes](https://kromgo.hythm.net/badges/kubernetes_version)](https://kubernetes.io)&nbsp;&nbsp;
 [![Flux](https://kromgo.hythm.net/badges/flux_version)](https://fluxcd.io)&nbsp;&nbsp;
 
