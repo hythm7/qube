@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   filter:
+    # never run for pull requests from forks (the pull job runs on the in-cluster runner)
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     name: Flate - Filter
     runs-on: ubuntu-latest
     permissions:
