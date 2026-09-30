@@ -105,5 +105,6 @@ and `task talos:upgrade-node NODE=vore`.
 
 ## Thanks
 
-Patterns and inspiration from [buroa/k8s-gitops](https://github.com/buroa/k8s-gitops)
-and the [home-operations](https://github.com/home-operations) community.
+Patterns and inspiration from [onedr0p/home-ops](https://github.com/onedr0p/home-ops),
+[buroa/home-ops](https://github.com/buroa/home-ops) and the
+[home-operations](https://github.com/home-operations) community.
