@@ -100,7 +100,7 @@ contents: |
   hard=True
   nconnect=16
   noatime=True
-  noresvport=True
+  # no noresvport: chthon exports with `secure`, so unprivileged source ports get "Operation not permitted"
   rsize=1048576
   wsize=1048576
 ---
