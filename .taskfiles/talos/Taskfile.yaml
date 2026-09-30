@@ -12,6 +12,53 @@ vars:
 
 tasks:
 
+  generate-talosconfig:
+    desc: Generate talos/talosconfig from the Bitwarden secrets bundle [BWS_ACCESS_TOKEN=required]
+    cmd: |-
+      BUNDLE="$(mktemp)"; trap 'rm -f "$BUNDLE"' EXIT
+      # Bitwarden stores the raw base64 values (some with stray whitespace); rebuild the `talosctl gen secrets` shape
+      bws --access-token {{ .BWS_ACCESS_TOKEN }} secret get {{ .TALOS_SECRET_ID }} | jq -r '.value' \
+        | jq -r 'map_values(gsub("^\\s+|\\s+$";"")) | {
+            cluster: {id: .CLUSTER_ID, secret: .CLUSTER_SECRET},
+            secrets: {bootstraptoken: .CLUSTER_TOKEN, secretboxencryptionsecret: .CLUSTER_SECRETBOXENCRYPTIONSECRET},
+            trustdinfo: {token: .MACHINE_TOKEN},
+            certs: {
+              etcd: {crt: .CLUSTER_ETCD_CA_CRT, key: .CLUSTER_ETCD_CA_KEY},
+              k8s: {crt: .CLUSTER_CA_CRT, key: .CLUSTER_CA_KEY},
+              k8saggregator: {crt: .CLUSTER_AGGREGATORCA_CRT, key: .CLUSTER_AGGREGATORCA_KEY},
+              k8sserviceaccount: {key: .CLUSTER_SERVICEACCOUNT_KEY},
+              os: {crt: .MACHINE_CA_CRT, key: .MACHINE_CA_KEY}}}' > "$BUNDLE"
+      talosctl gen config --with-secrets "$BUNDLE" --output-types talosconfig --output {{.TALOS_DIR}}/talosconfig --force \
+        kube https://kube.internal:6443
+      talosctl config endpoint {{.NODE_NAMES}}
+      talosctl config node {{.NODE_NAMES}}
+      chmod 600 {{.TALOS_DIR}}/talosconfig
+      talosctl config info
+    vars:
+      NODE_NAMES:
+        sh: ls {{.TALOS_DIR}}/nodes/*.yaml.j2 | xargs -n1 basename | sed 's/\.yaml\.j2$//' | tr '\n' ' '
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
+    preconditions:
+      - bws --access-token {{ .BWS_ACCESS_TOKEN }} project get {{.PROJECT_ID}}
+      - which bws jq talosctl
+
+  renew-talosconfig:
+    desc: Issue a longer-lived admin cert through a running node (the generated one lasts 1 year) [TTL={{.TTL}}]
+    cmd: |-
+      talosctl --nodes {{.RANDOM_CONTROLLER}} config new --crt-ttl {{.TTL}} --roles os:admin {{.TALOS_DIR}}/talosconfig.new
+      talosctl --talosconfig {{.TALOS_DIR}}/talosconfig.new config endpoint {{.NODE_NAMES}}
+      talosctl --talosconfig {{.TALOS_DIR}}/talosconfig.new config node {{.NODE_NAMES}}
+      mv {{.TALOS_DIR}}/talosconfig.new {{.TALOS_DIR}}/talosconfig && chmod 600 {{.TALOS_DIR}}/talosconfig
+      talosctl config info
+    vars:
+      TTL: '{{.TTL | default "43800h"}}'
+      NODE_NAMES:
+        sh: ls {{.TALOS_DIR}}/nodes/*.yaml.j2 | xargs -n1 basename | sed 's/\.yaml\.j2$//' | tr '\n' ' '
+    preconditions:
+      - talosctl config info
+      - which talosctl
+
   render-config:
     desc: Render Talos config for a node [BWS_ACCESS_TOKEN=required] [NODE=required]
     cmd: |-

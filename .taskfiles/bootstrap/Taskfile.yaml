@@ -7,6 +7,18 @@ vars:
 
 tasks:
 
+  cluster:
+    desc: Bootstrap the cluster end to end (nodes -> talos -> apps) [BWS_ACCESS_TOKEN=required]
+    prompt: Bootstrap the whole cluster ...?
+    cmds:
+      - task: nodes
+        vars: {BWS_ACCESS_TOKEN: '{{.BWS_ACCESS_TOKEN}}'}
+      - task: talos
+      - task: apps
+        vars: {BWS_ACCESS_TOKEN: '{{.BWS_ACCESS_TOKEN}}'}
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
+
   nodes:
     desc: Apply Talos config to every node that is still in maintenance mode [BWS_ACCESS_TOKEN=required]
     cmd: |-
@@ -52,11 +64,13 @@ tasks:
       - |-
         kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null \
           || until kubectl wait nodes --for=condition=Ready=False --all --timeout=10s &>/dev/null; do echo "waiting for nodes..."; sleep 5; done
-      - task: kustomize 
+      - task: kustomize
+        vars: {BWS_ACCESS_TOKEN: '{{.BWS_ACCESS_TOKEN}}'}
       - task: helmfile
     vars:
+      # the kubeconfig's cluster entry (named after the Talos cluster), NOT the talosconfig context
       CONTEXT:
-        sh: talosctl config info --output json | jq --raw-output '.context'
+        sh: kubectl config view --output jsonpath='{.clusters[0].name}'
     requires:
       vars: [BWS_ACCESS_TOKEN]
     preconditions:
@@ -70,16 +84,21 @@ tasks:
     cmd: |-
       kustomize build {{.BOOTSTRAP_DIR}}/kustomize/apps | minijinja-cli - | kubectl apply --server-side --force-conflicts -f -
     env:
+      # the templates read ENV.*; the token is a Task var, so export it here explicitly
+      BWS_ACCESS_TOKEN: '{{.BWS_ACCESS_TOKEN}}'
       BOT_APP_ID:
-        sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_ID'
+        sh: bws --access-token {{.BWS_ACCESS_TOKEN}} secret get {{.BOT_SECRET_ID}} | jq -r '.value | fromjson .BOT_APP_ID'
       BOT_APP_PRIVATE_KEY:
-        sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_PRIVATE_KEY'
+        sh: bws --access-token {{.BWS_ACCESS_TOKEN}} secret get {{.BOT_SECRET_ID}} | jq -r '.value | fromjson .BOT_APP_PRIVATE_KEY'
       BOT_APP_INSTALLATION_ID:
-        sh: bws secret get 24a40e61-9205-4128-a0fb-2214684b3328 | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
-
+        sh: bws --access-token {{.BWS_ACCESS_TOKEN}} secret get {{.BOT_SECRET_ID}} | jq -r '.value | fromjson .BOT_APP_INSTALLATION_ID'
+    vars:
+      BOT_SECRET_ID: 24a40e61-9205-4128-a0fb-2214684b3328
+    requires:
+      vars: [BWS_ACCESS_TOKEN]
     preconditions:
       - test -d {{.BOOTSTRAP_DIR}}/kustomize/apps
-      - bws project get 8cfc9211-d42e-45af-a73f-1e52d95c417b
+      - bws --access-token {{.BWS_ACCESS_TOKEN}} project get 8cfc9211-d42e-45af-a73f-1e52d95c417b
       - which bws minijinja-cli kubectl
 
   helmfile:
