@@ -3,21 +3,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: thelounge
+  name: cleanrr
 spec:
-  components:
-    - ../../../../components/volsync
-  dependsOn:
-    - name: openebs
-      namespace: openebs-system
   interval: 1h
-  path: ./kubernetes/apps/default/thelounge/app
-  postBuild:
-    substitute:
-      APP: thelounge
+  path: ./kubernetes/apps/media/cleanrr/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: default
+  targetNamespace: media
+  wait: false
