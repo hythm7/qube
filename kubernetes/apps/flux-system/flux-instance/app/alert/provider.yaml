@@ -7,5 +7,7 @@ metadata:
 spec:
   type: github
   address: https://github.com/hythm7/qube
+  # GitHub App auth (novyxz): the same secret Flux uses to pull the repo.
+  # A fine-grained PAT without the commit-status permission gets 404s here.
   secretRef:
-    name: github-token-secret
+    name: github-app-auth
