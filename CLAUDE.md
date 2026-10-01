@@ -18,7 +18,7 @@ talos/         machineconfig templates (minijinja) — cluster name `kube`, endp
 
 | | |
 |---|---|
-| GitHub | `hythm7/qube` (private). Bot for Flux git auth, Renovate, workflows and the ARC runner: **`novyxz`** (App ID 2075588, installed on the whole account). |
+| GitHub | `hythm7/qube` (public for now; goes private once personal apps are deployed). Bot for Flux git auth, Renovate, workflows and the ARC runner: **`novyxz`** (App ID 2075588, installed on the whole account). |
 | Domain | **`hythm.net`**, hardcoded everywhere (no domain variables). Wildcard cert `hythm-net-tls` via cert-manager DNS01 (Cloudflare). The zone also carries mail records (Migadu/SES/Resend) and the apex A — never route the apex through the tunnel. |
 | Ingress | Envoy Gateway: `envoy-external` (192.168.20.252, behind Cloudflare tunnel `kube`) and `envoy-internal` (192.168.20.251). `external.hythm.net` is a **hand-made** proxied CNAME to the tunnel; external-dns only manages HTTPRoute hostnames. |
 | LAN DNS | k8s-gateway on 192.168.20.253 serves `hythm.net` with `fallthrough` + `forward . 1.1.1.1` (nodes resolve via OPNsense → loop otherwise). OPNsense Unbound forwards `hythm.net` there; host overrides `internal`/`external.hythm.net` win locally. |
