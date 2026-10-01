@@ -1,14 +1,14 @@
 # Bootstrapping qube from scratch
 
 Everything below is driven by `task` from the repo root. Secrets come from Bitwarden Secrets Manager
-(project `ahla`, `8cfc9211-…`); nothing secret lives in this repo.
+(project `qube`, `8cfc9211-…`); nothing secret lives in this repo.
 
 ## Prerequisites (outside the repo)
 
 | What | Where / how |
 |---|---|
 | Tools | `task bws talosctl kubectl helmfile helm kustomize minijinja-cli yq jq zstd curl flux` (the versions Renovate tracks are in the repo; `.mise.toml` only sets env) |
-| `BWS_ACCESS_TOKEN` | A Bitwarden **machine account** access token with read access to the `ahla` project. Existing tokens cannot be read back; on a new workstation create a new one in the Bitwarden web vault → Secrets Manager → Machine accounts → Access tokens. Export it in the shell (`export BWS_ACCESS_TOKEN=…`), don't pass it only as a task variable. |
+| `BWS_ACCESS_TOKEN` | A Bitwarden **machine account** access token with read access to the `qube` project. Existing tokens cannot be read back; on a new workstation create a new one in the Bitwarden web vault → Secrets Manager → Machine accounts → Access tokens. Export it in the shell (`export BWS_ACCESS_TOKEN=…`), don't pass it only as a task variable. |
 | Bitwarden keys | `talos` (the secrets bundle: `MACHINE_CA_*`, `CLUSTER_*`), the bot secret `24a40e61-…` (`BOT_APP_ID`, `BOT_APP_INSTALLATION_ID`, `BOT_APP_PRIVATE_KEY`, base64-encoded, for the `novyxz` GitHub App), `qubetoken` (the store's own credential), plus the app keys Flux reads later: `actions_runner alertmanager autobrr cloudflare flux grafana prowlarr qui radarr sabnzbd seerr smtp_relay sonarr volsync_template`. |
 | GitHub | The private repo `hythm7/qube` with the `novyxz` app installed (Flux pulls with it). Repo secrets `BOT_APP_CLIENT_ID` / `BOT_APP_PRIVATE_KEY` only matter for CI, not for bootstrap. |
 | DNS (OPNsense) | Host overrides `vore.internal → 192.168.10.10`, `kube.internal → 192.168.20.254` (Cilium VIP), `chthon.internal → 192.168.10.5` (NFS), plus the Unbound query-forward `hythm.net → 192.168.20.253` (k8s-gateway) and overrides `internal.hythm.net → .251`, `external.hythm.net → .252`. `.internal` is the router-owned machine zone and must resolve before the cluster exists; `hythm.net` is the services zone answered by the cluster. |

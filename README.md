@@ -67,7 +67,7 @@ overrides) are listed in [`bootstrap/README.md`](bootstrap/README.md). Every ste
 and can be re-run.
 
 ```sh
-# 0. secrets: a Bitwarden Secrets Manager machine-account token for the `ahla` project
+# 0. secrets: a Bitwarden Secrets Manager machine-account token for the `qube` project
 export BWS_ACCESS_TOKEN=…
 
 # 1. install media: factory ISO built from talos/schematic.yaml.j2 (kernel args + extensions);
