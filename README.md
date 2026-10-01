@@ -22,6 +22,11 @@ _Home lab on Kubernetes — managed with Flux, Renovate, and GitHub Actions_
 [![Uptime](https://kromgo.hythm.net/badges/cluster_uptime_age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Nodes](https://kromgo.hythm.net/badges/cluster_node_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Pods](https://kromgo.hythm.net/badges/cluster_pod_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+
+</div>
+
+<div align="center">
+
 [![CPU](https://kromgo.hythm.net/badges/cluster_cpu_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 [![Memory](https://kromgo.hythm.net/badges/cluster_memory_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 
