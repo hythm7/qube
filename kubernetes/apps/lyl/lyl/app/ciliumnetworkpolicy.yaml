@@ -35,3 +35,10 @@ spec:
         - ports:
             - port: "8001"
               protocol: TCP
+    # CoreDNS's answers: they come back from the DNS service's address, and this Cilium does
+    # not take them for replies to the pod's own queries (measured: "Policy denied",
+    # kube-dns -> lyl, udp from 10.245.0.10:53), so they would fall to the default deny
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
