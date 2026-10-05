@@ -1,0 +1,146 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lyl
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  interval: 1h
+  values:
+    controllers:
+      lyl:
+        # one writer of the archive, ever: the old pod is gone before the new one starts
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/hythm7/lyl
+              tag: 2026.1005.2@sha256:e523066fb42630744481761cf87b2ea8e917ebb25f824976e467d2144f8663a3
+            args:
+              - app
+              - --http
+              - --port
+              - "8000"
+              - --public-port
+              - "8001"
+              - --proxies
+              - 10.244.0.0/16
+              - --archivist
+            env:
+              TZ: America/New_York
+              HOME: /tmp
+              LYL_ARCHIVE: /data/archive
+              LYL_STATE: /data/state
+              LYL_CONFIG: /data/state/config.toml
+              LYL_SECRETS: /run/secrets/lyl
+              LYL_ARCHIVE_REMOTE: git@github.com:hythm7/lyl-archive.git
+              LYL_ARCHIVE_KEY: /run/secrets/lyl/ARCHIVE_DEPLOY_KEY
+              LYL_KNOWN_HOSTS: /etc/lyl/known_hosts
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v1/meta
+                    port: 8001
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                # the first start on an empty volume clones the archive, its audio included
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /v1/meta
+                    port: 8001
+                  periodSeconds: 10
+                  failureThreshold: 60
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      imagePullSecrets:
+        - name: lyl-pull
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    persistence:
+      data:
+        existingClaim: "{{ .Release.Name }}"
+        globalMounts:
+          - path: /data
+      secrets:
+        type: secret
+        name: lyl-secret
+        defaultMode: 288 # 0440: root's, readable by the pod's group only
+        globalMounts:
+          - path: /run/secrets/lyl
+            readOnly: true
+      known-hosts:
+        type: configMap
+        name: lyl-known-hosts
+        globalMounts:
+          - path: /etc/lyl/known_hosts
+            subPath: known_hosts
+            readOnly: true
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          lyl:
+            app:
+              - path: /tmp
+                subPath: tmp
+    route:
+      booth:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            name: lyl
+            group: lyl
+            url: https://lyl.hythm.net/v1/meta
+        hostnames:
+          - lyl.hythm.net
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - name: booth
+            backendRefs:
+              - identifier: app
+                port: 8001
+      studio:
+        hostnames:
+          - lyl-studio.hythm.net
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+        rules:
+          - name: studio
+            backendRefs:
+              - identifier: app
+                port: 8000
+    service:
+      app:
+        ports:
+          http:
+            port: 8000
+          booth:
+            port: 8001

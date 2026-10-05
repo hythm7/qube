@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+# lyl has two doors in one pod: the dashboard (8000) for the internal gateway only, the booth
+# API (8001) for the external one. The routes say where each hostname goes; this says that
+# nothing else in the cluster reaches either port.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: lyl
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: lyl
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: networking
+            gateway.envoyproxy.io/owning-gateway-name: envoy-internal
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: networking
+            gateway.envoyproxy.io/owning-gateway-name: envoy-external
+      toPorts:
+        - ports:
+            - port: "8001"
+              protocol: TCP
+    # the kubelet's probes
+    - fromEntities:
+        - host
+      toPorts:
+        - ports:
+            - port: "8001"
+              protocol: TCP
